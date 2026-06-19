@@ -17,7 +17,7 @@ v0.9 is currently open for public consultation. The consultation closes 31 Octob
 
 **Minor amendments** (typos, clarifications, additional examples that do not change how productions are classified) can be made by MSC without a consultation period. They are noted in the version history.
 
-**Substantive amendments** (changes to category definitions, the organizing principle, or the classification test) require a minimum 30-day consultation period. MSC will notify known signatories before any substantive amendment takes effect.
+**Substantive amendments** (changes to category definitions, the organizing principle, or the classification test) require a minimum 30-day consultation period. MSC will notify those who have registered interest before any substantive amendment takes effect.
 
 To propose an amendment: email contact@humanprovenance.film, or open an issue or pull request on the GitHub repository. MSC will acknowledge within 5 working days.
 

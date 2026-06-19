@@ -1,6 +1,6 @@
 # HPF AI Disclosure Taxonomy
 
-**Version 0.9 -- Draft for Consultation**
+**Version 0.9, draft for consultation**
 Consultation closes 31 October 2026.
 
 ---
@@ -157,6 +157,16 @@ The framework is prospective in nature. It applies to productions that adopt it 
 ## Consultation
 
 v0.9 is a draft for consultation. Feedback can be submitted to contact@humanprovenance.film or via the GitHub repository (issues or pull requests). Responses received before 31 October 2026 will inform the v1.0 revision.
+
+The questions we most want input on:
+
+1. Does the present-and-originated principle, and the three categories it produces, capture the distinction that matters to your organisation? Is anything missing, such as a fourth category?
+2. Is the declaration mechanism workable in your part of the industry, and if not, what would need to change? In particular, for a `no_ai` declaration, software now switches AI features on by default, so would a "reasonable enquiry" standard, the same one used for other chain-of-title warranties, be a fair basis?
+3. Two scope boundaries are open. Should any pre-production AI use that never reaches the screen still be disclosed? And how urgent is it to bring marketing materials (trailers, posters, social cuts) into scope?
+4. Are the edge cases classified correctly, and are there other situations that need guidance before v1.0? Animation, and content built on human work but newly synthesised (in-betweening, upscaling, style transfer), is where we most want input.
+5. For platforms, broadcasters, and distributors: would you use the `assistive_ai` classification, and would you surface it to audiences?
+6. Which ways of showing the disclosure are practical and clear, from end credits to delivery metadata to a platform label, and what would meet your regulatory obligations?
+7. Does the chain-of-title mechanism work outside the UK and US, where co-production paperwork differs? Are there regulatory, contractual, or collective-bargaining frameworks HPF needs to account for in v1.0?
 
 For technical implementation guidance: [INTEGRATION.md](INTEGRATION.md).
 
