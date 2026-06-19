@@ -7,9 +7,9 @@ Consultation closes 31 October 2026.
 
 ## Organizing Principle
 
-> Does AI enhance human creative work, or does it replace human creative roles?
+> Is AI output present in the finished film, and did it process human work or originate new content?
 
-This is the single question that determines the category. Its simplicity is a design requirement: a taxonomy that requires specialist knowledge to apply will not be applied consistently across the sector.
+The producer answers two questions of fact. First, is any AI output present in the finished film as distributed? If not, the film is No AI Used. If it is, did the AI process human-created material (Assistive AI) or originate new content that appears in the finished work (Generative AI)? The legal weight sits in the warranty the producer signs; the test is simply how they reach an answer they can stand behind.
 
 For the purposes of this taxonomy, artificial intelligence is defined in the `no_ai` category below.
 
@@ -17,13 +17,13 @@ For the purposes of this taxonomy, artificial intelligence is defined in the `no
 
 ## Classification Test
 
-For each use of AI in the production:
+For the finished film as distributed:
 
-1. Would a human crew member have performed this function if the AI tool were not available?
-2. If yes: did AI **enhance** their output, or did AI **replace** their contribution?
-3. Enhance: `assistive_ai`. Replace: `generative_ai`.
+1. Is any AI output present in the finished film? If not: `no_ai`.
+2. If yes: did the AI process human-created material, or originate new content that appears in the finished work?
+3. Processing human material: `assistive_ai`. Originating new content: `generative_ai`.
 
-Where no human would have performed the function at all (for example, AI crowd replication at a scale that would never have been achieved practically), the question becomes whether the AI-generated content appears in the finished work in a role a human crew member would otherwise have filled. If yes: `generative_ai`.
+The test turns on what is in the finished film, not on whether a human would otherwise have performed the function. AI-generated content that appears in the finished work is `generative_ai` whether or not a human could have produced it.
 
 A production is classified at the highest category applicable to any element. A film with both AI noise reduction (`assistive_ai`) and an AI-generated score (`generative_ai`) is classified as `generative_ai`, with both uses described in the declaration.
 
@@ -47,7 +47,7 @@ No artificial intelligence tools were used at any stage of development, producti
 
 Basic computational automation in standard long-standing industry use (loudness normalisation, timecode tools, spell-check) does not count as AI use.
 
-For the purposes of this taxonomy, artificial intelligence means software systems that use machine learning, neural networks, or similar techniques trained on data to generate, synthesise, enhance, or analyse content — as distinct from deterministic software that applies fixed rules or algorithms without learned models. Where a tool offers both conventional and AI-powered modes, only the AI-powered mode's output is in scope.
+For the purposes of this taxonomy, artificial intelligence means software systems that use machine learning, neural networks, or similar techniques trained on data to generate, synthesise, enhance, or analyse content, as distinct from deterministic software that applies fixed rules or algorithms without learned models. Where a tool offers both conventional and AI-powered modes, only the AI-powered mode's output is in scope.
 
 **Examples:** editing, colour grading, compositing, sound design, music recording, and visual effects performed without AI tools.
 
@@ -55,11 +55,11 @@ For the purposes of this taxonomy, artificial intelligence means software system
 
 ### `assistive_ai`: Assistive AI
 
-AI was used to assist a human who continued to hold and exercise the creative or production role. A human performed the role; AI improved or processed the result. The AI does not originate creative content: it processes or optimises existing human-created material.
+AI output is present in the finished film, but the AI processed or optimised material created by human crew rather than originating new content. A human held the creative or production role; the AI worked from their material.
 
 **Examples:** AI-assisted colour grading; noise reduction; automated subtitling and captioning; script analysis tools used by a human writer; de-flickering; archival restoration; AI-assisted sound cleanup; automated camera tracking in VFX prep. Cosmetic de-ageing of a performance captured in full, where AI refines appearance without reconstructing or generating any part of the performance. In animation: AI used to clean up or optimise frames created by animators.
 
-**Not `assistive_ai`:** any use of AI that generates visual, audio, or textual content that would otherwise have been created by a human crew member. If a human role was replaced, the classification is `generative_ai` regardless of how the tool is marketed.
+**Not `assistive_ai`:** any AI output that the AI originated rather than deriving from human-created material. If the AI made new content that appears in the finished film, the classification is `generative_ai` regardless of how the tool is marketed.
 
 AI used solely in development that leaves no trace in the finished film does not require classification.
 
@@ -67,9 +67,9 @@ AI used solely in development that leaves no trace in the finished film does not
 
 ### `generative_ai`: Generative AI
 
-AI was used to generate or synthesise content that a human crew member or creative collaborator would otherwise have created. Human creative or production roles were replaced, wholly or in part.
+AI originated content that appears in the finished film, rather than processing human-created material. The AI made new content rather than refining work created by human crew.
 
-If any AI-generated content is present in the finished work in an area where a human would otherwise have performed a role, the production is `generative_ai` regardless of proportion. A film using human-shot footage alongside AI-generated environments is `generative_ai` overall.
+If any AI-originated content is present in the finished work, the production is `generative_ai` regardless of proportion. A film using human-shot footage alongside AI-generated environments is `generative_ai` overall.
 
 **Examples:** AI-generated backgrounds, environments, crowd scenes, or set extensions; AI-written screenplay elements present in the finished film; synthesised or cloned actor performances; AI voice cloning; AI-generated music replacing a composer; de-ageing or posthumous synthesis that reconstructs or generates any part of a performance rather than refining one fully captured on set. In animation: AI generating characters, environments, or sequences that animators would otherwise have created.
 
@@ -102,7 +102,7 @@ Where classification is incorporated into a deal or licensing agreement as a pro
 
 ## Edge Cases
 
-The following situations require case-by-case judgement. The classification test in each case is the same: does the AI-generated content appear in the finished work in a role a human crew member would otherwise have filled?
+The following situations require case-by-case judgement. The classification test in each case is the same: is AI output present in the finished work, and did the AI originate it or process human-created material?
 
 ### Archival and found footage
 
@@ -116,7 +116,7 @@ The classification applies to the version being distributed. A restored version 
 
 If AI tools were used in development but no AI-generated content appears in the finished film, no classification is required.
 
-AI-powered pre-production tools — script analysis, financial modelling, scheduling, pitch deck generation — are out of scope provided their outputs do not appear in the finished film. Where a pre-production AI output is subsequently used in the finished work (for example, AI-generated pitch visuals repurposed as a title sequence or interstitial), that use is in scope and must be classified.
+AI-powered pre-production tools, such as script analysis, financial modelling, scheduling, and pitch deck generation, are out of scope provided their outputs do not appear in the finished film. Where a pre-production AI output is subsequently used in the finished work (for example, AI-generated pitch visuals repurposed as a title sequence or interstitial), that use is in scope and must be classified.
 
 ### Live-action with AI sequences
 
@@ -136,13 +136,13 @@ Cosmetic de-ageing, where AI adjusts appearance without generating or reconstruc
 
 ### Animation
 
-The role-substitution test applies in the same way as for live-action. AI assisting animators to refine or process their work is `assistive_ai`. AI generating characters, environments, or sequences that animators would otherwise have created is `generative_ai`.
+The test applies in the same way as for live-action. AI processing or refining work created by animators is `assistive_ai`. AI originating characters, environments, or sequences that appear in the finished work is `generative_ai`.
 
 ---
 
 ## Regulatory Scope
 
-HPF covers production-level AI disclosure: what AI was used in making the finished work, declared by the producer. It does not address tool-level obligations. Where a production uses a general-purpose AI model (GPAI) to generate content, the provider of that model may have independent disclosure obligations under applicable regulation — for example, under Article 50 of the EU AI Act. HPF and tool-level obligations operate in parallel and are not substitutes for each other.
+HPF covers production-level AI disclosure: what AI was used in making the finished work, declared by the producer. It does not address tool-level obligations. Where a production uses a general-purpose AI model (GPAI) to generate content, the provider of that model may have independent disclosure obligations under applicable regulation, for example under Article 50 of the EU AI Act. HPF and tool-level obligations operate in parallel and are not substitutes for each other.
 
 **Verification standard:** verification under HPF means reasonable commercial reliance on the producer's signed declaration, not a technical audit of the production's tools or workflows. This is the same standard that applies to all producer representations in chain of title documentation. The remedy for misrepresentation is a matter for the contract between the parties. HPF does not operate an independent verification or audit function.
 

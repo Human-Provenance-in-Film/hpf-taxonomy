@@ -27,7 +27,8 @@ To propose an amendment: email contact@humanprovenance.film, or open an issue or
 
 | Version | Date | Summary |
 |---|---|---|
-| 0.9 | April 2026 | Initial release. Draft for consultation. |
+| 0.9 | March 2026 | Initial release. Draft for consultation. |
+| 0.9 | June 2026 | Organising principle reframed from enhance-or-replace to present-and-originated. Three categories unchanged. |
 
 ---
 
@@ -35,17 +36,13 @@ To propose an amendment: email contact@humanprovenance.film, or open an issue or
 
 MSC is committed to seeking a governance transfer to an appropriate body. An appropriate body would be an established film industry standards organisation or regulatory body with the capacity to maintain and develop the standard on an ongoing basis. Upon transfer, the originating repository will be archived with a redirect, and the CC BY 4.0 license will continue to apply to all versions published under MSC's stewardship.
 
-In the event MSC is unable to continue maintaining the standard before a governance transfer is achieved, the most recent published version will remain available under CC BY 4.0. Any organisation may fork and maintain the standard under that licence. MSC will make reasonable efforts to notify known signatories and the GitHub repository community before any such discontinuation.
+In the event MSC is unable to continue maintaining the standard before a governance transfer is achieved, the most recent published version will remain available under CC BY 4.0. Any organisation may fork and maintain the standard under that licence. MSC will make reasonable efforts to notify those who have registered interest and the GitHub repository community before any such discontinuation.
 
 ---
 
-## Statement of Shared Intent Signatories
+## Registered Interest
 
-| Organization | Country | Signed |
-|---|---|---|
-| The Mise En Scène Company (MSC) | United Kingdom | 2026 |
-
-To request the Statement of Shared Intent: contact@humanprovenance.film
+Organisations and individuals can register interest at [humanprovenance.film](https://humanprovenance.film) to be notified when v1.0 of the standard is published.
 
 ---
 

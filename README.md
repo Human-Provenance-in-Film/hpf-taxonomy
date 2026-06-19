@@ -1,6 +1,6 @@
 # Human Provenance in Film
 
-**HPF AI Disclosure Taxonomy -- v0.9, Draft for Consultation**
+**HPF AI Disclosure Taxonomy, v0.9 draft for consultation**
 
 Consultation closes 31 October 2026.
 
@@ -31,7 +31,7 @@ The full taxonomy specification, producer declaration form, and plain-language g
 
 ## The Three Categories
 
-Built on a single organizing principle: **does AI enhance human creative work, or does it replace human creative roles?**
+Built on a single organizing principle: **is AI output present in the finished film, and did it process human work or originate new content?**
 
 | `hpf_classification` | Label |
 |---|---|
