@@ -15,11 +15,15 @@ v0.9 is currently open for public consultation. The consultation closes 31 Octob
 
 ## Amendment Process
 
+This process applies once v1.0 is published. While v0.9 is open for consultation, the draft is revised directly in response to feedback, including changes to the organizing principle, the categories, and the classification test, with each revision recorded in the version history.
+
+From v1.0:
+
 **Minor amendments** (typos, clarifications, additional examples that do not change how productions are classified) can be made by MSC without a consultation period. They are noted in the version history.
 
 **Substantive amendments** (changes to category definitions, the organizing principle, or the classification test) require a minimum 30-day consultation period. MSC will notify those who have registered interest before any substantive amendment takes effect.
 
-To propose an amendment: email contact@humanprovenance.film, or open an issue or pull request on the GitHub repository. MSC will acknowledge within 5 working days.
+To propose an amendment at any time: email contact@humanprovenance.film, or open an issue or pull request on the GitHub repository. MSC will acknowledge within 5 working days.
 
 ---
 
