@@ -1,6 +1,6 @@
 # HPF AI Disclosure Taxonomy
 
-**Version 0.9, draft for consultation**
+**Version 0.9 -- Draft for Consultation**
 Consultation closes 31 October 2026.
 
 ---
@@ -146,7 +146,7 @@ HPF covers production-level AI disclosure: what AI was used in making the finish
 
 **Verification standard:** verification under HPF means reasonable commercial reliance on the producer's signed declaration, not a technical audit of the production's tools or workflows. This is the same standard that applies to all producer representations in chain of title documentation. The remedy for misrepresentation is a matter for the contract between the parties. HPF does not operate an independent verification or audit function.
 
-**Audience disclosure:** HPF governs how classification travels through the supply chain, from producer to platform. It does not currently mandate how platforms surface classification to audiences. Display standards are an open question for the consultation; the framework's open questions list addresses this explicitly. Productions and platforms seeking to make audience-facing disclosure are encouraged to engage with the consultation on what display standards should require.
+**Audience disclosure:** HPF governs how classification travels through the distribution chain, from producer to platform. It does not currently mandate how platforms surface classification to audiences. Display standards are an open question for the consultation; the framework's open questions list addresses this explicitly. Productions and platforms seeking to make audience-facing disclosure are encouraged to engage with the consultation on what display standards should require.
 
 **Jurisdiction:** HPF is designed to be jurisdiction-agnostic. The classification standard applies regardless of where the production originates or is distributed. It is intended to support disclosure obligations across multiple regulatory regimes, including the EU AI Act, UK AI regulatory frameworks, and platform-level obligations under applicable broadcasting and online safety legislation. Producers and platforms should take independent legal advice on how HPF adoption interacts with their specific regulatory obligations.
 

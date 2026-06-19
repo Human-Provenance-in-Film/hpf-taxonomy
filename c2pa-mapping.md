@@ -127,7 +127,7 @@ The `digitalSourceType` URL in the example assertion uses `http://cv.iptc.org/ne
 
 | Version | Date | Notes |
 |---|---|---|
-| 0.9 | March 2026 | Initial working proposal. C2PA working group discussion not yet opened. |
+| 0.9 | April 2026 | Initial working proposal. C2PA working group discussion not yet opened. |
 
 ---
 

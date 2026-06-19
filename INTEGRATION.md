@@ -250,7 +250,7 @@ To contribute: open an issue or pull request on the repository, or email contact
 
 | Version | Date | Notes |
 |---|---|---|
-| 0.9 | March 2026 | Initial working document. |
+| 0.9 | April 2026 | Initial working document. |
 
 ---
 
