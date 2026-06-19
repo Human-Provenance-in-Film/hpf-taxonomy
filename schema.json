@@ -14,7 +14,7 @@
     },
     "hpf_classification": {
       "type": "string",
-      "description": "The HPF disclosure tier for this production. Derived from a signed producer declaration held in the chain of title.",
+      "description": "The HPF disclosure category for this production. Derived from a signed producer declaration held in the chain of title.",
       "enum": ["no_ai", "assistive_ai", "generative_ai"],
       "examples": ["no_ai"]
     }

@@ -83,7 +83,7 @@ This assertion is placed in the `assertions` array of a C2PA claim, alongside an
 
 `hpf_classification` must be one of the three values defined in [schema.json](schema.json). Treat schema.json as the authoritative source for the enum definition.
 
-`hpf_taxonomy_version` follows the pattern `major.minor` (e.g. `0.9`, `1.0`). Treat it as a string identifier, not a numeric version for comparison purposes. A major version increment (e.g. `0.x` to `1.0`) may indicate a change to the classification test or tier definitions; implementations should flag assertions carrying an unrecognised major version for manual review rather than silently accepting or rejecting them. Minor version increments are clarifications only and do not affect how existing classifications should be interpreted. Existing assertions are not invalidated by a version increment.
+`hpf_taxonomy_version` follows the pattern `major.minor` (e.g. `0.9`, `1.0`). Treat it as a string identifier, not a numeric version for comparison purposes. A major version increment (e.g. `0.x` to `1.0`) may indicate a change to the classification test or category definitions; implementations should flag assertions carrying an unrecognised major version for manual review rather than silently accepting or rejecting them. Minor version increments are clarifications only and do not affect how existing classifications should be interpreted. Existing assertions are not invalidated by a version increment.
 
 The value of `hpf_classification` maps loosely to IPTC `digitalSourceType` as follows:
 
@@ -105,7 +105,7 @@ See the C2PA specification's [External Manifests](https://spec.c2pa.org/specific
 
 Because `hpf_classification` originates from a paper declaration rather than from a processing tool, the receiving platform does not need to create the assertion at the moment of file processing. It can be attached to an external manifest after the declaration is signed and the delivery is received. This fits the durable credential model.
 
-Note that in the HPF flow, the receiving platform or distributor attaching the manifest is also responsible for computing and storing the hard binding against the received asset. This differs from most C2PA implementations, where the creating tool generates both the assertion and the binding at the point of file creation. Implementers should account for this when designing ingest pipelines. The C2PA spec supports multiple hash algorithms (SHA-256, SHA-384, SHA-512); implementers should agree on a hash algorithm with their distribution partners and apply it consistently to the same representation of the asset — typically the received master file before any platform-side transcoding.
+Note that in the HPF flow, the receiving platform or distributor attaching the manifest is also responsible for computing and storing the hard binding against the received asset. This differs from most C2PA implementations, where the creating tool generates both the assertion and the binding at the point of file creation. Implementers should account for this when designing ingest pipelines. The C2PA spec supports multiple hash algorithms (SHA-256, SHA-384, SHA-512); implementers should agree on a hash algorithm with their distribution partners and apply it consistently to the same representation of the asset, typically the received master file before any platform-side transcoding.
 
 ---
 
