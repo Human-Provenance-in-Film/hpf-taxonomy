@@ -1,4 +1,4 @@
-# HPF Integration Guide
+# HPF integration guide
 
 **Version 0.9 -- Working Document**
 
@@ -8,7 +8,7 @@ The HPF taxonomy and schema are described in [taxonomy.md](taxonomy.md) and [sch
 
 ---
 
-## One Thing to Understand Before Implementing
+## One thing to understand before implementing
 
 **HPF classification is a declaration, not a detection.**
 
@@ -21,7 +21,7 @@ Two implications follow:
 
 ---
 
-## Platform and Ingest System Developers
+## Platform and ingest system developers
 
 This section is for content management systems, content catalogue databases, player platforms, broadcaster ingest systems, and delivery portal developers at distributors and streamers.
 
@@ -94,7 +94,7 @@ Developers of AI content detection tools integrating with HPF-aware platforms sh
 
 ---
 
-## Sales Agency and Distributor Technical Staff
+## Sales agency and distributor technical staff
 
 This section is for technical staff at sales agencies and distributors who manage chain of title documentation, acquisition CMS systems, and deal documentation workflows.
 
@@ -131,7 +131,7 @@ Where deal documentation incorporates the classification as a producer represent
 
 ---
 
-## C2PA and Content Credentials Tooling
+## C2PA and content credentials tooling
 
 This section is for C2PA SDK implementers, CAI tooling developers, and anyone building systems that create, sign, or verify Content Credentials for film and television assets.
 
@@ -180,7 +180,7 @@ This question will be raised with the C2PA working group as part of the proposal
 
 ---
 
-## Delivery Portals and Post-Production Tools
+## Delivery portals and post-production tools
 
 This section is for developers of delivery portal systems and post-production tools with delivery or export workflows.
 
@@ -194,7 +194,7 @@ Delivery portals operate in two distinct contexts, each requiring different UX.
 
 **Platform-operated portals** (intake interfaces used by content operations staff at the receiving distributor or streamer): the ops team translates the signed producer declaration into the classification field. Present the three-option selection alongside a free-text notes field where staff can record the source document reference. If no declaration arrives with the submission, leave the HPF record absent and flag the absence for follow-up; do not infer a value. Include the category definitions from [taxonomy.md](taxonomy.md) in-context so staff can verify the translation without leaving the portal.
 
-**Producer-facing portals** (submission interfaces used by producers or sales agents to deliver content outbound): the producer fills the classification field themselves. Display the organizing principle and all three category definitions in-context at the point of classification, linking to [taxonomy.md](taxonomy.md) for the full classification test and edge cases. Do not require the producer to navigate to humanprovenance.film to classify. If the producer does not provide a declaration, the field should be optional at v0.9: submission proceeds, no HPF record is written.
+**Producer-facing portals** (submission interfaces used by producers or sales agents to deliver content outbound): the producer fills the classification field themselves. Display the organising principle and all three category definitions in-context at the point of classification, linking to [taxonomy.md](taxonomy.md) for the full classification test and edge cases. Do not require the producer to navigate to humanprovenance.film to classify. If the producer does not provide a declaration, the field should be optional at v0.9: submission proceeds, no HPF record is written.
 
 Festival and broadcaster submission systems fall into this category. Producers submitting directly, without a sales agent, may be encountering HPF for the first time at the submission form. In this context, in-context definitions and a link to humanprovenance.film are especially important. Note that a declaration made at festival submission is not automatically incorporated into a contract; the festival or broadcaster receiving the submission should consider how to carry the classification forward into screening agreements and programme documentation if they wish to use it downstream.
 
@@ -222,13 +222,13 @@ A post-production tool with a delivery or export workflow can present the HPF cl
 
 **Output and sidecar delivery:** write the classification as a sidecar JSON file conforming to [schema.json](schema.json), using the naming convention `<asset_id>_hpf.json` where `asset_id` matches the primary delivery asset identifier. Including a sidecar in a delivery package (IMF, DCP, or platform-specific bundle) requires prior agreement with the receiving party; many ingest systems will reject unexpected files. If no such agreement exists, record the classification internally and deliver it separately: as a standalone JSON file, via a delivery portal field, or alongside other paperwork. Do not embed the classification in the media file itself.
 
-**In-tool AI feature usage:** post-production tools with built-in AI features (noise reduction, cleanup, AI-assisted subtitling, automated camera tracking) are in a position to know whether those features were used on a given project. This is distinct from inferring classification from content analysis, which is prohibited. Where a tool has used its own AI features on a project, it is reasonable to surface that usage to the operator as an input to the classification decision, for example a summary of which AI features were active, while making clear that the final classification must come from a producer declaration, not from tool usage data alone. Do not pre-populate `hpf_classification` from tool usage. Do surface relevant tool usage information so the operator can have an informed conversation with the producer.
+**In-tool AI feature usage:** post-production tools with built-in AI features (noise reduction, clean-up, AI-assisted subtitling, automated camera tracking) are in a position to know whether those features were used on a given project. This is distinct from inferring classification from content analysis, which is prohibited. Where a tool has used its own AI features on a project, it is reasonable to surface that usage to the operator as an input to the classification decision, for example a summary of which AI features were active, while making clear that the final classification must come from a producer declaration, not from tool usage data alone. Do not pre-populate `hpf_classification` from tool usage. Do surface relevant tool usage information so the operator can have an informed conversation with the producer.
 
 If you are building toward HPF support, contact contact@humanprovenance.film. Early coordination avoids inconsistent implementations.
 
 ---
 
-## Open Questions
+## Open questions
 
 The following are unresolved in v0.9 and are part of the consultation (closes 31 October 2026):
 
@@ -246,7 +246,7 @@ To contribute: open an issue or pull request on the repository, or email contact
 
 ---
 
-## Version History
+## Version history
 
 | Version | Date | Notes |
 |---|---|---|

@@ -5,7 +5,7 @@ Consultation closes 31 October 2026.
 
 ---
 
-## Organizing Principle
+## Organising principle
 
 > Is AI output present in the finished film, and did it process human work or originate new content?
 
@@ -15,7 +15,7 @@ For the purposes of this taxonomy, artificial intelligence is defined in the `no
 
 ---
 
-## Classification Test
+## Classification test
 
 For the finished film as distributed:
 
@@ -43,7 +43,7 @@ These values correspond directly to `hpf_classification` in [schema.json](schema
 
 ### `no_ai`: No AI Used
 
-No artificial intelligence tools were used at any stage of development, production, or post-production of this film.
+No AI output is present in the finished film. No AI tool produced any element of the finished work as distributed. AI used only in development, leaving no trace in the finished film, is out of scope and does not prevent a No AI Used declaration.
 
 Basic computational automation in standard long-standing industry use (loudness normalisation, timecode tools, spell-check) does not count as AI use.
 
@@ -57,7 +57,7 @@ For the purposes of this taxonomy, artificial intelligence means software system
 
 AI output is present in the finished film, but the AI processed or optimised material created by human crew rather than originating new content. A human held the creative or production role; the AI worked from their material.
 
-**Examples:** AI-assisted colour grading; noise reduction; automated subtitling and captioning; script analysis tools used by a human writer; de-flickering; archival restoration; AI-assisted sound cleanup; automated camera tracking in VFX prep. Cosmetic de-ageing of a performance captured in full, where AI refines appearance without reconstructing or generating any part of the performance. In animation: AI used to clean up or optimise frames created by animators.
+**Examples:** AI-assisted colour grading; noise reduction; automated subtitling and captioning; script analysis tools used by a human writer; de-flickering; archival restoration; AI-assisted sound clean-up; automated camera tracking in VFX prep. Cosmetic de-ageing of a performance captured in full, where AI refines appearance without reconstructing or generating any part of the performance. In animation: AI used to clean up or optimise frames created by animators.
 
 **Not `assistive_ai`:** any AI output that the AI originated rather than deriving from human-created material. If the AI made new content that appears in the finished film, the classification is `generative_ai` regardless of how the tool is marketed.
 
@@ -100,17 +100,17 @@ Where classification is incorporated into a deal or licensing agreement as a pro
 
 ---
 
-## Edge Cases
+## Edge cases
 
 The following situations require case-by-case judgement. The classification test in each case is the same: is AI output present in the finished work, and did the AI originate it or process human-created material?
 
 ### Archival and found footage
 
-If AI restoration was performed by the production: `assistive_ai`, provided a human supervisor was responsible for the restoration decisions. If performed by a third-party archive before the footage was licensed: under active consultation.
+If AI restoration was performed on the footage, the AI processed existing human-created material, so it is `assistive_ai`. If a third-party archive performed it before the footage was licensed and the producer cannot establish what was done: under active consultation.
 
 ### Restored and re-released versions
 
-The classification applies to the version being distributed. A restored version using AI tools under human supervision is `assistive_ai` for that version, regardless of how the original was made.
+The classification applies to the version being distributed. A restored version using AI tools to process the existing footage is `assistive_ai` for that version, regardless of how the original was made.
 
 ### AI used in development only
 
@@ -140,7 +140,7 @@ The test applies in the same way as for live-action. AI processing or refining w
 
 ---
 
-## Regulatory Scope
+## Regulatory scope
 
 HPF covers production-level AI disclosure: what AI was used in making the finished work, declared by the producer. It does not address tool-level obligations. Where a production uses a general-purpose AI model (GPAI) to generate content, the provider of that model may have independent disclosure obligations under applicable regulation, for example under Article 50 of the EU AI Act. HPF and tool-level obligations operate in parallel and are not substitutes for each other.
 
@@ -172,7 +172,7 @@ For technical implementation guidance: [INTEGRATION.md](INTEGRATION.md).
 
 ---
 
-## License
+## Licence
 
 CC BY 4.0. See [LICENSE.md](LICENSE.md).
 

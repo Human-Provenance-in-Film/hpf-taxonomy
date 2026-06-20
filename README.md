@@ -6,7 +6,7 @@ Consultation closes 31 October 2026.
 
 ---
 
-## What This Is
+## What this is
 
 A three-category classification standard for AI disclosure in film and television, designed to travel in chain of title and deal documentation (the legal and rights documentation that accompanies a film through distribution and licensing).
 
@@ -14,7 +14,7 @@ Without a consistent disclosure standard, there is no reliable market data on wh
 
 ---
 
-## Who This Repository Is For
+## Who this repository is for
 
 The files in this repository are intended for:
 
@@ -25,13 +25,13 @@ The files in this repository are intended for:
 - **Post-production tool developers** building toward adoption: [INTEGRATION.md](INTEGRATION.md)
 - **Regulators and policy staff** assessing the framework: [taxonomy.md](taxonomy.md) and [GOVERNANCE.md](GOVERNANCE.md)
 
-The full taxonomy specification, producer declaration form, and plain-language guidance for productions are at [humanprovenance.film](https://humanprovenance.film).
+The full taxonomy specification and plain-language guidance for productions are at [humanprovenance.film](https://humanprovenance.film), and the producer declaration form is at [humanprovenance.film/disclosure-form](https://humanprovenance.film/disclosure-form/).
 
 ---
 
-## The Three Categories
+## The three categories
 
-Built on a single organizing principle: **is AI output present in the finished film, and did it process human work or originate new content?**
+Built on a single organising principle: **is AI output present in the finished film, and did it process human work or originate new content?**
 
 | `hpf_classification` | Label |
 |---|---|
@@ -43,7 +43,7 @@ For category definitions, scope, classification test, and edge cases: [taxonomy.
 
 ---
 
-## How Classification Travels: Paper to Code
+## How classification travels: paper to code
 
 HPF classification originates as a signed producer declaration in the chain of title. It is not derived from technical analysis of the content.
 
@@ -70,11 +70,11 @@ Pending broader adoption, delivery portal and ingest systems, and post-productio
 
 ---
 
-## Repository Contents
+## Repository contents
 
 | File | Description |
 |---|---|
-| [taxonomy.md](taxonomy.md) | Category definitions, organizing principle, classification test, scope, and edge cases. |
+| [taxonomy.md](taxonomy.md) | Category definitions, organising principle, classification test, scope, and edge cases. |
 | [schema.json](schema.json) | JSON Schema for HPF metadata fields. For platform engineers and ingest system developers. |
 | [INTEGRATION.md](INTEGRATION.md) | Implementation guide for platform, sales agency, ingest, delivery portal, post-production tool, and C2PA developers. |
 | [c2pa-mapping.md](c2pa-mapping.md) | Proposed mapping of HPF categories to C2PA assertion types. Working proposal. |
@@ -83,7 +83,7 @@ Pending broader adoption, delivery portal and ingest systems, and post-productio
 
 ---
 
-## License
+## Licence
 
 CC BY 4.0. No patent rights are asserted over the taxonomy methodology. See [LICENSE.md](LICENSE.md).
 
