@@ -1,6 +1,6 @@
 # HPF integration guide
 
-**Version 0.9 -- Working Document**
+**Version 0.9, working document**
 
 This guide is for developers implementing HPF classification in products and pipelines. It covers four implementation contexts: platform and ingest systems (including AI detection tool integration), sales agency and distributor technical systems, C2PA and Content Credentials tooling, and delivery portal and post-production tools building toward adoption.
 
