@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you reference or build on this standard, please cite it as below."
+title: "HPF AI Disclosure Taxonomy"
+abstract: "A three-category classification standard for AI disclosure in film and television (No AI Used, Assistive AI, Generative AI), designed to travel in chain of title and deal documentation, with an optional mapping to C2PA Content Credentials."
+type: dataset
+version: "0.9"
+date-released: 2026-06-22
+license: CC-BY-4.0
+url: "https://humanprovenance.film"
+repository-code: "https://github.com/human-provenance-in-film/hpf-taxonomy"
+authors:
+  - name: "The Mise En Scène Company"
+    website: "https://humanprovenance.film"
+keywords:
+  - AI disclosure
+  - provenance
+  - film
+  - television
+  - chain of title
+  - C2PA
