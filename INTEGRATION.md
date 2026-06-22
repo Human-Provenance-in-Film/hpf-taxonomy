@@ -182,49 +182,16 @@ This question will be raised with the C2PA Technical Working Group as part of th
 
 ## Delivery portals and post-production tools
 
-This section is for developers of delivery portal systems and post-production tools with delivery or export workflows.
+**This section is forward-looking.** At v0.9, a signed producer declaration is translated into the schema fields at platform ingest, usually as a manual step by content operations staff. Delivery portals and post-production tools are not yet expected to perform this translation. As adoption grows, capturing the classification as a structured field at the point of delivery is the path to more reliable data.
 
-**This section is forward-looking.** At v0.9, the translation of a signed producer declaration into the HPF schema fields happens at platform ingest, typically as a manual step by content operations staff. Delivery portals and post tools are not currently expected to perform this translation. This section describes what upstream implementation could look like as adoption grows.
+For any portal or tool that adds HPF support:
 
-At scale, manual translation of declarations into content catalogue fields is a data quality and operations problem, not just a technical one. Delivery portal adoption, where the classification is captured as a structured field at the point of delivery submission, is the path toward reliable, consistent data. Platforms experiencing data quality issues with manual ingest are encouraged to raise this with HPF via the consultation.
+- Present the three categories using the labels in [taxonomy.md](taxonomy.md): No AI Used, Assistive AI, Generative AI, with the definitions available in-context.
+- The value must trace back to a signed producer declaration. Do not infer or assign a classification from tool usage or content analysis, and do not require a value where no declaration exists at v0.9.
+- Map the classification to the production as a whole (the project or job level), not to individual sequences, reels, or output formats.
+- Write the result as a sidecar JSON file conforming to [schema.json](schema.json), or pass it to the downstream catalogue directly. Embedding a sidecar in a delivery package (IMF, DCP, or platform bundle) requires prior agreement with the receiving party, since many ingest systems reject unexpected files. Agree the filename and delivery method with downstream partners.
 
-### Delivery portals
-
-Delivery portals operate in two distinct contexts, each requiring different UX.
-
-**Platform-operated portals** (intake interfaces used by content operations staff at the receiving distributor or streamer): the ops team translates the signed producer declaration into the classification field. Present the three-option selection alongside a free-text notes field where staff can record the source document reference. If no declaration arrives with the submission, leave the HPF record absent and flag the absence for follow-up; do not infer a value. Include the category definitions from [taxonomy.md](taxonomy.md) in-context so staff can verify the translation without leaving the portal.
-
-**Producer-facing portals** (submission interfaces used by producers or sales agents to deliver content outbound): the producer fills the classification field themselves. Display the organising principle and all three category definitions in-context at the point of classification, linking to [taxonomy.md](taxonomy.md) for the full classification test and edge cases. Do not require the producer to navigate to humanprovenance.film to classify. If the producer does not provide a declaration, the field should be optional at v0.9: submission proceeds, no HPF record is written.
-
-Festival and broadcaster submission systems fall into this category. Producers submitting directly, without a sales agent, may be encountering HPF for the first time at the submission form. In this context, in-context definitions and a link to humanprovenance.film are especially important. Note that a declaration made at festival submission is not automatically incorporated into a contract; the festival or broadcaster receiving the submission should consider how to carry the classification forward into screening agreements and programme documentation if they wish to use it downstream.
-
-In both cases, present the classification using the labels from [taxonomy.md](taxonomy.md):
-
-| Display label | `hpf_classification` value |
-|---|---|
-| No AI Used | `no_ai` |
-| Assistive AI | `assistive_ai` |
-| Generative AI | `generative_ai` |
-
-**Output:** write the result as a sidecar JSON file conforming to [schema.json](schema.json), or pass it directly to the downstream content catalogue system. If writing a sidecar file, use the naming convention `<asset_id>_hpf.json`, where `asset_id` matches the identifier used for the primary delivery asset in your system. A consistent naming convention is required for downstream ingest systems to locate the file without manual intervention. HPF does not yet prescribe a universal naming convention; coordinate with downstream partners before implementation.
-
-**Audit trail:** record the timestamp, the source (producer declaration, ops staff entry, or producer self-declaration), and the identifier of the staff member or submitting party alongside the classification value. This audit trail has independent value for content operations and compliance, independent of downstream catalogue use. It is the basis for resolving disputes about what was declared and when.
-
-**Amended declarations:** if a producer submits an updated declaration for a title already in the system, record the new classification as a versioned update rather than overwriting the original. Preserve the original declaration and timestamp. How amended declarations propagate to downstream catalogue systems and distribution partners is at the portal operator's discretion, but the original record should not be destroyed.
-
-### Post-production tools
-
-A post-production tool with a delivery or export workflow can present the HPF classification field to the operator at two points: in the project metadata panel as a persistent project-level field, and again as a confirmation step at export or delivery. Collecting it at the project level first, rather than only at export, means the classification is recorded before the delivery step and is less likely to be skipped or rushed.
-
-**Who fills it in:** post-production tools are operated by technical staff (editors, colourists, finishing engineers, delivery coordinators), not typically by the producer who signed the declaration. Treat the tool operator the same way as content operations staff in a platform-operated portal: they are translating a signed producer declaration, not originating one. Present a free-text notes field alongside the classification dropdown where the operator can record the source document reference. The value must trace back to a producer declaration; the operator should not classify independently.
-
-**Project-level scope:** HPF classification applies to the production as a whole. Map it to your tool's project or job entity, whichever is the top-level container for a single production, not to individual sequences, reels, assets, or output formats. If your tool handles multiple concurrent projects, each project carries its own classification field independently.
-
-**Output and sidecar delivery:** write the classification as a sidecar JSON file conforming to [schema.json](schema.json), using the naming convention `<asset_id>_hpf.json` where `asset_id` matches the primary delivery asset identifier. Including a sidecar in a delivery package (IMF, DCP, or platform-specific bundle) requires prior agreement with the receiving party; many ingest systems will reject unexpected files. If no such agreement exists, record the classification internally and deliver it separately: as a standalone JSON file, via a delivery portal field, or alongside other paperwork. Do not embed the classification in the media file itself.
-
-**In-tool AI feature usage:** post-production tools with built-in AI features (noise reduction, clean-up, AI-assisted subtitling, automated camera tracking) are in a position to know whether those features were used on a given project. This is distinct from inferring classification from content analysis, which is prohibited. Where a tool has used its own AI features on a project, it is reasonable to surface that usage to the operator as an input to the classification decision, for example a summary of which AI features were active, while making clear that the final classification must come from a producer declaration, not from tool usage data alone. Do not pre-populate `hpf_classification` from tool usage. Do surface relevant tool usage information so the operator can have an informed conversation with the producer.
-
-If you are building toward HPF support, contact contact@humanprovenance.film. Early coordination avoids inconsistent implementations.
+If you are building toward HPF support, contact contact@humanprovenance.film so implementations stay consistent.
 
 ---
 
@@ -238,8 +205,7 @@ The following are unresolved in v0.9 and are part of the consultation (closes 31
 - **Reclassification:** how to handle a change in declared classification between an original delivery and a subsequent cut or version
 - **Undisclosed state:** whether a formal `pre_standard` or `undisclosed` enum value should be added to distinguish unverified historical content from actively declared `no_ai`
 - **Amended declarations:** how updated producer declarations propagate through delivery portals and downstream content catalogue systems, and whether portals should version declaration records
-- **Sidecar naming convention:** whether HPF should prescribe a standard filename pattern for sidecar JSON files to ensure interoperability across delivery systems
-- **Music licensing provenance:** whether production music libraries should carry track-level AI provenance metadata (human-composed, AI-assisted, AI-generated) to support accurate production-level disclosure, and what form that metadata should take
+- **Sidecar delivery:** whether HPF should prescribe a standard filename and packaging pattern for sidecar JSON files to ensure interoperability across delivery systems
 - **Festival and broadcaster downstream use:** how a classification declared at submission should travel into screening agreements, programme documentation, and audience-facing display where no formal deal documentation exists
 
 To contribute: open an issue or pull request on the repository, or email contact@humanprovenance.film.

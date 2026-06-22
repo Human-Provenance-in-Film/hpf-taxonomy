@@ -108,7 +108,7 @@ This taxonomy covers AI use in development, production, and post-production of t
 
 The lead producer must use the highest category applicable across all co-producers and contractors. This prevents co-production structures from obscuring AI use that would otherwise require disclosure.
 
-Where classification is incorporated into a deal or licensing agreement as a producer representation, misclassification is a matter of contractual liability. This gives the framework legal enforceability without requiring new regulatory infrastructure.
+Where classification is incorporated into a deal or licensing agreement as a producer representation, misclassification is a matter of contractual liability. This places the standard within existing contractual mechanisms rather than requiring new regulatory infrastructure.
 
 ---
 
