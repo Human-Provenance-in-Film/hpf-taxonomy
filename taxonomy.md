@@ -57,7 +57,7 @@ For the purposes of this taxonomy, artificial intelligence means software system
 
 AI output is present in the finished film, but the AI processed or optimised material created by human crew rather than originating new content. A human held the creative or production role; the AI worked from their material.
 
-**Examples:** AI-assisted colour grading; noise reduction; automated subtitling and captioning; script analysis tools used by a human writer; de-flickering; archival restoration; AI-assisted sound clean-up; automated camera tracking in VFX prep. Cosmetic de-ageing of a performance captured in full, where AI refines appearance without reconstructing or generating any part of the performance. In animation: AI used to clean up or optimise frames created by animators.
+**Examples:** AI-assisted colour grading; noise reduction; automated subtitling and captioning; script analysis tools used by a human writer; de-flickering; archival restoration; AI-assisted sound clean-up; automated camera tracking in VFX prep. Cosmetic de-ageing of a performance captured in full, where AI refines appearance without rebuilding or generating any part of the performance. In animation: AI used to clean up or optimise frames created by animators.
 
 **Not `assistive_ai`:** any AI output that the AI originated rather than deriving from human-created material. If the AI made new content that appears in the finished film, the classification is `generative_ai` regardless of how the tool is marketed.
 
@@ -71,9 +71,21 @@ AI originated content that appears in the finished film, rather than processing 
 
 If any AI-originated content is present in the finished work, the production is `generative_ai` regardless of proportion. A film using human-shot footage alongside AI-generated environments is `generative_ai` overall.
 
-**Examples:** AI-generated backgrounds, environments, crowd scenes, or set extensions; AI-written screenplay elements present in the finished film; synthesised or cloned actor performances; AI voice cloning; AI-generated music replacing a composer; de-ageing or posthumous synthesis that reconstructs or generates any part of a performance rather than refining one fully captured on set. In animation: AI generating characters, environments, or sequences that animators would otherwise have created.
+**Examples:** AI-generated backgrounds, environments, crowd scenes, or set extensions; AI-written screenplay elements present in the finished film; synthesised or cloned actor performances; AI voice cloning; AI-generated music replacing a composer; de-ageing or posthumous synthesis that fabricates or generates any part of a performance rather than refining one fully captured on set. In animation: AI generating characters, environments, or sequences that animators would otherwise have created.
 
-**Not `generative_ai`:** cosmetic enhancement of a performance that was captured in full (minor de-ageing that does not reconstruct a performance) is `assistive_ai`. AI used in development only, where no AI-generated content appears in the finished film, does not require `generative_ai` classification.
+**Not `generative_ai`:** cosmetic enhancement of a performance that was captured in full (minor de-ageing that does not fabricate part of a performance) is `assistive_ai`. AI used in development only, where no AI-generated content appears in the finished film, does not require `generative_ai` classification.
+
+---
+
+## The reconstruction test
+
+Some AI tools operate on footage, audio, or images that already exist rather than producing content from a prompt. For these, classification turns on whether the tool reconstructs content already present or fabricates content that is not.
+
+Reconstruction restores, cleans, or repairs content that was captured or created by a human: noise reduction, de-flickering, artefact removal, upscaling that sharpens detail already in the source, format conversion. The output is the same content in better condition. This is `assistive_ai`.
+
+Fabrication invents content that was never captured or created: painting in a background revealed by removing an object, generating frames or detail with no source, synthesising a performance element the performer did not give. The output contains material that did not exist before. This is `generative_ai`.
+
+The label a vendor applies does not decide the category. Where a tool both reconstructs and fabricates, the fabrication determines the category.
 
 ---
 
@@ -130,9 +142,9 @@ How the taxonomy applies to episodic and series content is an open question for 
 
 If a new version is released after the original declaration was made, and that version contains AI-generated content not present in the original, the producer must notify all parties who received the original declaration and issue updated declarations.
 
-### De-ageing: cosmetic vs. reconstructive
+### De-ageing: restorative vs. fabricated
 
-Cosmetic de-ageing, where AI adjusts appearance without generating or reconstructing any element of the performance, is `assistive_ai`. Where AI generates or reconstructs any part of what the performer did, including posthumous synthesis or dialogue replacement, the classification is `generative_ai`.
+De-ageing that adjusts or restores the captured appearance is reconstruction, so `assistive_ai`. Where AI fabricates part of a performance the performer did not give, including posthumous synthesis or dialogue replacement, it is `generative_ai`.
 
 ### Animation
 
@@ -163,7 +175,7 @@ The questions we most want input on:
 1. Does the present-and-originated principle, and the three categories it produces, capture the distinction that matters to your organisation? Is anything missing, such as a fourth category?
 2. Is the declaration mechanism workable in your part of the industry, and if not, what would need to change? In particular, for a `no_ai` declaration, software now switches AI features on by default, so would a "reasonable enquiry" standard, the same one used for other chain-of-title warranties, be a fair basis?
 3. Two scope boundaries are open. Should any pre-production AI use that never reaches the screen still be disclosed? And how urgent is it to bring marketing materials (trailers, posters, social cuts) into scope?
-4. Are the edge cases classified correctly, and are there other situations that need guidance before v1.0? Animation, and content built on human work but newly synthesised (in-betweening, upscaling, style transfer), is where we most want input.
+4. Are the edge cases classified correctly, and are there other situations that need guidance before v1.0? Animation, and content built on human work but newly synthesised (in-betweening, style transfer), is where we most want input.
 5. For platforms, broadcasters, and distributors: would you use the `assistive_ai` classification, and would you surface it to audiences?
 6. Which ways of showing the disclosure are practical and clear, from end credits to delivery metadata to a platform label, and what would meet your regulatory obligations?
 7. Does the chain-of-title mechanism work outside the UK and US, where co-production paperwork differs? Are there regulatory, contractual, or collective-bargaining frameworks HPF needs to account for in v1.0?

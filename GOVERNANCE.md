@@ -32,7 +32,7 @@ To propose an amendment at any time: email contact@humanprovenance.film, or open
 | Version | Date | Summary |
 |---|---|---|
 | 0.9 | March 2026 | Initial release. Draft for consultation. |
-| 0.9 | June 2026 | Organising principle reframed from enhance-or-replace to present-and-originated (categories unchanged). Tier renamed to category throughout. Consultation date set to 31 October 2026. Governance reframed to register-interest. Consultation questions added. |
+| 0.9 | June 2026 | Organising principle reframed from enhance-or-replace to present-and-originated (categories unchanged). Tier renamed to category throughout. Consultation date set to 31 October 2026. Governance reframed to register-interest. Consultation questions added. Reconstruction test added for AI tools that act on existing footage. |
 
 ---
 
