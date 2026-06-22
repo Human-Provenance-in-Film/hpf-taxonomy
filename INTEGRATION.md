@@ -151,7 +151,7 @@ HPF proposes a custom assertion with the label `hpf.film.ai_disclosure`. The pay
 
 `hpf_classification` must be one of the three values defined in [schema.json](schema.json). Treat schema.json as the authoritative source; do not rely on this document for the enum definition.
 
-This is a working proposal. It has not been submitted to the C2PA working group. The relationship between this assertion and the existing `c2pa.actions` / IPTC `digitalSourceType` values is described in [c2pa-mapping.md](c2pa-mapping.md).
+This is a working proposal. It has not been submitted to the C2PA Technical Working Group. The relationship between this assertion and the existing `c2pa.actions` / IPTC `digitalSourceType` values is described in [c2pa-mapping.md](c2pa-mapping.md).
 
 ### Relationship to existing C2PA assertions
 
@@ -168,7 +168,7 @@ See [c2pa-mapping.md](c2pa-mapping.md) for the full mapping and its known limita
 
 Embedded C2PA manifests do not survive transcoding. Film assets are transcoded multiple times across the distribution chain.
 
-The recommended approach is Durable Content Credentials: store the manifest externally, bound to the asset via a hard binding (cryptographic hash of the asset content) and one or more soft bindings (perceptual fingerprint or watermark) that allow the manifest to be rediscovered if separated from the asset. See the C2PA specification's [External Manifests](https://spec.c2pa.org/specifications/specifications/2.3/specs/C2PA_Specification.html#_external_manifests) section for implementation details.
+The recommended approach is Durable Content Credentials: store the manifest externally, bound to the asset via a hard binding (cryptographic hash of the asset content) and one or more soft bindings (perceptual fingerprint or watermark) that allow the manifest to be rediscovered if separated from the asset. See the C2PA specification's [External Manifests](https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_external_manifests) section for implementation details.
 
 The `hpf.film.ai_disclosure` assertion is particularly suited to the external manifest model. Because it originates from a signed producer declaration rather than from a processing tool, the receiving platform does not need to create the assertion at the moment of file processing. It can be attached to the manifest after the declaration is signed and the delivery is received.
 
@@ -176,7 +176,7 @@ The `hpf.film.ai_disclosure` assertion is particularly suited to the external ma
 
 C2PA signing requires an X.509 certificate issued by a CA on the C2PA trust list. Who should sign the `hpf.film.ai_disclosure` assertion in a film distribution context is an open question not resolved in v0.9. Candidates include the producer, the sales agent or distributor, and the receiving platform. Each carries different trust implications.
 
-This question will be raised with the C2PA working group as part of the proposal process. If you are implementing C2PA signing for film assets and want to include `hpf.film.ai_disclosure`, contact contact@humanprovenance.film before doing so. Until the working group discussion concludes, coordinate with us before implementing rather than proceeding independently.
+This question will be raised with the C2PA Technical Working Group as part of the proposal process. If you are implementing C2PA signing for film assets and want to include `hpf.film.ai_disclosure`, contact contact@humanprovenance.film before doing so. Until the Technical Working Group discussion concludes, coordinate with us before implementing rather than proceeding independently.
 
 ---
 
