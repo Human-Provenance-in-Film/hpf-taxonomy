@@ -10,6 +10,8 @@
 
 The `hpf.film.ai_disclosure` assertion proposed here originates from a signed producer declaration in the chain of title, not from technical detection or tool-level processing. A C2PA manifest carrying this assertion is a technical record of a human declaration, not a machine-generated provenance signal. This distinction affects how the assertion should be created, signed, and interpreted. See [INTEGRATION.md](INTEGRATION.md) for implementation guidance.
 
+C2PA does not determine whether a production is Assistive AI or Generative AI, and does not validate the producer's representation. HPF owns the semantic classification; C2PA is proposed only as a way to associate that classification with the asset and its provenance record. The assertion carries the result of the HPF declaration, not the full producer declaration or the reasoning used to reach the classification.
+
 ---
 
 ## Existing C2PA assertion types
@@ -67,7 +69,7 @@ The C2PA specification supports third-party custom assertions using namespaced l
 
 This is a working label, not yet compliant with the C2PA namespace convention. C2PA section 12.5 requires entity-specific assertion labels to use the organisation's internet domain in reverse order, in the manner of Java package names (the specification's own examples are `com.litware` and `net.fineartschool`). For the domain humanprovenance.film, the compliant form would be `film.humanprovenance.ai_disclosure`. We have kept the shorter `hpf.film.ai_disclosure` as a provisional working label pending confirmation with the C2PA Technical Working Group. For any implementation before then, use `hpf.film.ai_disclosure` and treat it as subject to change. Do not build stable verification logic against the label until it is confirmed.
 
-**Payload:** two fields, matching [schema.json](schema.json), nested under a `data` key as part of the assertion structure:
+**Payload:** the HPF classification result, matching [schema.json](schema.json), nested under a `data` key as part of the assertion structure. Two fields are always present:
 
 ```json
 {
@@ -79,9 +81,24 @@ This is a working label, not yet compliant with the C2PA namespace convention. C
 }
 ```
 
+For a `generative_ai` record, a proposed controlled descriptor array may be included. It is provisional, subject to consultation, tied to the taxonomy version, and applies only to `generative_ai` records:
+
+```json
+{
+  "label": "hpf.film.ai_disclosure",
+  "data": {
+    "hpf_taxonomy_version": "0.9",
+    "hpf_classification": "generative_ai",
+    "hpf_descriptors": ["synthetic_performance", "generated_music"]
+  }
+}
+```
+
+The descriptor values are provisional consultation terms introduced in the 0.9 August 2026 taxonomy revision, subject to change before v1.0. Descriptors identify the type or types of generated content present; they do not determine the classification, carry no threshold, and must not appear on `no_ai` or `assistive_ai` records. See [schema.json](schema.json) for the authoritative list and validation rules.
+
 This assertion is placed in the `assertions` array of a C2PA claim, alongside any other assertions for the asset. It does not replace or conflict with `c2pa.actions` assertions; both may be present in the same claim.
 
-`hpf_classification` must be one of the three values defined in [schema.json](schema.json). Treat schema.json as the authoritative source for the enum definition.
+`hpf_classification` must be one of the three values defined in [schema.json](schema.json). Treat schema.json as the authoritative source for the enum definitions.
 
 `hpf_taxonomy_version` follows the pattern `major.minor` (e.g. `0.9`, `1.0`). Treat it as a string identifier, not a numeric version for comparison purposes. A major version increment (e.g. `0.x` to `1.0`) may indicate a change to the classification test or category definitions; implementations should flag assertions carrying an unrecognised major version for manual review rather than silently accepting or rejecting them. Minor version increments are clarifications only and do not affect how existing classifications should be interpreted. Existing assertions are not invalidated by a version increment.
 
@@ -99,7 +116,7 @@ The mapping is approximate. `hpf_classification` carries different semantics: it
 
 ## Transcoding
 
-Film files are transcoded multiple times across the distribution chain. Embedded C2PA manifests do not survive transcoding. The recommended approach is Durable Content Credentials: the manifest is stored externally (as a sidecar file or in a manifest store) and bound to the asset via a hard binding (cryptographic hash of the asset content) plus one or more soft bindings (perceptual fingerprint or watermark) that allow the manifest to be rediscovered if it becomes separated from the asset.
+Film files are transcoded multiple times across the distribution chain. Embedded C2PA manifests do not survive transcoding. The recommended approach is Durable Content Credentials: the manifest is stored externally (as a sidecar file or in a manifest store) and bound to the asset via a hard binding (cryptographic hash of the asset content) plus one or more soft bindings (perceptual fingerprint or watermark) that allow the manifest to be rediscovered if it becomes separated from the asset. These soft bindings are vendor-neutral and exist only to rediscover a separated manifest. They are not part of the HPF classification, carry no HPF semantics, and no specific watermark or fingerprint technology is required or endorsed.
 
 See the C2PA specification's [External Manifests](https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_external_manifests) section for implementation details.
 
@@ -123,10 +140,23 @@ The `digitalSourceType` URL in the example assertion uses `http://cv.iptc.org/ne
 
 ---
 
+## Questions for C2PA Technical Working Group review
+
+These are open questions to raise with the C2PA Technical Working Group. Nothing here has been reviewed or endorsed by C2PA; no technical endorsement is claimed until review is received.
+
+1. Is a custom assertion the appropriate mechanism for a production-level disclosure of this kind, given that it is derived from a signed human declaration rather than tool-level processing?
+2. Is a controlled descriptors array appropriate within the same assertion, or should type-of-content information be carried separately?
+3. What namespacing, property naming, and versioning convention is preferred? In particular, do property names inside the `hpf.film.ai_disclosure` namespace need the `hpf_` prefix, or is it redundant once namespaced? This is an open question for review, not a decision.
+4. Should the assertion reference the authoritative external producer declaration, and if so, how?
+5. For long-form film and television workflows where embedded manifests may not survive transcoding, is the proposed external or remote manifest, with the binding and recovery approach described above, appropriate?
+
+---
+
 ## Version history
 
 | Version | Date | Notes |
 |---|---|---|
+| 0.9 | August 2026 | Added a proposed, provisional controlled descriptor array for `generative_ai` records, tied to the August taxonomy revision. Stated explicitly that C2PA does not classify or validate, that soft bindings carry no HPF semantics, and added open questions for Technical Working Group review. |
 | 0.9 | June 2026 | Working proposal. C2PA Technical Working Group discussion not yet opened. Corrected IPTC term and namespace guidance; updated references to C2PA v2.4. |
 
 ---

@@ -7,9 +7,11 @@ Originating maintainer: The Mise En Scène Company (MSC)
 
 ## Current status
 
-This taxonomy is originated and maintained by MSC. MSC holds no proprietary rights over it. The intent is to transfer governance to an appropriate industry body; the timeline for that depends on finding an institution willing to adopt the standard.
+This taxonomy is originated and maintained by MSC. MSC holds the copyright and has licensed it under CC BY 4.0, which is irrevocable, so what has been published stays published. MSC is committed to finding a neutral home for the standard, preferably an existing standards body and, failing that, an independent coalition or membership organisation governed independently of any one company, including MSC. As of the August 2026 update, MSC is assessing the organisational structure this would require; no legal form or permanent home has been selected.
 
 v0.9 is currently open for public consultation. The consultation closes 31 October 2026. Responses should be submitted to contact@humanprovenance.film or via the GitHub repository.
+
+A short Pre-v1 Consultation Survey is open until 30 September 2026, ahead of the wider consultation. MSC is also beginning to identify a small pre-v1 working group to pressure-test the taxonomy, descriptors, and implementation against real production and institutional use cases. The working group is advisory. It is not the future governing body, and participation does not imply endorsement of HPF.
 
 ---
 
@@ -33,12 +35,13 @@ To propose an amendment at any time: email contact@humanprovenance.film, or open
 |---|---|---|
 | 0.9 | March 2026 | Initial release. Draft for consultation. |
 | 0.9 | June 2026 | Organising principle reframed from enhance-or-replace to present-and-originated (categories unchanged). Tier renamed to category throughout. Consultation date set to 31 October 2026. Governance reframed to register-interest. Consultation questions added. Reconstruction test added for AI tools that act on existing footage. |
+| 0.9 | August 2026 | Added a provisional set of Generative AI descriptors for consultation; clarified that scope turns on AI output reflected in the finished production; added a glossary; removed residual labour-counterfactual wording. Opened a Pre-v1 Consultation Survey (closes 30 September 2026) and began identifying an advisory pre-v1 working group. Categories and organising principle unchanged. |
 
 ---
 
 ## Handoff
 
-MSC is committed to seeking a governance transfer to an appropriate body. An appropriate body would be an established film industry standards organisation or regulatory body with the capacity to maintain and develop the standard on an ongoing basis. Upon transfer, the originating repository will be archived with a redirect, and the CC BY 4.0 licence will continue to apply to all versions published under MSC's stewardship.
+MSC is committed to seeking a governance transfer to an appropriate body. An appropriate body would be an established film or creative-industry standards organisation or regulatory body with the capacity to maintain and develop the standard on an ongoing basis, or, failing that, an independent coalition or membership organisation governed independently of any one company. Upon transfer, the originating repository will be archived with a redirect, and the CC BY 4.0 licence will continue to apply to all versions published under MSC's stewardship.
 
 In the event MSC is unable to continue maintaining the standard before a governance transfer is achieved, the most recent published version will remain available under CC BY 4.0. Any organisation may fork and maintain the standard under that licence. MSC will make reasonable efforts to notify those who have registered interest and the GitHub repository community before any such discontinuation.
 

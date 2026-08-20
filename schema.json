@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/human-provenance-in-film/hpf-taxonomy/main/schema.json",
   "title": "HPF AI Disclosure Schema",
-  "description": "JSON Schema for HPF AI Disclosure metadata. v0.9 draft for consultation. Published by Human Provenance in Film under CC BY 4.0. Both fields are required when an HPF record is present. Where no HPF declaration exists, omit the record entirely rather than writing null field values.",
+  "description": "JSON Schema for HPF AI Disclosure metadata. Consultation proposal, not a final v1.0 commitment. hpf_taxonomy_version and hpf_classification are required when an HPF record is present. hpf_descriptors is a proposed, provisional field introduced in the 0.9 August 2026 taxonomy revision; it applies only to generative_ai records and its values are consultation terms subject to change before v1.0. Descriptor meanings are defined by the taxonomy version named in hpf_taxonomy_version, so a stable value has a stable meaning for a given taxonomy version. Where no HPF declaration exists, omit the record entirely rather than writing null field values. Published by Human Provenance in Film under CC BY 4.0.",
   "type": "object",
   "required": ["hpf_taxonomy_version", "hpf_classification"],
   "properties": {
@@ -17,6 +17,35 @@
       "description": "The HPF disclosure category for this production. Derived from a signed producer declaration held in the chain of title.",
       "enum": ["no_ai", "assistive_ai", "generative_ai"],
       "examples": ["no_ai"]
+    },
+    "hpf_descriptors": {
+      "type": "array",
+      "description": "PROPOSED and PROVISIONAL. Consultation field introduced in the 0.9 August 2026 taxonomy revision. Applies only to generative_ai records. Identifies the type or types of generated content present. It does not determine classification, carries no threshold, and does not apply to no_ai or assistive_ai records. Values are provisional and may change before v1.0.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "synthetic_performance",
+          "digital_replica",
+          "generated_writing",
+          "generated_music",
+          "generated_visual_content",
+          "generated_voice"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    }
+  },
+  "if": {
+    "required": ["hpf_classification"],
+    "properties": {
+      "hpf_classification": { "const": "generative_ai" }
+    }
+  },
+  "then": true,
+  "else": {
+    "properties": {
+      "hpf_descriptors": false
     }
   }
 }

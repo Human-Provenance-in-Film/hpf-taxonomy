@@ -42,6 +42,8 @@ When a delivery arrives with an HPF declaration, read the declared classificatio
 
 Store the full schema object alongside the title record in your content catalogue or CMS. Include both fields in metadata exchanges with distribution partners where AI disclosure is relevant, rather than the classification value alone. Do not pass `hpf_classification` without `hpf_taxonomy_version`. The version field is required: the classification test may change across major versions.
 
+> **Proposed field, not yet for implementation.** A provisional `hpf_descriptors` array for `generative_ai` records is proposed in [schema.json](schema.json), introduced in the 0.9 August 2026 taxonomy revision. It identifies the type or types of generated content present. It is under consultation and may change before v1.0, so do not build against it yet. This guide covers the two stable fields only.
+
 ### Deliveries without an HPF declaration
 
 Where a delivery arrives without an HPF declaration, the recommended behaviour is a soft failure: ingest proceeds, and no HPF schema record is written. Do not block ingest on the absence of an HPF declaration at v0.9; adoption is not yet widespread enough to make this a hard requirement without creating friction for legitimate deliveries. Flag the absence for follow-up with the producer or sales agent through your standard content operations workflow.
