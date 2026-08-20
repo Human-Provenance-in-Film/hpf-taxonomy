@@ -193,51 +193,55 @@ The framework is prospective in nature. It applies to productions that adopt it 
 
 ---
 
-## Glossary and alignment
+## Glossary and definitions
 
-Definitions of terms used around AI disclosure in film. Terms defined in the standard itself, such as the three categories, the organising principle, the reconstruction and fabrication distinction, and finished work, are not restated here; see the Organising principle and Categories sections.
+Definitions of terms used around AI disclosure in film. Terms defined in the standard itself, including the three categories, the organising principle, the distinction between reconstruction and fabrication, and *finished work*, are not restated here; see the Organising principle and Categories sections.
 
-**Kinds of transparency.** These terms serve several purposes that are easy to conflate:
+### Different kinds of transparency
 
-- **Regulatory** transparency is a legal marking and disclosure obligation aimed at the viewer, such as the machine-readable marking and audience disclosure required under Article 50 of the EU AI Act, with a lighter duty for artistic and fictional works. It asks whether content is passing as something it is not.
-- **Technical** provenance is information carried with or alongside the file, such as Content Credentials, watermarking, or fingerprinting. It can help establish origin and history and show whether a file has changed, but not whether a claim is true. Because a film is composite, built from many ingredients across picture, sound, music, and VFX, signing a single capture says little about how the whole production was made.
-- **Consent and compensation** mechanisms, such as collective-bargaining provisions for performers and licensing protocols for training data, govern permission and payment. They are not disclosure standards.
-- **Commercial** disclosure states how a work was made, to a counterparty who can act on it. HPF sits here: a producer's warranted declaration recorded in chain of title, with contractual remedy if it proves false.
+Several distinct systems are often grouped together as “AI transparency”. They do different jobs:
 
-HPF is a commercial disclosure standard. It complements the other layers but does not replace them or perform their functions, and it does not touch consent or compensation.
+- **Regulatory transparency** concerns disclosure or marking required by law. Article 50 of the EU AI Act, for example, includes requirements concerning machine-readable marking of certain AI-generated or manipulated outputs and disclosure of deepfakes, with specific treatment for evidently artistic, creative, satirical, fictional or analogous works.
+- **Technical provenance** records information about the origin and history of a digital asset. Content Credentials, watermarking and fingerprinting can all contribute to this in different ways. They can help establish where an asset came from, how it has changed, or whether it matches a known reference. They do not, by themselves, establish that every claim about how a film was made is true.
+- **Consent and compensation** govern whether material, performances or data may be used, and on what terms. Collective-bargaining provisions, licences and permissions belong here. These are rights mechanisms rather than disclosure standards.
+- **Commercial disclosure** provides information about how a work was made to a party that can rely on it in a transaction. HPF operates at this layer: the producer makes a warranted declaration that can travel with the film's chain of title and carry contractual consequences if it is false.
 
-### How content is recorded
+HPF is a commercial disclosure standard. It is intended to complement technical provenance and regulatory disclosure, not replace them, and it does not determine consent, compensation or underlying rights.
 
-| Term | Meaning |
-|---|---|
-| Metadata | Information attached to a file, separate from the picture or sound itself, such as camera settings, timecode, software used, and edit history. Unsigned metadata can be written or altered by anyone with the file, and is routinely stripped when content is transcoded or uploaded to a platform. It establishes nothing on its own. |
-| Provenance | A record of how a piece of content came to exist: what created it, what source material went into it, what was done to it afterwards, and who asserts each of those claims. It establishes a documented history that someone has vouched for. It does not establish that the history is complete, that the content is accurate, or that anyone holds rights in it. |
-| Content Credentials and C2PA | C2PA is the technical specification; Content Credentials is the name commonly used for provenance data recorded under it. The data sits in a cryptographically signed manifest, so a checker can tell which identity signed the claims and whether the file has changed since. The signature verifies who made the assertions, not whether the assertions are true. |
-| Ingredient | An asset incorporated into a larger asset, in C2PA's terminology. Where a composite is built from many ingredients, the provenance of those ingredients cannot be verified in the same way as the finished asset. A film is composite by default, across picture, sound, music, and VFX, which is why a signed camera capture says little about how the production was made. |
-| Watermarking | A signal carried inside the content itself rather than attached to the file. Visible watermarks are seen by the viewer; imperceptible ones are detectable only by machine. Because the mark is in the pixels or the audio, it can survive re-encoding and screen capture, which metadata usually does not. It establishes that content carries a mark a detector recognises. Robustness varies by medium, and text is the weakest case, since paraphrase tends to remove the signal. |
-| Fingerprinting | An identifier computed from the content and stored in an external database, adding nothing to the file. YouTube's Content ID is the familiar example. Used to match a work against a reference set, it works without any cooperation from whoever made the content. |
-| Machine-readable marking | The obligation under Article 50 of the EU AI Act that outputs of generative systems be marked so they can be detected as artificially generated by automated means. Watermarking and signed metadata are two ways of meeting it. This marking duty sits with the provider of the AI system, not with the production that used it. A separate Article 50 obligation requires deployers to disclose deepfakes to audiences, which can fall on the production, with a lighter duty for artistic and fictional works. |
-
-### How it is communicated
+### How information is recorded
 
 | Term | Meaning |
 |---|---|
-| Labelling | An audience-facing statement that AI was involved: a caption, an icon, an end card. It communicates and nothing more. Its credibility rests entirely on whatever process stands behind it; a label with no process behind it is a claim, not evidence. |
-| Disclosure | Stating how a work was made, to a defined recipient, in a defined form. A label is disclosure aimed at an audience; a declaration in chain of title is disclosure aimed at a counterparty who can act on it. Different recipients, different consequences for being wrong. |
-| Self-declaration and certification | A self-declaration is a statement by the party who made the thing. A certification is a statement by an independent body that has assessed the thing against a published standard, normally with audit and the power to withdraw. Organic and RSPCA Assured are certifications. Most AI labels now in circulation are self-declarations presented with the visual language of certification, which is where public understanding of them goes wrong. |
+| Metadata | Information stored with a digital asset rather than forming part of the picture or sound itself. Examples include camera settings, timecode, software information and edit history. Ordinary metadata can be altered and is often lost when files are transcoded, exported or uploaded. Its evidential value therefore depends on how it was created and protected. |
+| Provenance | A documented history of a digital asset: where it came from, what sources contributed to it, what happened to it, and who made the relevant claims. Provenance can provide evidence about origin and process. It does not necessarily establish that the record is complete, that the content depicts something true, or that the necessary rights and permissions were obtained. |
+| C2PA and Content Credentials | **C2PA** is an open technical standard for recording and verifying provenance information about digital content. **Content Credentials** is the commonly used presentation and implementation of this approach. C2PA manifests can contain cryptographically signed claims about an asset and its history, allowing a verifier to identify the signer and detect whether protected information has subsequently been altered. A valid signature establishes the integrity and source of the signed claims, not the truth of every claim they contain. |
+| Ingredient | In C2PA terminology, an asset used in the creation of another asset. A composite asset may therefore have relationships to multiple ingredients and their associated provenance. This matters for film because a finished work combines picture, sound, music, VFX and other material from many sources. Provenance attached to an individual ingredient, such as a camera capture, does not by itself describe how the finished production was made. |
+| Watermarking | Information embedded in the content itself rather than stored only as accompanying metadata. A watermark may be visible to a viewer or imperceptible and detectable by software. Depending on its design and the medium, it may remain detectable after transformations such as compression, re-encoding or cropping. Its function is to provide a detectable signal; what can be inferred from that signal depends on the watermarking system and how it is used. |
+| Fingerprinting | A representation calculated from the content and compared with records held elsewhere, rather than information added to the asset itself. YouTube Content ID is a familiar example. Fingerprinting is principally a matching mechanism: it can identify content that corresponds to a known reference without requiring the person distributing the copy to attach provenance information to it. |
+| Machine-readable marking | A marking intended to allow AI-generated or manipulated content to be identified by automated means. Article 50 of the EU AI Act requires providers of certain generative AI systems to ensure that their outputs are marked in a machine-readable format and detectable as artificially generated or manipulated. This obligation falls on the provider of the AI system. Article 50 separately places disclosure obligations on deployers of systems that generate or manipulate deepfakes, including specific treatment for artistic, creative, satirical, fictional and analogous works. |
+
+### How information is communicated
+
+| Term | Meaning |
+|---|---|
+| Labelling | A statement presented to an audience about the nature or production of a work, for example through a caption, icon or end card. A label communicates a claim. How much confidence can be placed in it depends on the process and evidence behind that claim. |
+| Disclosure | Providing defined information to a defined recipient. An audience label is one form of disclosure. A declaration supplied to a distributor, financier or other counterparty is another. The information, level of detail and consequences of an inaccurate disclosure can differ according to its purpose and recipient. |
+| Self-declaration and certification | A **self-declaration** is a claim made by the person or organisation responsible for the work. **Certification** involves an independent body assessing conformity with specified requirements, normally under a defined certification scheme. The distinction matters because a self-declaration may use a standard without the standards body independently verifying the individual work. HPF uses self-declaration, not certification. |
 
 ### What it means commercially
 
 | Term | Meaning |
 |---|---|
-| Warranted declaration | A statement of fact made inside a contract, where the party making it is liable if it proves untrue. This is the standard other producer representations already meet. It is not verification; its force comes from contractual remedy rather than any technical check. |
-| Chain of title | The documented set of agreements, assignments, and licences establishing who owns what in a film and on what terms. Buyers, financiers, and insurers review it before money moves. It is a legal record, and no technical artefact substitutes for it. |
-| Clearance | Permission obtained for third-party material or rights appearing in the work: music, artwork, trademarks, locations, likeness, underlying literary rights. Separate from owning the footage. Provenance data can help document what went into a shot, which makes assembling a clearance case easier, but it does not establish that permission was obtained. |
-| Errors and omissions insurance | Cover against claims arising from the content of a work, including infringement and defamation. Underwriters require clearance and chain-of-title documentation, and distributors normally require the policy. This is the practical reason overclaiming what provenance proves creates exposure rather than comfort. |
+| Warranted declaration | A statement made contractually by a party that accepts responsibility for its accuracy. Its force comes from the contractual consequences available if the statement proves false, rather than from an independent technical verification of the claim. HPF is designed so that AI-use disclosure can operate in this way alongside other producer representations and warranties. |
+| Chain of title | The collection of agreements, assignments, licences and other records used to establish the rights necessary to make and exploit a film. It is routinely examined in financing, distribution, acquisition and insurance. Technical provenance may contribute useful evidence, but it does not replace the legal documentation establishing those rights. |
+| Clearance | The process of identifying third-party material or rights used in a production and obtaining any permissions required for their use. This may include music, artwork, trademarks, likenesses and underlying literary or other rights. Provenance information can help identify source material, but identifying a source and having permission to use it are separate questions. |
+| Errors and omissions insurance | Insurance covering specified legal liabilities arising from the content and exploitation of a production, commonly including risks such as copyright infringement, invasion of privacy and defamation. E&O review commonly involves evidence of rights, permissions and chain of title. Provenance information may support that documentation, but it does not itself establish that the relevant rights have been cleared. |
 
 ### Alignment with existing definitions
 
-Where recognised definitions for these terms already exist, or later emerge, within the creative sectors, HPF will look to adopt or align with them rather than maintain its own. HPF is not leading, and does not intend to lead, any definition-standardisation effort; its aim is a usable disclosure standard, not a competing vocabulary. This is under consultation, and the definitions above remain authoritative for HPF until v1.0. Nothing here implies coordination with, or endorsement by, any external initiative.
+Where recognised definitions for these terms already exist, or emerge, within the creative sectors, HPF will seek to align with them rather than create a competing vocabulary. HPF is not intended to lead a separate terminology-standardisation effort. These definitions exist to make the disclosure standard usable and to explain how its terms relate to adjacent technical, legal and commercial systems.
+
+The glossary remains under consultation and these definitions are used for the purposes of HPF until v1.0. Reference to an external standard, technology, organisation or regulatory framework does not imply coordination with or endorsement by that body.
 
 ---
 
