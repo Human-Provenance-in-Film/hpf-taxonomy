@@ -1,0 +1,78 @@
+name: Bug or inconsistency
+description: Report something that is wrong, broken or contradicted elsewhere.
+title: "[Bug] "
+labels: ["correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when the standard, the site or the schema says something incorrect, or when two places
+        say different things. To propose a change to what HPF means or records, use the change proposal instead.
+
+        This issue is public. Do not paste credentials, personal data or an organisation's confidential material.
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: What the documentation, schema or page should say or do. Quote the authoritative source if you have it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: What it says or does instead. Paste the exact wording or error.
+    validations:
+      required: true
+
+  - type: textarea
+    id: location
+    attributes:
+      label: Affected routes or files
+      description: >
+        Every place you have seen it. Repository paths, site URLs, downloaded documents.
+        Wording is often duplicated, so more than one location is normal.
+      placeholder: |
+        taxonomy.md, Edge cases
+        https://humanprovenance.film/faq/
+    validations:
+      required: true
+
+  - type: dropdown
+    id: classification_impact
+    attributes:
+      label: Classification impact
+      description: >
+        Whether this could lead a producer to declare the wrong category, or a recipient to read a
+        declaration wrongly. This drives priority more than anything else on the form.
+      options:
+        - None. Presentation, formatting or a broken link.
+        - Confusing. Correct but hard to apply.
+        - Could produce the wrong category.
+        - Could present a missing or unresolved record as No AI Used.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Release severity
+      description: >
+        Whether this must be fixed before the next tagged revision. Release blockers are anything that
+        misstates the standard, misclassifies a production, or makes a claim HPF cannot support.
+      options:
+        - Release blocker
+        - Fix in this revision
+        - Fix when convenient
+        - Defer to v1.0
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The taxonomy version and revision, or the site as at a date.
+      placeholder: v0.9, August 2026 revision

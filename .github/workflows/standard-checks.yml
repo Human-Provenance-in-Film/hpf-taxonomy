@@ -1,0 +1,71 @@
+name: Standard checks
+
+# Objective consistency checks for the published standard. They detect values
+# that disagree between files, records that do not match the schema, links that
+# do not resolve, and formatting the house style forbids. They make no
+# judgement about writing quality or taxonomy policy.
+#
+# This repository has no build step, no linter and no test runner, because it
+# holds documents and a JSON Schema rather than an application. There is
+# nothing here for Playwright or an accessibility runner to open. The website
+# is checked separately by the site-consistency job in the hpf-site repository.
+# Job names are unique across both repositories so a required check can be
+# named without ambiguity.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  standard-schema-and-examples:
+    name: standard-schema-and-examples
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # The checks run on the standard library alone. jsonschema is installed
+      # here so every example record is validated twice, once by the built-in
+      # validator and once generically against schema.json. The script fails if
+      # the two disagree, which catches a built-in rule drifting from the schema.
+      - name: Install jsonschema
+        run: pip install jsonschema==4.23.0
+
+      - name: Confirm schema.json is a valid Draft 2020-12 schema
+        run: |
+          python3 - <<'PY'
+          import json
+          from jsonschema import Draft202012Validator
+          with open("schema.json", encoding="utf-8") as handle:
+              schema = json.load(handle)
+          Draft202012Validator.check_schema(schema)
+          print("schema.json is a valid Draft 2020-12 schema")
+          PY
+
+      - name: Validate the schema and example records
+        run: python3 tools/check_standard.py --checks schema,examples
+
+  standard-consistency:
+    name: standard-consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Standard library only. No install step, so this job cannot fail for a
+      # reason unrelated to the repository.
+      - name: Check values, language, links and house style
+        run: |
+          python3 tools/check_standard.py --checks \
+            taxonomy-values,deprecated-language,version-parity,statement,em-dashes,links

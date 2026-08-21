@@ -1,0 +1,14 @@
+# HPF standard check allowlist
+#
+# One exception per line:
+#
+#     path:pattern      # reason
+#
+# `path` is a repo-relative path, a filename suffix, or `*` for any file.
+# `pattern` is a literal substring of the reported snippet.
+#
+# Add an entry when a finding is a deliberate, correct exception. Record why.
+# Do not delete a check to silence it. If a check is wrong often enough to be
+# annoying, fix the check.
+
+GOVERNANCE.md:Tier renamed to category throughout    # the version history has to name the term it replaced

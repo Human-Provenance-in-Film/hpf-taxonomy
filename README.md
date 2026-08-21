@@ -47,7 +47,7 @@ For category definitions, scope, classification test, and edge cases: [taxonomy.
 
 HPF classification originates as a signed producer declaration in the chain of title. It is not derived from technical analysis of the content.
 
-The declaration travels with the film through deal and delivery documentation. At the point of platform or distributor ingest, it is translated into the two-field schema and stored in the content catalogue. The paper declaration is the authoritative record at every stage; the schema is how that record is held and passed on in technical systems.
+The declaration travels with the film through deal and delivery documentation. At the point of platform or distributor ingest, it is translated into the two required schema fields and stored in the content catalogue. The paper declaration is the authoritative record at every stage; the schema is how that record is held and passed on in technical systems.
 
 ```
 Producer signs paper declaration
@@ -79,6 +79,8 @@ Pending broader adoption, delivery portal and ingest systems, and post-productio
 | [INTEGRATION.md](INTEGRATION.md) | Implementation guide for platform, sales agency, ingest, delivery portal, post-production tool, and C2PA developers. |
 | [c2pa-mapping.md](c2pa-mapping.md) | Proposed mapping of HPF categories to C2PA assertion types. Working proposal. |
 | [GOVERNANCE.md](GOVERNANCE.md) | Amendment process, version history, and governance handoff commitment. |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to respond to the consultation and how proposals are handled. |
+| [CITATION.cff](CITATION.cff) | Citation metadata for referencing the standard. |
 | [LICENSE.md](LICENSE.md) | CC BY 4.0 and patent non-assertion. |
 
 ---

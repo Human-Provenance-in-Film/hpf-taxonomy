@@ -1,0 +1,141 @@
+name: Change proposal
+description: Propose a change to the taxonomy, schema, descriptors or supporting documentation.
+title: "[Change] "
+labels: ["consultation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for anything that could change what HPF means, what it records, or what a producer has to do.
+        For something that is simply wrong or broken, use the bug and inconsistency report instead.
+
+        This issue is public. Do not paste names, contact details, an organisation's confidential policy text,
+        or a consultation response someone sent privately. Summarise the point in your own words. Private
+        consultation responses go to contact@humanprovenance.film and are held in the private consultation record.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What goes wrong today, for whom, and where. Describe the situation rather than the fix.
+      placeholder: A producer classifying a restored archive title cannot tell whether...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: source
+    attributes:
+      label: Source
+      description: Where this came from. Say which without identifying anyone.
+      options:
+        - Consultation response
+        - Pre-v1 Consultation Survey
+        - Implementation experience
+        - Meeting or conversation
+        - Internal review
+        - Regulatory or policy development
+        - Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: surface
+    attributes:
+      label: Affected surface
+      description: Everything this would touch. A change to one surface almost always reaches others.
+      options:
+        - label: taxonomy.md
+        - label: schema.json
+        - label: Generative AI descriptors
+        - label: Glossary
+        - label: INTEGRATION.md
+        - label: c2pa-mapping.md
+        - label: GOVERNANCE.md
+        - label: Website copy
+        - label: Producer declaration form
+        - label: Filmmaker tools
+        - label: Policy Mappings or Policy Translator
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: What should change, as concretely as you can put it. Exact wording is welcome.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: nature
+    attributes:
+      label: Meaning change or clarification
+      description: >
+        A clarification makes the existing rule easier to apply and classifies the same facts the same way.
+        A meaning change classifies some production differently, or changes what must be declared.
+        If you are not sure, say so. The maintainer will decide.
+      options:
+        - Clarification
+        - Meaning change
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: burden
+    attributes:
+      label: Producer burden
+      description: >
+        What extra work this creates for a producer. New question to answer, new party to ask, new record to keep,
+        or none. Say if it removes work.
+    validations:
+      required: true
+
+  - type: textarea
+    id: supply_chain
+    attributes:
+      label: Supply-chain effect
+      description: >
+        What changes for contributors and vendors, the producer, receiving organisations and technical systems.
+        Does the same record still travel without being recalculated at each handoff?
+    validations:
+      required: true
+
+  - type: textarea
+    id: field_admission
+    attributes:
+      label: Field-admission test
+      description: >
+        Only if this proposes a new structured field. Answer all five. If any answer is no, the information
+        belongs outside HPF or inside the existing factual use summary.
+      value: |
+        1. Is this an observable fact about in-scope AI output or the declaration record?
+        2. Does more than one part of the supply chain need the fact with the same meaning?
+        3. Can a producer answer it through reasonable enquiry without legal interpretation?
+        4. Is it absent from the existing classification, descriptors and factual summary?
+        5. Can it be added without creating duplicate entry or a new compliance process?
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The taxonomy version and revision this concerns.
+      placeholder: v0.9, August 2026 revision
+    validations:
+      required: true
+
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision
+      description: >
+        For the maintainer. Leave blank when opening the issue. One of Accepted, Accepted with changes,
+        Declined, Deferred, Duplicate or Outside HPF scope, and the version it lands in.
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: >
+        For the maintainer. Leave blank when opening the issue. Why the decision went that way, so the
+        reasoning survives without the conversation.

@@ -88,7 +88,7 @@ Records written with `"hpf_taxonomy_version": "0.9"` will remain valid after v1.
 
 ### AI content detection tools
 
-Platforms using AI content detection tools alongside HPF classification should treat the two signals as independent and complementary. HPF is a legal attestation about production provenance; a detection tool produces a technical signal about content characteristics. Neither substitutes for the other, and a detection signal should not be used to override, backfill, or contradict an HPF declaration.
+Platforms using AI content detection tools alongside HPF classification should treat the two signals as independent and complementary. HPF is a signed producer declaration about production-level AI use; a detection tool produces a technical signal about content characteristics. Neither substitutes for the other, and a detection signal should not be used to override, backfill, or contradict an HPF declaration.
 
 Where a detection signal conflicts with a declared classification, for example a detection tool flags apparent AI-generated content in a film declared `no_ai`, the correct response is to flag the discrepancy for human review and, if warranted, to raise it with the producer or sales agent. Do not automatically update the `hpf_classification` field on the basis of a detection result. The signed producer declaration governs; a detection result is a prompt for investigation, not a correction.
 
@@ -218,6 +218,7 @@ To contribute: open an issue or pull request on the repository, or email contact
 
 | Version | Date | Notes |
 |---|---|---|
+| 0.9 | August 2026 | Noted the proposed provisional `hpf_descriptors` field introduced in the August taxonomy revision. No change to the two required fields or to the enum values. |
 | 0.9 | April 2026 | Initial working document. |
 
 ---

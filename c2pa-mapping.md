@@ -94,7 +94,7 @@ For a `generative_ai` record, a proposed controlled descriptor array may be incl
 }
 ```
 
-The descriptor values are provisional consultation terms introduced in the 0.9 August 2026 taxonomy revision, subject to change before v1.0. Descriptors identify the type or types of generated content present; they do not determine the classification, carry no threshold, and must not appear on `no_ai` or `assistive_ai` records. See [schema.json](schema.json) for the authoritative list and validation rules.
+The descriptor values are provisional consultation terms introduced in the 0.9 August 2026 taxonomy revision, subject to change before v1.0. Descriptors identify the type or types of generated content present; they do not determine the classification, carry no threshold, and must not appear on `no_ai` or `assistive_ai` records. See [schema.json](schema.json) for the authoritative list and validation rules. This field is not yet for implementation. As [INTEGRATION.md](INTEGRATION.md) states, do not build against it while it is under consultation. The two required fields are the stable payload at v0.9.
 
 This assertion is placed in the `assertions` array of a C2PA claim, alongside any other assertions for the asset. It does not replace or conflict with `c2pa.actions` assertions; both may be present in the same claim.
 
