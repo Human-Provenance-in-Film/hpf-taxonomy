@@ -33,9 +33,10 @@ If this changes what a production would be classified as, say so here and link t
 - [ ] Missing, unknown or undisclosed information is never presented as No AI Used.
 - [ ] An absent record stays absent. No null fields, no default value.
 
-## Statement removal
+## Withdrawn material
 
-- [ ] No Statement of Shared Intent copy, route, file, metadata or signatory language.
+- [ ] Nothing reintroduces a withdrawn document: no copy, route, file, metadata or index entry for one.
+- [ ] No language about signing HPF, joining it, or appearing on a list of supporters.
 
 ## Public copy
 

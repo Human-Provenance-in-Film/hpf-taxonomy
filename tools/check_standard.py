@@ -40,6 +40,13 @@ DOC_FILES = [
     "docs/hpf-organisational-continuity.md",
     "docs/hpf-handover-checklist.md",
     "examples/README.md",
+    # Contributor-facing templates. Public, rendered on every issue and pull
+    # request, and indexed. They are covered because a withdrawn term
+    # reintroduced here would be as public as one in the documentation.
+    ".github/pull_request_template.md",
+    ".github/ISSUE_TEMPLATE/change-proposal.yml",
+    ".github/ISSUE_TEMPLATE/bug-report.yml",
+    ".github/ISSUE_TEMPLATE/config.yml",
 ]
 
 # The only classification machine values HPF defines. Sourced from schema.json
