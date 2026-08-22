@@ -79,7 +79,11 @@ Pending broader adoption, delivery portal and ingest systems, and post-productio
 | [INTEGRATION.md](INTEGRATION.md) | Implementation guide for platform, sales agency, ingest, delivery portal, post-production tool, and C2PA developers. |
 | [c2pa-mapping.md](c2pa-mapping.md) | Proposed mapping of HPF categories to C2PA assertion types. Working proposal. |
 | [GOVERNANCE.md](GOVERNANCE.md) | Amendment process, version history, and governance handoff commitment. |
+| [docs/hpf-organisational-continuity.md](docs/hpf-organisational-continuity.md) | Stewardship conditions that cannot change, the conditions for moving to a new steward, and what such a steward would have to preserve. |
+| [docs/hpf-handover-checklist.md](docs/hpf-handover-checklist.md) | Index of the records a future steward needs, and where each one is. |
+| [docs/release-checklist.md](docs/release-checklist.md) | What has to pass before a revision of the draft is tagged and published. |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | How to respond to the consultation and how proposals are handled. |
+| [SECURITY.md](SECURITY.md) | How to report a suspected vulnerability privately, and what is in scope. |
 | [CITATION.cff](CITATION.cff) | Citation metadata for referencing the standard. |
 | [LICENSE.md](LICENSE.md) | CC BY 4.0 and patent non-assertion. |
 
