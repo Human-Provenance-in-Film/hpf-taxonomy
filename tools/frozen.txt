@@ -18,7 +18,7 @@
 #   python3 tools/check_standard.py --frozen-hashes
 # which prints this manifest with current values and writes nothing.
 
-row :: GOVERNANCE.md :: | 0.9 | May 2026 | :: 868242f7ce48b48fc01f58274da92ec3f890f50bbe9dba52dd0b1036f54be1c6 :: released in v0.9.0. Date corrected from March to May 2026 on 22 August 2026, confirmed by Ina, resolving the disagreement with the taxonomy page, which has always said May. Only the month changed.
+row :: GOVERNANCE.md :: | 0.9 | May 2026 | :: 868242f7ce48b48fc01f58274da92ec3f890f50bbe9dba52dd0b1036f54be1c6 :: released in v0.9.0. Date corrected from March to May 2026 on 22 August 2026, confirmed by the Head of Initiative, resolving the disagreement with the taxonomy page, which has always said May. Only the month changed.
 row :: GOVERNANCE.md :: | 0.9 | June 2026 | :: 92ef313ba34f291f0dab0baf4583e06c99cc9b11eee8ff8094562e8b3a24734d :: released in v0.9.0
 row :: INTEGRATION.md :: | 0.9 | April 2026 | :: 7ed1704aa53193918c041e05920fe38e6c842e3d9f93b6c46828f2ad9e4e1a18 :: released in v0.9.0
 row :: c2pa-mapping.md :: | 0.9 | June 2026 | :: aa9acc6056337394b371962c6244a2bf17704e1b1cc4aca8e8128cc4ca2a0c3c :: released in v0.9.0
