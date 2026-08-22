@@ -12,3 +12,5 @@
 # annoying, fix the check.
 
 GOVERNANCE.md:Tier renamed to category throughout    # the version history has to name the term it replaced
+docs/release-checklist.md:Live-site and download verification    # a real check of a deployed artefact, not HPF's declaration process
+GOVERNANCE.md:Renamed the defined term Verification standard    # the version history has to name the term it replaced

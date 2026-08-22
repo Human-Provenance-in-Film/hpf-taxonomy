@@ -323,6 +323,81 @@ def check_deprecated_language(schema):
                 add("deprecated-language", rel, number, "superseded `tier` language: %s" % line)
 
 
+def check_verification_voice():
+    """Decision, 22 August 2026 (C1 in the conflict register): HPF does not
+    describe its declaration or disclosure process as verification. The settled
+    vocabulary is declaration for what the producer does, disclosure for the
+    information recorded and carried, reliance for the basis on which a
+    recipient may treat a declaration, and verification only for independent or
+    technical checking, which HPF does not perform. Three uses stay permitted:
+    genuine technical or third-party verification, a sentence that denies it,
+    and a reader-framed question. The pattern catches prefixed forms such as
+    "unverified", which usually means undeclared rather than unchecked."""
+    checks_run.append("verification-voice")
+    allow = load_allowlist()
+    verif = re.compile(r"\b\w*verif\w*", re.IGNORECASE)
+    technical = re.compile(
+        r"c2pa|content credential|manifest|assertion|cryptograph|signer"
+        r"|signature|validator|watermark|fingerprint|detection|detector",
+        re.IGNORECASE)
+    negated = re.compile(
+        r"\bnot\b|\bno\b|\bnever\b|\bnothing\b|\bneither\b|\bnor\b"
+        r"|\bwithout\b|\brather than\b|\binstead of\b|\bcannot\b",
+        re.IGNORECASE)
+    list_item = re.compile(r"^\s*(?:[-*+]|\d+\.)\s")
+    sentence_end = re.compile(r"[.!?](?:\s|$)")
+
+    def sentence_around(line, index):
+        start = 0
+        for match in sentence_end.finditer(line, 0, index):
+            start = match.end()
+        match = sentence_end.search(line, index)
+        return line[start:match.end() if match else len(line)]
+
+    for rel in existing_docs():
+        lines = (read(rel) or "").split("\n")
+        for number, line in each_line(rel):
+            match = verif.search(line)
+            if not match:
+                continue
+            if line.lstrip().startswith("#"):
+                if not allowlisted(allow, rel, line):
+                    add("verification-voice", rel, number,
+                        "heading asserts verification: %s" % line)
+                continue
+            if technical.search(line) or allowlisted(allow, rel, line):
+                continue
+            # A list item inherits the stem that introduces it, so that
+            # "No steward may:" followed by "- verification ..." reads as the
+            # denial it is.
+            stem = ""
+            if list_item.match(line):
+                for previous in reversed(lines[:max(0, number - 1)]):
+                    if not previous.strip():
+                        continue
+                    if list_item.match(previous):
+                        continue
+                    stem = previous
+                    break
+            else:
+                # Markdown is hard-wrapped, so the sentence carrying the
+                # denial often starts on an earlier line of the paragraph.
+                start = max(0, number - 1)
+                while start > 0 and lines[start - 1].strip() \
+                        and not lines[start - 1].lstrip().startswith("#") \
+                        and not list_item.match(lines[start - 1]):
+                    start -= 1
+                stem = " ".join(lines[start:number - 1])
+            if stem and negated.search(stem):
+                continue
+            for match in verif.finditer(line):
+                context = sentence_around(line, match.start())
+                if context.rstrip().endswith("?") or negated.search(context):
+                    continue
+                add("verification-voice", rel, number,
+                    "HPF describes its own process as verification: %s" % line)
+                break
+
 def check_version_parity():
     """Every file that names the taxonomy version must name the same one."""
     checks_run.append("version-parity")
@@ -471,6 +546,7 @@ def main():
         check_taxonomy_values(schema)
     if wanted("deprecated-language"):
         check_deprecated_language(schema)
+    check_verification_voice()
     if wanted("version-parity"):
         check_version_parity()
     if wanted("statement"):
