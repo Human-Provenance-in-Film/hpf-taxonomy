@@ -9,11 +9,17 @@ Consultation closes 31 October 2026.
 
 > Is AI output present in the finished film, and did it process human work or originate new content?
 
-The producer answers two questions of fact. First, is any AI output present in the finished film as distributed? If not, the film is No AI Used. If it is, did the AI process human-created material (Assistive AI) or originate new content that appears in the finished work (Generative AI)? The legal weight sits in the warranty the producer signs; the test is simply how they reach an answer they can stand behind.
+The producer answers two questions of fact. First, is any AI output present in the finished film as distributed? If not, the film is No AI Used. If it is, did the AI process human-created material (Assistive AI) or originate new content that appears in the finished work (Generative AI)? The producer signs the declaration and is responsible for its accuracy. Where the parties choose to, the classification can be incorporated into the representations and warranties in their agreement. The test is simply how the producer reaches an answer they can stand behind.
 
 HPF classifies AI output reflected in the finished production an audience sees or hears, and it classifies how AI is used, not the underlying model or product: the same AI system can support an Assistive use in one production and a Generative use in another.
 
 For the purposes of this taxonomy, artificial intelligence is defined in the `no_ai` category below.
+
+### Key terms
+
+**AI tool** means any software that uses machine learning, neural networks or generative models to produce, modify or optimise content. Standard digital tools without machine learning do not count.
+
+**Finished production**, also called the finished film or the finished work, means the production as distributed or exhibited, including every version released after the original declaration was made. This taxonomy covers film and television, and uses finished production, finished film and finished work to mean the same thing.
 
 ---
 
@@ -28,6 +34,8 @@ For the finished film as distributed:
 The test turns on what is in the finished film, not on whether a human would otherwise have performed the function. AI-generated content that appears in the finished work is `generative_ai` whether or not a human could have produced it.
 
 A production is classified at the highest category applicable to any element. A film with both AI noise reduction (`assistive_ai`) and an AI-generated score (`generative_ai`) is classified as `generative_ai`, with both uses described in the declaration.
+
+Where the answer is unknown or the records are incomplete, the classification is unresolved. Missing, uncertain or absent information is never No AI Used. A `no_ai` declaration records that no in-scope AI output was found, not that nothing is known.
 
 ---
 
@@ -97,7 +105,7 @@ The label a vendor applies does not decide the category. Where a tool both recon
 
 **Provisional. Under consultation.** New in the August 2026 revision and not yet part of the standard. The terms and definitions below may change before v1.0.
 
-Descriptors apply only to productions already classified `generative_ai`. They work like the short descriptors shown alongside a film rating: they identify the type or types of generated content present, once a production is Generative AI. They do not determine classification, they carry no threshold, and they do not apply to Assistive AI.
+Descriptors apply only to productions already classified `generative_ai`. They work like the short descriptors shown alongside a film rating: they identify the type or types of generated content present, once a production is Generative AI. They do not determine classification, they carry no threshold, and they do not apply to No AI Used or Assistive AI.
 
 | Descriptor | What it indicates |
 |---|---|
@@ -126,6 +134,7 @@ This taxonomy covers AI output reflected in the finished film as distributed and
 **Out of scope**
 
 - Marketing and promotion: posters, trailers, and social media assets
+- Distribution materials: sales decks, EPKs, festival submissions, and audience-facing promotional content
 - Basic automation in standard long-standing industry use: loudness normalisation, timecode tools, spell-check
 - Development, administration, production management, and ideation AI, and unused concept material, that leaves no output in the finished film
 
@@ -195,7 +204,7 @@ The framework is prospective in nature. It applies to productions that adopt it 
 
 ## Glossary and definitions
 
-Definitions of terms used around AI disclosure in film. Terms defined in the standard itself, including the three categories, the organising principle, the distinction between reconstruction and fabrication, and *finished work*, are not restated here; see the Organising principle and Categories sections.
+Definitions of terms used around AI disclosure in film. Terms defined in the standard itself, including the three categories, the organising principle, the distinction between reconstruction and fabrication, and *finished work*, are not restated here; see the Organising principle, Key terms and Categories sections.
 
 ### Different kinds of transparency
 
@@ -204,7 +213,7 @@ Several distinct systems are often grouped together as “AI transparency”. Th
 - **Regulatory transparency** concerns disclosure or marking required by law. Article 50 of the EU AI Act, for example, includes requirements concerning machine-readable marking of certain AI-generated or manipulated outputs and disclosure of deepfakes, with specific treatment for evidently artistic, creative, satirical, fictional or analogous works.
 - **Technical provenance** records information about the origin and history of a digital asset. Content Credentials, watermarking and fingerprinting can all contribute to this in different ways. They can help establish where an asset came from, how it has changed, or whether it matches a known reference. They do not, by themselves, establish that every claim about how a film was made is true.
 - **Consent and compensation** govern whether material, performances or data may be used, and on what terms. Collective-bargaining provisions, licences and permissions belong here. These are rights mechanisms rather than disclosure standards.
-- **Commercial disclosure** provides information about how a work was made to a party that can rely on it in a transaction. HPF operates at this layer: the producer makes a warranted declaration that can travel with the film's chain of title and carry contractual consequences if it is false.
+- **Commercial disclosure** provides information about how a work was made to a party that can rely on it in a transaction. HPF operates at this layer: the producer makes a signed declaration that can travel with the film's chain of title. Where the parties incorporate it into their agreement, an inaccurate declaration can carry contractual consequences.
 
 HPF is a commercial disclosure standard. It is intended to complement technical provenance and regulatory disclosure, not replace them, and it does not determine consent, compensation or underlying rights.
 
@@ -232,7 +241,7 @@ HPF is a commercial disclosure standard. It is intended to complement technical 
 
 | Term | Meaning |
 |---|---|
-| Warranted declaration | A statement made contractually by a party that accepts responsibility for its accuracy. Its force comes from the contractual consequences available if the statement proves false, rather than from an independent technical verification of the claim. HPF is designed so that AI-use disclosure can operate in this way alongside other producer representations and warranties. |
+| Warranted declaration | A statement made contractually by a party that accepts responsibility for its accuracy. Its force comes from the contractual consequences available if the statement proves false, rather than from an independent technical verification of the claim. An HPF declaration is not by itself a contractual warranty. HPF is designed so that parties can incorporate AI-use disclosure into their representations and warranties where they choose to, alongside other producer representations. |
 | Chain of title | The collection of agreements, assignments, licences and other records used to establish the rights necessary to make and exploit a film. It is routinely examined in financing, distribution, acquisition and insurance. Technical provenance may contribute useful evidence, but it does not replace the legal documentation establishing those rights. |
 | Clearance | The process of identifying third-party material or rights used in a production and obtaining any permissions required for their use. This may include music, artwork, trademarks, likenesses and underlying literary or other rights. Provenance information can help identify source material, but identifying a source and having permission to use it are separate questions. |
 | Errors and omissions insurance | Insurance covering specified legal liabilities arising from the content and exploitation of a production, commonly including risks such as copyright infringement, invasion of privacy and defamation. E&O review commonly involves evidence of rights, permissions and chain of title. Provenance information may support that documentation, but it does not itself establish that the relevant rights have been cleared. |
