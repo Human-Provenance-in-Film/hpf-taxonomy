@@ -70,11 +70,13 @@ The same applies to us. HPF was originated by The Mise En Scène Company, an int
 python3 tools/check_standard.py
 ```
 
-Python 3, no dependencies. It checks that the schema still states the controlled values the taxonomy defines, that the records in `examples/` validate or fail as their names say, that no withdrawn classification or undefined descriptor value appears, that every file names the same taxonomy version, that no superseded language survives, that there are no em dashes, and that links resolve.
+Python 3, no dependencies. It checks that the schema still states the controlled values the taxonomy defines, that the records in `examples/` validate or fail as their names say, that no withdrawn classification or undefined descriptor value appears, that every file names the same taxonomy version, that no superseded language survives, that there are no em dashes, that links resolve, and that no record pinned in `tools/frozen.txt` has changed.
 
 The same checks run on every push and pull request through `.github/workflows/standard-checks.yml`.
 
 These checks detect objective inconsistency. They make no judgement about writing quality or about what the taxonomy should say. If a finding is a deliberate exception, record it in `tools/check-allowlist.txt` with a reason. Do not delete a check to silence it.
+
+One exception: a `frozen` finding is not allowlistable. A version-history row for a released revision is the record of what that revision changed, and is not edited afterwards, for the same reason a published tag never moves. `tools/frozen.txt` pins each released row by hash; the newest row stays a working draft until its revision is tagged. `python3 tools/check_standard.py --frozen-hashes` reprints the manifest with current hashes and writes nothing.
 
 ## Scope of this repository
 

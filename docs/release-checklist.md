@@ -81,6 +81,8 @@ judgement, and a person makes it.
 ## 8. Tag and publish
 
 - [ ] Commit the version-history entry and the `CITATION.cff` date.
+- [ ] Pin the new version-history row in `tools/frozen.txt`, in every file that carries one: `GOVERNANCE.md`, and `INTEGRATION.md` or `c2pa-mapping.md` where they changed. `python3 tools/check_standard.py --frozen-hashes` prints the current values. The row is a record from this point and is not edited again.
+- [ ] Do the same for `site/taxonomy.html` in `hpf-site`, and add the announcement news post to that repository's `tools/frozen.txt` once it is live.
 - [ ] `git tag -a v0.9.x -m "<Month Year> consultation revision"` and push the tag.
 - [ ] Draft the GitHub release against that tag, marked pre-release, matching how `v0.9.0` is marked.
 - [ ] Attach or link the taxonomy, schema and version history.

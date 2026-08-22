@@ -19,6 +19,7 @@ Usage:
 Exit status is 1 if there are findings, 0 otherwise.
 """
 
+import hashlib
 import json
 import os
 import re
@@ -26,6 +27,8 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALLOWLIST_PATH = os.path.join(ROOT, "tools", "check-allowlist.txt")
+FROZEN_PATH = os.path.join(ROOT, "tools", "frozen.txt")
+FROZEN_FILE = "tools/frozen.txt"
 
 # Documentation the checks read. Every one of these is published.
 DOC_FILES = [
@@ -499,6 +502,99 @@ def check_links():
                     add("links", rel, number, "broken relative link: %s" % target)
 
 
+# ------------------------------------------------------------------ frozen
+#
+# Some records close when they are published and are not edited afterwards: a
+# version-history row for a released revision, for the same reason a published
+# tag never moves. Prose does not hold a rule like that, so tools/frozen.txt
+# pins each one by hash and this check fails when one moves.
+#
+# Deliberately not allowlistable. The allowlist is for findings that are
+# correct as written. This check exists so that an edit to a closed record
+# cannot be made quietly, and the supported route is to update the manifest in
+# the same commit, where a reviewer sees it.
+
+
+def load_frozen():
+    """Parse tools/frozen.txt. Returns (records, malformed lines)."""
+    records, errors = [], []
+    if not os.path.exists(FROZEN_PATH):
+        return records, errors
+    with open(FROZEN_PATH, encoding="utf-8") as handle:
+        for number, raw in enumerate(handle, 1):
+            line = raw.strip()
+            if not line or line.startswith("#"):
+                continue
+            parts = [part.strip() for part in line.split("::")]
+            if parts[0] == "file" and len(parts) == 4:
+                records.append(("file", parts[1], None, parts[2], parts[3]))
+            elif parts[0] == "row" and len(parts) == 5:
+                records.append(("row", parts[1], parts[2], parts[3], parts[4]))
+            else:
+                errors.append((number, line))
+    return records, errors
+
+
+def frozen_hash(kind, relpath, key):
+    """(hash, None) for a frozen record, or (None, why there isn't one)."""
+    full = os.path.join(ROOT, relpath)
+    if not os.path.isfile(full):
+        return None, "the file is missing"
+    if kind == "file":
+        with open(full, "rb") as handle:
+            return hashlib.sha256(handle.read()).hexdigest(), None
+    with open(full, encoding="utf-8", errors="replace") as handle:
+        hits = [line.strip() for line in handle if line.strip().startswith(key)]
+    if not hits:
+        return None, "no line starts with the pinned prefix %r" % key
+    if len(hits) > 1:
+        return None, "%d lines start with the pinned prefix %r" % (len(hits), key)
+    return hashlib.sha256(hits[0].encode("utf-8")).hexdigest(), None
+
+
+def check_frozen():
+    checks_run.append("frozen")
+    records, errors = load_frozen()
+    for number, line in errors:
+        add("frozen", FROZEN_FILE, number,
+            "malformed manifest line: %s" % line[:120])
+    for kind, relpath, key, expected, reason in records:
+        current, problem = frozen_hash(kind, relpath, key)
+        if problem:
+            add("frozen", relpath, 0, "%s (%s)" % (problem, reason))
+        elif current != expected:
+            add("frozen", relpath, 0,
+                "changed since it was frozen (%s). If the change is intended, "
+                "update its hash in %s in the same commit and say why."
+                % (reason, FROZEN_FILE))
+
+
+def print_frozen_hashes():
+    """Reprint the manifest with current hashes. Writes nothing."""
+    if not os.path.exists(FROZEN_PATH):
+        print("no %s in this repository" % FROZEN_FILE)
+        return 1
+    with open(FROZEN_PATH, encoding="utf-8") as handle:
+        for raw in handle:
+            line = raw.rstrip("\n")
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                print(line)
+                continue
+            parts = [part.strip() for part in stripped.split("::")]
+            if parts[0] == "file" and len(parts) == 4:
+                current, problem = frozen_hash("file", parts[1], None)
+                parts[2] = current or ("UNRESOLVED: %s" % problem)
+            elif parts[0] == "row" and len(parts) == 5:
+                current, problem = frozen_hash("row", parts[1], parts[2])
+                parts[3] = current or ("UNRESOLVED: %s" % problem)
+            else:
+                print(line)
+                continue
+            print(" :: ".join(parts))
+    return 0
+
+
 # ------------------------------------------------------------------ main
 
 
@@ -512,10 +608,14 @@ DESCRIPTIONS = [
     ("statement", "no Statement of Shared Intent copy, route or file"),
     ("em-dashes", "no em dashes in published files"),
     ("links", "relative and self-referencing links resolve"),
+    ("frozen", "published records pinned in tools/frozen.txt are unchanged"),
 ]
 
 
 def main():
+    if "--frozen-hashes" in sys.argv:
+        return print_frozen_hashes()
+
     if "--list" in sys.argv:
         for name, description in DESCRIPTIONS:
             print("%-20s %s" % (name, description))
@@ -557,6 +657,8 @@ def main():
         check_em_dashes()
     if wanted("links"):
         check_links()
+    if wanted("frozen"):
+        check_frozen()
 
     print("HPF standard checks")
     print("%d checks run over %d published files\n" % (len(checks_run), len(existing_docs())))
@@ -571,6 +673,10 @@ def main():
     print("\nFAIL: %d finding(s)." % len(findings))
     print("If a finding is a deliberate exception, record it in "
           "tools/check-allowlist.txt with a reason. Do not delete a check to silence it.")
+    if any(check == "frozen" for check, _, _, _ in findings):
+        print("A frozen finding is not allowlistable. A published record has "
+              "changed. Restore it, or update its hash in %s in the same "
+              "commit with the reason." % FROZEN_FILE)
     return 1
 
 

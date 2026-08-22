@@ -60,7 +60,7 @@ An invalid value should be treated as a soft failure consistent with the approac
 
 Do not write an HPF schema record where no declaration exists. Both fields are required by the schema, so a partial record with null field values is invalid. In your content catalogue or CMS, represent the absence of a declaration as a missing HPF record at the title level, not as a schema object with empty fields.
 
-For library content produced before AI tools were in practical use in film production, some platforms may wish to apply `no_ai` in bulk. This is reasonable only where the platform has sufficient knowledge of the production circumstances to make the declaration responsibly, for example for content the platform produced itself, or where the original production company has confirmed the position. For third-party licensed content, the platform is not in a position to make this declaration on the producer's behalf. The appropriate state for historical content for which no declaration has been made is no HPF record.
+Do not apply `no_ai` in bulk to library content on the assumption that it predates practical AI use in film production. `no_ai` is a positive assertion that has to trace back to a signed producer declaration, and a platform is not in a position to make that declaration on a producer's behalf. Where a platform produced the content itself, it can declare as the producer. In every other case the appropriate state for historical content for which no declaration has been made is no HPF record. Missing information is never `no_ai`.
 
 Whether HPF should formally define a `pre_standard` or `undisclosed` enum value to distinguish historical content for which no declaration has been made from actively declared `no_ai` is an open question for the consultation. Input is welcome.
 
@@ -218,7 +218,7 @@ To contribute: open an issue or pull request on the repository, or email contact
 
 | Version | Date | Notes |
 |---|---|---|
-| 0.9 | August 2026 | Noted the proposed provisional `hpf_descriptors` field introduced in the August taxonomy revision. No change to the two required fields or to the enum values. |
+| 0.9 | August 2026 | Noted the proposed provisional `hpf_descriptors` field introduced in the August taxonomy revision. Removed the allowance for applying `no_ai` in bulk to historical library content, which conflicted with the rule that missing information is never `no_ai` and with the requirement that a value trace back to a signed producer declaration. No change to the two required fields or to the enum values. |
 | 0.9 | April 2026 | Initial working document. |
 
 ---
