@@ -324,7 +324,7 @@ def check_deprecated_language(schema):
 
 
 def check_verification_voice():
-    """Decision, 22 August 2026 (C1 in the conflict register): HPF does not
+    """Decision, 22 August 2026. HPF does not
     describe its declaration or disclosure process as verification. The settled
     vocabulary is declaration for what the producer does, disclosure for the
     information recorded and carried, reliance for the basis on which a
