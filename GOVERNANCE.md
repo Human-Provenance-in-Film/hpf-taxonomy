@@ -45,6 +45,8 @@ MSC is committed to seeking a governance transfer to an appropriate body. An app
 
 In the event MSC is unable to continue maintaining the standard before a governance transfer is achieved, the most recent published version will remain available under CC BY 4.0. Any organisation may fork and maintain the standard under that licence. MSC will make reasonable efforts to notify those who have registered interest and the GitHub repository community before any such discontinuation.
 
+The conditions a successor would have to meet, and the questions about a future structure that are deliberately still open, are set out in [docs/hpf-organisational-continuity.md](docs/hpf-organisational-continuity.md). The records a successor would need are indexed in [docs/hpf-handover-checklist.md](docs/hpf-handover-checklist.md). Neither changes the amendment process or the version history above, which remain authoritative.
+
 ---
 
 ## Registered interest

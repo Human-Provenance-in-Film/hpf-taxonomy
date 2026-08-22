@@ -37,6 +37,8 @@ DOC_FILES = [
     "c2pa-mapping.md",
     "taxonomy.md",
     "docs/release-checklist.md",
+    "docs/hpf-organisational-continuity.md",
+    "docs/hpf-handover-checklist.md",
     "examples/README.md",
 ]
 
