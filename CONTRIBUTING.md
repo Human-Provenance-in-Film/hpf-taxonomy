@@ -12,7 +12,7 @@ Thank you for your interest. HPF v0.9 is a draft open for public consultation un
 
 Partial feedback is welcome. If you are answering one of the seven numbered consultation questions in [taxonomy.md](taxonomy.md), please say which one.
 
-MSC is also identifying a small pre-v1 working group to pressure-test the taxonomy, descriptors, and implementation against real production and institutional use cases. Email contact@humanprovenance.film if you would like to be considered. The group is advisory. It is not the future governing body, and participation does not imply endorsement of HPF. See [GOVERNANCE.md](GOVERNANCE.md).
+HPF is also identifying a small pre-v1 working group to pressure-test the taxonomy, descriptors, and implementation against real production and institutional use cases. Email contact@humanprovenance.film if you would like to be considered. The group is advisory. It is not the future governing body, and participation does not imply endorsement of HPF. See [GOVERNANCE.md](GOVERNANCE.md).
 
 To report a suspected security vulnerability, use the private route in [SECURITY.md](SECURITY.md) rather than a public issue.
 
@@ -62,7 +62,7 @@ Private consultation responses stay private. They are held in HPF's consultation
 
 If you have an interest in the outcome of a proposal, say so in the issue. Examples: you work for or advise an organisation whose policy or product would be affected, you sell a tool whose classification is in question, or you represent a body whose members are. A stated interest is not a problem and does not weigh against a proposal. An unstated one damages the record afterwards, and this consultation's record is meant to be readable years from now.
 
-The same applies to us. HPF is originated and maintained by The Mise En Scène Company, an international film sales agency, which has its own commercial interest in AI disclosure. That is stated in [GOVERNANCE.md](GOVERNANCE.md) and on the website.
+The same applies to us. HPF was originated by The Mise En Scène Company, an international film sales agency, which owns the copyright and has its own commercial interest in AI disclosure. That is stated in [GOVERNANCE.md](GOVERNANCE.md) and on the website.
 
 ## Running the checks
 
