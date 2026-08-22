@@ -41,7 +41,7 @@ To propose an amendment at any time: email contact@humanprovenance.film, or open
 |---|---|---|
 | 0.9 | March 2026 | Initial release. Draft for consultation. |
 | 0.9 | June 2026 | Organising principle reframed from enhance-or-replace to present-and-originated (categories unchanged). Tier renamed to category throughout. Consultation date set to 31 October 2026. Governance reframed to register-interest. Consultation questions added. Reconstruction test added for AI tools that act on existing footage. |
-| 0.9 | August 2026 | Added a provisional set of Generative AI descriptors for consultation; clarified that scope turns on AI output reflected in the finished production; added a glossary; removed residual labour-counterfactual wording. Opened a Pre-v1 Consultation Survey (closes 30 September 2026) and began identifying an advisory pre-v1 working group. Categories and organising principle unchanged. |
+| 0.9 | August 2026 | Added a provisional set of Generative AI descriptors for consultation; clarified that scope turns on AI output reflected in the finished production; added a glossary; removed residual labour-counterfactual wording. Opened a Pre-v1 Consultation Survey (closes 30 September 2026) and began identifying an advisory pre-v1 working group. Renamed the defined term Verification standard to Basis of reliance, and settled a consistent vocabulary: declaration for what the producer does, disclosure for the information carried, reliance for how a recipient may treat a declaration, and verification only for independent or technical checking, which HPF does not perform. No change to what the provision requires. Categories and organising principle unchanged. |
 
 ---
 

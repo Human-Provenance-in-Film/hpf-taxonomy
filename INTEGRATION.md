@@ -60,9 +60,9 @@ An invalid value should be treated as a soft failure consistent with the approac
 
 Do not write an HPF schema record where no declaration exists. Both fields are required by the schema, so a partial record with null field values is invalid. In your content catalogue or CMS, represent the absence of a declaration as a missing HPF record at the title level, not as a schema object with empty fields.
 
-For library content produced before AI tools were in practical use in film production, some platforms may wish to apply `no_ai` in bulk. This is reasonable only where the platform has sufficient knowledge of the production circumstances to make the declaration responsibly, for example for content the platform produced itself, or where the original production company has confirmed the position. For third-party licensed content, the platform is not in a position to make this declaration on the producer's behalf. The appropriate state for unverified historical content is no HPF record.
+For library content produced before AI tools were in practical use in film production, some platforms may wish to apply `no_ai` in bulk. This is reasonable only where the platform has sufficient knowledge of the production circumstances to make the declaration responsibly, for example for content the platform produced itself, or where the original production company has confirmed the position. For third-party licensed content, the platform is not in a position to make this declaration on the producer's behalf. The appropriate state for historical content for which no declaration has been made is no HPF record.
 
-Whether HPF should formally define a `pre_standard` or `undisclosed` enum value to distinguish unverified historical content from actively declared `no_ai` is an open question for the consultation. Input is welcome.
+Whether HPF should formally define a `pre_standard` or `undisclosed` enum value to distinguish historical content for which no declaration has been made from actively declared `no_ai` is an open question for the consultation. Input is welcome.
 
 ### Display
 
@@ -205,7 +205,7 @@ The following are unresolved in v0.9 and are part of the consultation (closes 31
 - **Display standards:** how platforms surface HPF classification to end users
 - **Series and episodic content:** whether classification applies at the title, season, or episode level
 - **Reclassification:** how to handle a change in declared classification between an original delivery and a subsequent cut or version
-- **Undisclosed state:** whether a formal `pre_standard` or `undisclosed` enum value should be added to distinguish unverified historical content from actively declared `no_ai`
+- **Undisclosed state:** whether a formal `pre_standard` or `undisclosed` enum value should be added to distinguish historical content for which no declaration has been made from actively declared `no_ai`
 - **Amended declarations:** how updated producer declarations propagate through delivery portals and downstream content catalogue systems, and whether portals should version declaration records
 - **Sidecar delivery:** whether HPF should prescribe a standard filename and packaging pattern for sidecar JSON files to ensure interoperability across delivery systems
 - **Festival and broadcaster downstream use:** how a classification declared at submission should travel into screening agreements, programme documentation, and audience-facing display where no formal deal documentation exists
