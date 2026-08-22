@@ -27,8 +27,8 @@ The records a successor would need are indexed in
 
 ## 1. What cannot change
 
-These conditions bind MSC as the originating maintainer and bind any successor.
-A steward that cannot meet them is not a suitable steward.
+These conditions bind MSC as the originator and copyright holder, and bind any
+successor. A steward that cannot meet them is not a suitable steward.
 
 **HPF stays free to use.** No fee to read the standard, to classify a
 production, to make a declaration, or to receive and act on one.
@@ -87,12 +87,15 @@ condition of a handover, a funding agreement or a hosting arrangement.
 
 ## 3. Decision authority
 
-HPF is originated and maintained by The Mise En Scène Company, and decision
-authority sits with MSC. It is held as a set of separately recorded
-responsibilities covering releases, consultation decisions, technical changes
-and access to the private records, so that each can be reassigned on its own
-rather than as a single block. Who holds each is recorded in the private
-continuity records and moves with a handover.
+HPF was originated by The Mise En Scène Company, which owns the copyright and is
+the data controller. Decision authority over the standard sits with HPF, which is
+run as independently of MSC's commercial operations as is practicable.
+
+That authority is held as a set of separately recorded responsibilities covering
+releases, consultation decisions, technical changes and access to the private
+records, so that each can be reassigned on its own rather than as a single
+block. Who holds each is recorded in the private continuity records and moves
+with a handover.
 
 Deciding a change and publishing it are treated as different acts. The release
 checklist requires a named person to record approval of a release by name and
@@ -147,11 +150,11 @@ person, at handover, through the system that holds it.
 
 ## 6. Graduation conditions
 
-This section is MSC's own test for when founder-led consultation should end. It
+This section is HPF's own test for when founder-led consultation should end. It
 does not qualify the commitment in GOVERNANCE.md to seek a governance transfer,
 which stands whatever the state of these conditions.
 
-MSC's judgement is that founder-led consultation should continue until HPF has
+HPF's judgement is that founder-led consultation should continue until it has
 all of the following.
 
 - A credible stewardship body with the operational capacity to maintain and
@@ -181,7 +184,7 @@ and in addition must:
 - publish the transfer, so that the change of steward is on the public record
   rather than inferred from a change of contact address;
 - state its own interests as they bear on AI disclosure, as MSC states its
-  interest as a film sales agency in [CONTRIBUTING.md](../CONTRIBUTING.md).
+  interest as a film sales agency in [GOVERNANCE.md](../GOVERNANCE.md).
 
 On transfer, the originating repository is archived with a redirect, and CC BY
 4.0 continues to apply to everything published under MSC's stewardship.
@@ -193,8 +196,8 @@ On transfer, the originating repository is archived with a redirect, and CC BY
 Do not transfer control on unsuitable terms. An unsuitable steward can change
 what HPF means, which a dormant standard cannot.
 
-If no suitable successor exists, or if MSC can no longer maintain the standard
-before a transfer is achieved:
+If no suitable successor exists, or if HPF can no longer be maintained before a
+transfer is achieved:
 
 - the most recent published version stays available under CC BY 4.0;
 - the release history and the consultation archive stay published;
