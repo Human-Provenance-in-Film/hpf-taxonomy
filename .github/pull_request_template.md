@@ -13,8 +13,8 @@ link the decision that authorised it. -->
 ## What the checks cannot see
 
 The automated checks already cover em dashes, withdrawn material, controlled
-values, schema and examples, version parity and verification language. Do not
-repeat them here.
+values, schema and examples, version parity and the disclosure vocabulary. Do
+not repeat them here.
 
 - [ ] No new classification, descriptor, controlled value or field without an explicit taxonomy decision recorded in an issue.
 - [ ] Nothing requests, stores, discloses, validates or carries consent, authorisation, licensing, compensation, rights ownership or compliance information.
