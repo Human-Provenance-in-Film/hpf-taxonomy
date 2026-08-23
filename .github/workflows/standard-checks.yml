@@ -69,3 +69,25 @@ jobs:
         run: |
           python3 tools/check_standard.py --checks \
             taxonomy-values,deprecated-language,verification-voice,version-parity,statement,em-dashes,links,frozen
+
+  pull-request-description:
+    name: pull-request-description
+    # Pull requests only. There is no description to check on a push to main.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      # The body is passed through the environment rather than interpolated
+      # into the shell. A pull request description is text a stranger can
+      # write, and `${{ }}` inside a run block is substituted before the shell
+      # sees it, so a body containing shell syntax would execute. This is the
+      # documented way round that.
+      - name: Check the description used the template
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: printf '%s' "$PR_BODY" | python3 tools/check_pr_body.py
