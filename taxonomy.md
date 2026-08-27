@@ -1,7 +1,11 @@
 # HPF AI Disclosure Taxonomy
 
-**Version 0.9, draft for consultation**
-Consultation closes 31 October 2026.
+**Version 0.9.2, draft for consultation**
+Updated August 2026. Consultation closes 31 October 2026.
+
+A free, open standard for declaring AI output present in finished film and television productions. A producer makes one signed declaration using three categories. It travels with the production in chain-of-title and delivery documentation, so every recipient reads the same thing.
+
+This document sets out HPF's three-category classification, the producer declaration process and the two machine-readable fields. It does not certify productions, audit workflows, or determine consent, rights or regulatory compliance.
 
 ---
 
@@ -13,11 +17,11 @@ The producer answers two questions of fact. First, is any AI output present in t
 
 HPF classifies AI output reflected in the finished production an audience sees or hears, and it classifies how AI is used, not the underlying model or product: the same AI system can support an Assistive use in one production and a Generative use in another.
 
-For the purposes of this taxonomy, artificial intelligence is defined in the `no_ai` category below.
-
 ### Key terms
 
-**AI tool** means any software that uses machine learning, neural networks or generative models to produce, modify or optimise content. Standard digital tools without machine learning do not count.
+**Artificial intelligence**, for the purposes of this taxonomy, means software systems that use machine learning, neural networks, or similar techniques trained on data to generate, synthesise, enhance, or analyse content, as distinct from deterministic software that applies fixed rules or algorithms without learned models. Where a tool offers both conventional and AI-powered modes, only the AI-powered mode's output is in scope.
+
+**AI tool** means any software that uses artificial intelligence, as defined above, to produce, modify or optimise content. Standard digital tools that do not use it are not AI tools.
 
 **Finished production**, also called the finished film or the finished work, means the production as distributed or exhibited, including every version released after the original declaration was made. This taxonomy covers film and television, and uses finished production, finished film and finished work to mean the same thing.
 
@@ -49,6 +53,8 @@ Where the answer is unknown or the records are incomplete, the classification is
 
 These values correspond directly to `hpf_classification` in [schema.json](schema.json).
 
+A record carries two fields: `hpf_standard_version`, which names the version of this taxonomy that was applied, and `hpf_classification`. The version field was named `hpf_taxonomy_version` before this revision.
+
 ---
 
 ### `no_ai`: No AI Used
@@ -56,8 +62,6 @@ These values correspond directly to `hpf_classification` in [schema.json](schema
 No AI output is present in the finished film. No AI tool produced any element of the finished work as distributed. AI used only in development, leaving no trace in the finished film, is out of scope and does not prevent a No AI Used declaration.
 
 Basic computational automation in standard long-standing industry use (loudness normalisation, timecode tools, spell-check) does not count as AI use.
-
-For the purposes of this taxonomy, artificial intelligence means software systems that use machine learning, neural networks, or similar techniques trained on data to generate, synthesise, enhance, or analyse content, as distinct from deterministic software that applies fixed rules or algorithms without learned models. Where a tool offers both conventional and AI-powered modes, only the AI-powered mode's output is in scope.
 
 **Examples:** editing, colour grading, compositing, sound design, music recording, and visual effects performed without AI tools.
 
@@ -77,7 +81,7 @@ AI used solely in development that leaves no trace in the finished film does not
 
 ### `generative_ai`: Generative AI
 
-AI originated content that appears in the finished film, rather than processing human-created material. The AI made new content rather than refining work created by human crew.
+AI originated content that appears in the finished film, rather than processing human-created material. The AI made new content rather than refining work created by human crew. Where a tool both reconstructs supplied material and fabricates content that was never captured, the fabrication decides the category: see the reconstruction test.
 
 If any qualifying AI-originated content appears in the finished work, the production is `generative_ai` regardless of duration, prominence, or proportion. There is no materiality or de minimis exception. A film using human-shot footage alongside a single AI-generated environment is `generative_ai` overall.
 
@@ -101,20 +105,36 @@ The label a vendor applies does not decide the category. Where a tool both recon
 
 ---
 
-## Generative AI descriptors
+## Descriptors
 
-**Provisional. Under consultation.** New in the August 2026 revision and not yet part of the standard. The terms and definitions below may change before v1.0.
+**Provisional. Under consultation.** New in the August 2026 revision and not yet part of the taxonomy. The terms and definitions below may change before v1.0.
 
-Descriptors apply only to productions already classified `generative_ai`. They work like the short descriptors shown alongside a film rating: they identify the type or types of generated content present, once a production is Generative AI. They do not determine classification, they carry no threshold, and they do not apply to No AI Used or Assistive AI.
+Descriptors add factual context to a classification. They work like the short descriptors shown alongside a film rating: they identify the type or types of AI-generated or AI-modified content present. They never determine or change the classification, they carry no threshold, and a descriptor never converts an Assistive AI production into Generative AI. Where a record carries them they go in the provisional `hpf_descriptors` array, which is not required.
 
-| Descriptor | What it indicates |
+`altered_performance` may be recorded on an Assistive AI or a Generative AI production. Every other descriptor applies only to Generative AI. None applies to No AI Used. More than one may apply to the same production.
+
+| Descriptor | Applies to | What it indicates |
+|---|---|---|
+| Altered performance (`altered_performance`) | Assistive or Generative AI | AI was used to modify a performance by an identifiable person present in the finished production. It records that a captured or recorded performance was modified. The classification still depends on whether the AI processed captured human material or originated new content. |
+| Digital replica (`digital_replica`) | Generative AI | AI was used to generate a representation of an identifiable person present in the finished production. |
+| Synthetic performance (`synthetic_performance`) | Generative AI | AI was used to generate performance content that does not represent an identifiable person. |
+| Generated voice (`generated_voice`) | Generative AI | AI was used to generate spoken or vocal content present in the finished production. It is a modality descriptor: use it alongside Digital replica or Synthetic performance where generated spoken or vocal content is involved. |
+| Generated writing (`generated_writing`) | Generative AI | AI was used to generate written content embodied in the finished production. Development-only text not reflected in the finished production is out of scope. |
+| Generated music (`generated_music`) | Generative AI | AI was used to generate music present in the finished production. |
+| Generated visual content (`generated_visual_content`) | Generative AI | AI was used to generate visual content present in the finished production. This term is provisional and should be tested for breadth and overlap. |
+
+**Worked descriptor examples**
+
+| What happened | Classification and descriptors |
 |---|---|
-| Synthetic performance | Generative AI was used to generate performance content present in the finished production. |
-| Digital replica | Generative AI was used to generate a representation of an identifiable person present in the finished production. The descriptor does not indicate whether consent, rights, or contractual requirements were satisfied. |
-| Generated writing | Generative AI was used to generate written content embodied in the finished production. Development-only text not reflected in the finished production is out of scope. |
-| Generated music | Generative AI was used to generate music present in the finished production. |
-| Generated visual content | Generative AI was used to generate visual content present in the finished production. This term is provisional and should be tested for breadth and overlap. |
-| Generated voice | Generative AI was used to generate spoken or vocal content present in the finished production. This term is provisional and should be tested for overlap with Synthetic performance and Digital replica. |
+| Cosmetic AI de-ageing of a performance captured in full. | Assistive AI, Altered performance |
+| An identifiable actor made to speak dialogue they did not record. | Generative AI, Digital replica, Generated voice. Altered performance also applies where the generated material modifies captured footage. |
+| A wholly generated performer who does not represent an identifiable person. | Generative AI, Synthetic performance |
+| A wholly generated fictional narrator. | Generative AI, Synthetic performance, Generated voice |
+
+Descriptors are factual provenance terms, not contractual definitions. Synthetic performance does not take its meaning from "synthetic performer", "synthetic" or any similar term in a SAG-AFTRA, Equity or other collective agreement.
+
+Descriptors identify what is present in the finished production. They do not state whether consent was obtained. They do not indicate whether rights or contractual requirements were satisfied. They do not establish compliance with a collective agreement. They do not replace contracts, releases, consent records or chain-of-title documentation.
 
 This is a substantive consultation update, not an illustrative example set. We welcome feedback on whether these terms are useful and distinct, where they overlap, and what is missing.
 
@@ -190,15 +210,17 @@ The test applies in the same way as for live-action. AI processing or refining w
 
 ## Regulatory scope
 
-HPF covers production-level AI disclosure: what AI was used in making the finished work, declared by the producer. It does not address tool-level obligations. Where a production uses a general-purpose AI model (GPAI) to generate content, the provider of that model may have independent disclosure obligations under applicable regulation, for example under Article 50 of the EU AI Act. HPF and tool-level obligations operate in parallel and are not substitutes for each other.
+HPF covers production-level AI disclosure: what AI was used in making the finished work, declared by the producer. It does not address tool-level obligations. Where a production uses an AI system to generate content, obligations may fall elsewhere under applicable regulation. Article 50(2) of the EU AI Act places a machine-readable marking obligation on the provider of the AI system, not on the provider of an underlying general-purpose AI model as such. Article 50(4) places a disclosure obligation on the deployer of a system that generates or manipulates deepfake content, which in a production context is often the production itself, and where the content forms part of an evidently artistic, creative, satirical, fictional or analogous work that obligation is limited to disclosing the existence of the content. HPF and those obligations operate in parallel and are not substitutes for each other.
 
-**Basis of reliance:** HPF's disclosure model is based on the producer's signed declaration. A recipient may rely on that declaration in the same way they rely on other producer representations in chain of title documentation. HPF does not independently verify the accuracy of the declaration or audit the production's tools or workflows. Any remedy for misrepresentation is a matter for the contract between the parties.
+**What a declaration identifies:** the work, the version, cut, episode or edition it covers, the classification, the party making it, and the date it was made. It is signed by someone authorised to declare on behalf of the production. Where in-scope AI use is present it carries a short factual summary of what the AI did and what output reached the finished work. Tool names are useful supporting information and do not replace the summary.
 
-**Audience disclosure:** HPF governs how classification travels through the distribution chain, from producer to platform. It does not currently mandate how platforms surface classification to audiences. Display standards are an open question for the consultation; the framework's open questions list addresses this explicitly. Productions and platforms seeking to make audience-facing disclosure are encouraged to engage with the consultation on what display standards should require.
+**Basis of reliance:** HPF's disclosure model is based on the producer's signed declaration. A recipient may rely on that declaration in the same way they rely on other producer representations in chain of title documentation. HPF does not independently verify the accuracy of the declaration or audit the production's tools or workflows. An HPF declaration is not by itself a contractual warranty. Parties may incorporate the classification into their representations and warranties where they choose to, and any remedy for misrepresentation is then a matter for the contract between them.
 
-**HPF and regulation:** HPF is a market standard, not a regulatory-compliance mechanism, and is not designed to satisfy any regulatory framework. Its aim is commercial, and any regulatory usefulness is incidental. The classification applies wherever a production is made or distributed; producers and platforms should take their own legal advice on how it interacts with their obligations.
+**Audience disclosure:** HPF governs how classification travels through the distribution chain, from producer to platform. HPF encourages platforms and distributors to display the classification to audiences, and does not require it or mandate how they do so. Display standards are an open question for the consultation; the framework's open questions list addresses this explicitly. Productions and platforms seeking to make audience-facing disclosure are encouraged to engage with the consultation on what display standards should require.
 
-The framework is prospective in nature. It applies to productions that adopt it from the point of adoption forward. It does not provide a mechanism for retroactive disclosure of historical catalogue content, and absent values for unclassified historical content should not be read as an absence of AI use.
+**HPF and regulation:** HPF is a proposed voluntary industry standard, not a regulatory-compliance mechanism, and is not designed to satisfy any regulatory framework. It does not establish regulatory compliance. Its aim is commercial, and any regulatory usefulness is incidental. The classification applies wherever a production is made or distributed; producers and platforms should take their own legal advice on how it interacts with their obligations.
+
+The framework applies to productions that adopt it from the point of adoption forward. An authorised party may also make a declaration for a production already released, where it can establish the relevant facts, and that declaration carries the date it was made rather than the release date. What nobody may do is infer a classification for a title: not from a release date, not from detection output, not from incomplete catalogue information, and not by applying a value in bulk across a catalogue. Where no declaration has been made there is no record, and an absent record should not be read as an absence of AI use.
 
 ---
 
@@ -223,11 +245,11 @@ HPF is a commercial disclosure standard. It is intended to complement technical 
 |---|---|
 | Metadata | Information stored with a digital asset rather than forming part of the picture or sound itself. Examples include camera settings, timecode, software information and edit history. Ordinary metadata can be altered and is often lost when files are transcoded, exported or uploaded. Its evidential value therefore depends on how it was created and protected. |
 | Provenance | A documented history of a digital asset: where it came from, what sources contributed to it, what happened to it, and who made the relevant claims. Provenance can provide evidence about origin and process. It does not necessarily establish that the record is complete, that the content depicts something true, or that the necessary rights and permissions were obtained. |
-| C2PA and Content Credentials | **C2PA** is an open technical standard for recording and verifying provenance information about digital content. **Content Credentials** is the commonly used presentation and implementation of this approach. C2PA manifests can contain cryptographically signed claims about an asset and its history, allowing a verifier to identify the signer and detect whether protected information has subsequently been altered. A valid signature establishes the integrity and source of the signed claims, not the truth of every claim they contain. |
+| C2PA and Content Credentials | **C2PA** is an open technical standard for recording signed provenance claims about digital content and validating their integrity and signer. **Content Credentials** is the commonly used presentation and implementation of this approach. C2PA manifests can contain cryptographically signed claims about an asset and its history, allowing a verifier to identify the signer and detect whether protected information has subsequently been altered. A valid signature establishes the integrity and source of the signed claims, not the truth of every claim they contain. C2PA 2.4 includes a standard assertion, `c2pa.ai-disclosure`, which carries model-level information about a generation step and is different information from a production-level HPF classification. |
 | Ingredient | In C2PA terminology, an asset used in the creation of another asset. A composite asset may therefore have relationships to multiple ingredients and their associated provenance. This matters for film because a finished work combines picture, sound, music, VFX and other material from many sources. Provenance attached to an individual ingredient, such as a camera capture, does not by itself describe how the finished production was made. |
 | Watermarking | Information embedded in the content itself rather than stored only as accompanying metadata. A watermark may be visible to a viewer or imperceptible and detectable by software. Depending on its design and the medium, it may remain detectable after transformations such as compression, re-encoding or cropping. Its function is to provide a detectable signal; what can be inferred from that signal depends on the watermarking system and how it is used. |
 | Fingerprinting | A representation calculated from the content and compared with records held elsewhere, rather than information added to the asset itself. YouTube Content ID is a familiar example. Fingerprinting is principally a matching mechanism: it can identify content that corresponds to a known reference without requiring the person distributing the copy to attach provenance information to it. |
-| Machine-readable marking | A marking intended to allow AI-generated or manipulated content to be identified by automated means. Article 50 of the EU AI Act requires providers of certain generative AI systems to ensure that their outputs are marked in a machine-readable format and detectable as artificially generated or manipulated. This obligation falls on the provider of the AI system. Article 50 separately places disclosure obligations on deployers of systems that generate or manipulate deepfakes, including specific treatment for artistic, creative, satirical, fictional and analogous works. |
+| Machine-readable marking | A marking intended to allow AI-generated or manipulated content to be identified by automated means. Article 50(2) of the EU AI Act requires providers of AI systems, including general-purpose AI systems, that generate synthetic audio, image, video or text to ensure the outputs are marked in a machine-readable format and detectable as artificially generated or manipulated; that obligation falls on the provider of the AI system, not on the provider of an underlying general-purpose AI model as such. Article 50(4) separately places a disclosure obligation on deployers of systems that generate or manipulate deepfakes, and where the content forms part of an evidently artistic, creative, satirical, fictional or analogous work that obligation is limited to disclosing the existence of the content. |
 
 ### How information is communicated
 
@@ -264,9 +286,10 @@ The questions we most want input on:
 2. Is the declaration mechanism workable in your part of the industry, and if not, what would need to change? In particular, for a `no_ai` declaration, software now switches AI features on by default, so would a "reasonable enquiry" standard, the same one used for other chain-of-title warranties, be a fair basis?
 3. Marketing materials, such as trailers, posters, and social cuts, are currently out of scope. How urgent is it to bring them in?
 4. For platforms, broadcasters, and distributors: would you use the `assistive_ai` classification, and would you surface it to audiences?
-5. Which ways of showing the disclosure are practical and clear, from end credits to delivery metadata to a platform label, and what would meet your regulatory obligations?
+5. Which ways of showing the disclosure are practical and clear, from end credits to delivery metadata to a platform label, and what would sit alongside your regulatory obligations?
 6. Does the chain-of-title mechanism work outside the UK and US, where co-production paperwork differs? Are there regulatory, contractual, or collective-bargaining frameworks HPF needs to account for in v1.0?
 7. Should established, ubiquitous machine-learning features that process human-created material, such as denoising, upscaling, and tracking, require `assistive_ai` disclosure, or should they sit with the routine automation the taxonomy already treats as out of scope?
+8. An objective measure of how much generative content a production contains has deliberately been left out: the category does not change with extent, and a small use is described in the declaration instead. Is that the right call, and if not, what observable facts could a measure be built from without adding significant work for producers?
 
 For technical implementation guidance: [INTEGRATION.md](INTEGRATION.md).
 

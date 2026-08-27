@@ -1,7 +1,7 @@
 {
   "hpf_standard_version": "0.9.2",
-  "hpf_classification": "generative_ai",
+  "hpf_classification": "assistive_ai",
   "hpf_descriptors": [
-    "generated_sound"
+    "altered_performance"
   ]
 }

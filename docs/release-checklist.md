@@ -11,10 +11,11 @@ once the artefact is out, the only way to correct it is another revision.
 
 ## Scope
 
-This applies to a `v0.9.x` pre-release tag on `hpf-taxonomy`. The taxonomy
-version stays `0.9` for the whole consultation; the tag identifies which
-revision of it a reader has. Those are different things, and the checklist
-keeps them from being conflated. See [GOVERNANCE.md](../GOVERNANCE.md).
+This applies to a `v0.9.x` pre-release tag on `hpf-taxonomy`. From 27 August
+2026 each consultation revision carries its own patch number, so the version a
+document states and the tag that releases it move together: 0.9.2 is tagged
+`v0.9.2`. The series stays `v0.9` until v1.0, and a reference to the
+consultation as a whole still says v0.9. See [GOVERNANCE.md](../GOVERNANCE.md).
 
 The site is released separately by deploying `hpf-site`. Step 5 is the point
 where the two have to agree.

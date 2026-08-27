@@ -2,28 +2,41 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/human-provenance-in-film/hpf-taxonomy/main/schema.json",
   "title": "HPF AI Disclosure Schema",
-  "description": "JSON Schema for HPF AI Disclosure metadata. Consultation proposal, not a final v1.0 commitment. hpf_taxonomy_version and hpf_classification are required when an HPF record is present. hpf_descriptors is a proposed, provisional field introduced in the 0.9 August 2026 taxonomy revision; it applies only to generative_ai records and its values are consultation terms subject to change before v1.0. Descriptor meanings are defined by the taxonomy version named in hpf_taxonomy_version, so a stable value has a stable meaning for a given taxonomy version. Where no HPF declaration exists, omit the record entirely rather than writing null field values. Published by Human Provenance in Film under CC BY 4.0.",
+  "description": "JSON Schema for HPF AI Disclosure metadata. Consultation proposal, not a final v1.0 commitment. hpf_standard_version and hpf_classification are required when an HPF record is present. The version field was named hpf_taxonomy_version before 0.9.2; a record using the old name is a record made under the earlier draft. hpf_descriptors is a proposed, provisional field introduced in the August 2026 revision. altered_performance applies to an assistive_ai or a generative_ai record; every other descriptor applies to generative_ai only; none applies to no_ai. Descriptor meanings are defined by the version named in hpf_standard_version, so a stable value has a stable meaning for a given version. Where no HPF declaration exists, omit the record entirely rather than writing null field values. Published by Human Provenance in Film under CC BY 4.0.",
   "type": "object",
-  "required": ["hpf_taxonomy_version", "hpf_classification"],
+  "required": [
+    "hpf_standard_version",
+    "hpf_classification"
+  ],
   "properties": {
-    "hpf_taxonomy_version": {
+    "hpf_standard_version": {
       "type": "string",
-      "description": "The version of the HPF Taxonomy applied to this record.",
-      "pattern": "^[0-9]+\\.[0-9]+$",
-      "examples": ["0.9", "1.0"]
+      "description": "The version of the HPF AI Disclosure Standard applied to this record.",
+      "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$",
+      "examples": [
+        "0.9.2",
+        "1.0"
+      ]
     },
     "hpf_classification": {
       "type": "string",
       "description": "The HPF disclosure category for this production. Derived from a signed producer declaration held in the chain of title.",
-      "enum": ["no_ai", "assistive_ai", "generative_ai"],
-      "examples": ["no_ai"]
+      "enum": [
+        "no_ai",
+        "assistive_ai",
+        "generative_ai"
+      ],
+      "examples": [
+        "no_ai"
+      ]
     },
     "hpf_descriptors": {
       "type": "array",
-      "description": "PROPOSED and PROVISIONAL. Consultation field introduced in the 0.9 August 2026 taxonomy revision. Applies only to generative_ai records. Identifies the type or types of generated content present. It does not determine classification, carries no threshold, and does not apply to no_ai or assistive_ai records. Values are provisional and may change before v1.0.",
+      "description": "PROPOSED and PROVISIONAL. Consultation field introduced in the August 2026 revision. Identifies the type or types of AI-generated or AI-modified content present. It never determines or changes the classification and carries no threshold. altered_performance may appear on an assistive_ai or a generative_ai record; every other value applies to generative_ai only; no descriptor applies to no_ai. Values are provisional and may change before v1.0.",
       "items": {
         "type": "string",
         "enum": [
+          "altered_performance",
           "synthetic_performance",
           "digital_replica",
           "generated_writing",
@@ -36,16 +49,47 @@
       "minItems": 1
     }
   },
-  "if": {
-    "required": ["hpf_classification"],
-    "properties": {
-      "hpf_classification": { "const": "generative_ai" }
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "hpf_classification"
+        ],
+        "properties": {
+          "hpf_classification": {
+            "const": "no_ai"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "hpf_descriptors": false
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "hpf_classification"
+        ],
+        "properties": {
+          "hpf_classification": {
+            "const": "assistive_ai"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "hpf_descriptors": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "altered_performance"
+              ]
+            }
+          }
+        }
+      }
     }
-  },
-  "then": true,
-  "else": {
-    "properties": {
-      "hpf_descriptors": false
-    }
-  }
+  ]
 }

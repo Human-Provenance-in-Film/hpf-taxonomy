@@ -70,7 +70,16 @@ WITHDRAWN_VALUES = [
     "human_only",
 ]
 
-TAXONOMY_VERSION = "0.9"
+STANDARD_VERSION = "0.9.2"
+
+VERSION_FIELD = "hpf_standard_version"
+SUPERSEDED_VERSION_FIELD = "hpf_taxonomy_version"
+
+# Identifiers withdrawn at 0.9.2. A superseded one left in a code sample is
+# the kind of thing an implementer copies.
+WITHDRAWN_IDENTIFIERS = [
+    ("hpf.film.ai_disclosure", "superseded C2PA assertion label"),
+]
 
 findings = []
 checks_run = []
@@ -154,7 +163,7 @@ def check_schema(schema):
             "hpf_classification enum is %r, expected %r" % (enum, CLASSIFICATIONS))
 
     required = schema.get("required")
-    if required != ["hpf_taxonomy_version", "hpf_classification"]:
+    if required != [VERSION_FIELD, "hpf_classification"]:
         add("schema", "schema.json", 0,
             "required fields are %r, expected the two identifying fields" % (required,))
 
@@ -164,12 +173,27 @@ def check_schema(schema):
     elif sorted(descriptors) != sorted(set(descriptors)):
         add("schema", "schema.json", 0, "hpf_descriptors enum repeats a value")
 
-    # Descriptors must be barred outside generative_ai. The schema does this
-    # with if/then/else; confirm the else branch still forbids the field.
-    branch = schema.get("else", {}).get("properties", {}).get("hpf_descriptors")
-    if branch is not False:
+    # Applicability, 0.9.2. No descriptor on no_ai. Only altered_performance on
+    # assistive_ai. Anything in the enum on generative_ai. The schema states
+    # this as an allOf of two conditionals; confirm both survive.
+    branches = schema.get("allOf") or []
+    def branch_for(value):
+        for entry in branches:
+            const = entry.get("if", {}).get("properties", {}).get(
+                "hpf_classification", {}).get("const")
+            if const == value:
+                return entry.get("then", {}).get("properties", {}).get("hpf_descriptors")
+        return None
+
+    if branch_for("no_ai") is not False:
         add("schema", "schema.json", 0,
-            "schema no longer forbids hpf_descriptors outside generative_ai")
+            "schema no longer forbids hpf_descriptors on a no_ai record")
+
+    assistive = branch_for("assistive_ai")
+    allowed = (assistive or {}).get("items", {}).get("enum")
+    if allowed != ["altered_performance"]:
+        add("schema", "schema.json", 0,
+            "assistive_ai descriptors are %r, expected only altered_performance" % (allowed,))
 
 
 # -------------------------------------------------- built-in record check
@@ -188,13 +212,13 @@ def validate_record(record, schema):
         if field not in record:
             problems.append("missing required field %s" % field)
 
-    version = record.get("hpf_taxonomy_version")
+    version = record.get(VERSION_FIELD)
     if version is not None:
-        pattern = props.get("hpf_taxonomy_version", {}).get("pattern")
+        pattern = props.get(VERSION_FIELD, {}).get("pattern")
         if not isinstance(version, str):
-            problems.append("hpf_taxonomy_version is not a string")
-        elif pattern and not re.match(pattern, version):
-            problems.append("hpf_taxonomy_version %r does not match %s" % (version, pattern))
+            problems.append("%s is not a string" % VERSION_FIELD)
+        elif pattern and not re.fullmatch(pattern, version):
+            problems.append("%s %r does not match %s" % (VERSION_FIELD, version, pattern))
 
     classification = record.get("hpf_classification")
     if classification is not None:
@@ -204,8 +228,12 @@ def validate_record(record, schema):
 
     if "hpf_descriptors" in record:
         descriptors = record["hpf_descriptors"]
-        if classification != "generative_ai":
-            problems.append("hpf_descriptors present on a %r record" % classification)
+        if classification == "no_ai":
+            problems.append("hpf_descriptors present on a no_ai record")
+        elif classification == "assistive_ai" and descriptors != ["altered_performance"]:
+            problems.append(
+                "an assistive_ai record may carry altered_performance only, not %r"
+                % (descriptors,))
         elif not isinstance(descriptors, list):
             problems.append("hpf_descriptors is not an array")
         else:
@@ -401,6 +429,27 @@ def check_verification_voice():
                     "HPF describes its own process as verification: %s" % line)
                 break
 
+def check_standard_identity():
+    """Identifiers withdrawn at 0.9.2 must not survive in a published file.
+
+    The version field became `hpf_standard_version` and the C2PA assertion
+    label became `film.humanprovenance.ai-disclosure`. Both appear in code
+    samples, which is exactly where a superseded identifier gets copied out of
+    the documentation and into somebody's pipeline. The site repository runs
+    the matching check over the pages."""
+    checks_run.append("standard-identity")
+    allow = load_allowlist()
+    patterns = [(re.compile(re.escape(SUPERSEDED_VERSION_FIELD)),
+                 "superseded version field")]
+    patterns += [(re.compile(re.escape(token)), label)
+                 for token, label in WITHDRAWN_IDENTIFIERS]
+    for rel in existing_docs() + ["schema.json"]:
+        for number, line in each_line(rel):
+            for pattern, label in patterns:
+                if pattern.search(line) and not allowlisted(allow, rel, line):
+                    add("standard-identity", rel, number, "%s: %s" % (label, line))
+
+
 def check_version_parity():
     """Every file that names the taxonomy version must name the same one."""
     checks_run.append("version-parity")
@@ -408,19 +457,36 @@ def check_version_parity():
     match = re.search(r'^version:\s*"?([0-9.]+)"?\s*$', citation, re.MULTILINE)
     if not match:
         add("version-parity", "CITATION.cff", 0, "no version field found")
-    elif match.group(1) != TAXONOMY_VERSION:
+    elif match.group(1) != STANDARD_VERSION:
         add("version-parity", "CITATION.cff", 0,
-            "version %s does not match taxonomy version %s" % (match.group(1), TAXONOMY_VERSION))
+            "version %s does not match taxonomy version %s" % (match.group(1), STANDARD_VERSION))
 
     taxonomy = read("taxonomy.md") or ""
-    if "Version %s" % TAXONOMY_VERSION not in taxonomy:
+    if "Version %s" % STANDARD_VERSION not in taxonomy:
         add("version-parity", "taxonomy.md", 0,
-            "does not state Version %s" % TAXONOMY_VERSION)
+            "does not state Version %s" % STANDARD_VERSION)
 
     governance = read("GOVERNANCE.md") or ""
-    if "Version %s" % TAXONOMY_VERSION not in governance:
+    if "Version %s" % STANDARD_VERSION not in governance:
         add("version-parity", "GOVERNANCE.md", 0,
-            "does not state Version %s" % TAXONOMY_VERSION)
+            "does not state Version %s" % STANDARD_VERSION)
+
+    readme = read("README.md") or ""
+    if "v%s" % STANDARD_VERSION not in readme:
+        add("version-parity", "README.md", 0,
+            "does not state v%s" % STANDARD_VERSION)
+
+    # Sample records are copied into implementations, so a stale one in a code
+    # block is worse than a stale sentence. The 0.9.2 sweep found five.
+    allow = load_allowlist()
+    sample = re.compile(r'"%s"\s*:\s*"([0-9][0-9.]*)"' % VERSION_FIELD)
+    for rel in existing_docs():
+        for number, line in each_line(rel):
+            for value in sample.findall(line):
+                if value != STANDARD_VERSION and not allowlisted(allow, rel, line):
+                    add("version-parity", rel, number,
+                        "sample record carries %s %r, current is %s: %s"
+                        % (VERSION_FIELD, value, STANDARD_VERSION, line))
 
 
 # ------------------------------------------------------------ statement
@@ -604,7 +670,8 @@ DESCRIPTIONS = [
     ("taxonomy-values", "no withdrawn classification or undefined descriptor value"),
     ("deprecated-language", "no superseded `tier` wording"),
     ("verification-voice", "HPF does not describe its own process as verification"),
-    ("version-parity", "every file names the same taxonomy version"),
+    ("standard-identity", "no identifier withdrawn at 0.9.2 survives in a published file"),
+    ("version-parity", "every file names the same standard version"),
     ("statement", "no Statement of Shared Intent copy, route or file"),
     ("em-dashes", "no em dashes in published files"),
     ("links", "relative and self-referencing links resolve"),
@@ -649,6 +716,8 @@ def main():
         check_deprecated_language(schema)
     if wanted("verification-voice"):
         check_verification_voice()
+    if wanted("standard-identity"):
+        check_standard_identity()
     if wanted("version-parity"):
         check_version_parity()
     if wanted("statement"):

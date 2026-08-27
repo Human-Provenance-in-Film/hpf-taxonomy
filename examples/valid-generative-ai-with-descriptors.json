@@ -1,5 +1,8 @@
 {
-  "hpf_taxonomy_version": "0.9",
+  "hpf_standard_version": "0.9.2",
   "hpf_classification": "generative_ai",
-  "hpf_descriptors": ["generated_visual_content", "generated_music"]
+  "hpf_descriptors": [
+    "generated_visual_content",
+    "generated_music"
+  ]
 }

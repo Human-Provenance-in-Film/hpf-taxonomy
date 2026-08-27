@@ -8,7 +8,7 @@
 
 ## Before reading this document
 
-The `hpf.film.ai_disclosure` assertion proposed here originates from a signed producer declaration in the chain of title, not from technical detection or tool-level processing. A C2PA manifest carrying this assertion is a technical record of a human declaration, not a machine-generated provenance signal. This distinction affects how the assertion should be created, signed, and interpreted. See [INTEGRATION.md](INTEGRATION.md) for implementation guidance.
+The `film.humanprovenance.ai-disclosure` assertion proposed here originates from a signed producer declaration in the chain of title, not from technical detection or tool-level processing. A C2PA manifest carrying this assertion is a technical record of a human declaration, not a machine-generated provenance signal. This distinction affects how the assertion should be created, signed, and interpreted. See [INTEGRATION.md](INTEGRATION.md) for implementation guidance.
 
 C2PA does not determine whether a production is Assistive AI or Generative AI, and does not validate the producer's representation. HPF owns the semantic classification; C2PA is proposed only as a way to associate that classification with the asset and its provenance record. The assertion carries the result of the HPF declaration, not the full producer declaration or the reasoning used to reach the classification.
 
@@ -65,17 +65,17 @@ Based on a review of the current specification (v2.4), no existing C2PA assertio
 
 The C2PA specification supports third-party custom assertions using namespaced labels. HPF proposes the following:
 
-**Label:** `hpf.film.ai_disclosure`
+**Label:** `film.humanprovenance.ai-disclosure`
 
-This is a working label, not yet compliant with the C2PA namespace convention. C2PA section 12.5 requires entity-specific assertion labels to use the organisation's internet domain in reverse order, in the manner of Java package names (the specification's own examples are `com.litware` and `net.fineartschool`). For the domain humanprovenance.film, the compliant form would be `film.humanprovenance.ai_disclosure`. We have kept the shorter `hpf.film.ai_disclosure` as a provisional working label pending confirmation with the C2PA Technical Working Group. For any implementation before then, use `hpf.film.ai_disclosure` and treat it as subject to change. Do not build stable verification logic against the label until it is confirmed.
+This is a working label, not yet compliant with the C2PA namespace convention. C2PA section 12.5 requires entity-specific assertion labels to use the organisation's internet domain in reverse order, in the manner of Java package names (the specification's own examples are `com.litware` and `net.fineartschool`). For the domain humanprovenance.film, the compliant form would be `film.humanprovenance.ai_disclosure`. We have kept the shorter `film.humanprovenance.ai-disclosure` as a provisional working label pending confirmation with the C2PA Technical Working Group. For any implementation before then, use `film.humanprovenance.ai-disclosure` and treat it as subject to change. Do not build stable verification logic against the label until it is confirmed.
 
 **Payload:** the HPF classification result, matching [schema.json](schema.json), nested under a `data` key as part of the assertion structure. Two fields are always present:
 
 ```json
 {
-  "label": "hpf.film.ai_disclosure",
+  "label": "film.humanprovenance.ai-disclosure",
   "data": {
-    "hpf_taxonomy_version": "0.9",
+    "hpf_standard_version": "0.9.2",
     "hpf_classification": "no_ai"
   }
 }
@@ -85,9 +85,9 @@ For a `generative_ai` record, a proposed controlled descriptor array may be incl
 
 ```json
 {
-  "label": "hpf.film.ai_disclosure",
+  "label": "film.humanprovenance.ai-disclosure",
   "data": {
-    "hpf_taxonomy_version": "0.9",
+    "hpf_standard_version": "0.9.2",
     "hpf_classification": "generative_ai",
     "hpf_descriptors": ["synthetic_performance", "generated_music"]
   }
@@ -100,7 +100,7 @@ This assertion is placed in the `assertions` array of a C2PA claim, alongside an
 
 `hpf_classification` must be one of the three values defined in [schema.json](schema.json). Treat schema.json as the authoritative source for the enum definitions.
 
-`hpf_taxonomy_version` follows the pattern `major.minor` (e.g. `0.9`, `1.0`). Treat it as a string identifier, not a numeric version for comparison purposes. A major version increment (e.g. `0.x` to `1.0`) may indicate a change to the classification test or category definitions; implementations should flag assertions carrying an unrecognised major version for manual review rather than silently accepting or rejecting them. Minor version increments are clarifications only and do not affect how existing classifications should be interpreted. Existing assertions are not invalidated by a version increment.
+`hpf_standard_version` follows the pattern `major.minor` or `major.minor.patch` (e.g. `0.9`, `0.9.2`, `1.0`). A record carrying a two-part version was made under an earlier consultation draft and stays valid. Treat it as a string identifier, not a numeric version for comparison purposes. A major version increment (e.g. `0.x` to `1.0`) may indicate a change to the classification test or category definitions; implementations should flag assertions carrying an unrecognised major version for manual review rather than silently accepting or rejecting them. Minor version increments are clarifications only and do not affect how existing classifications should be interpreted. Existing assertions are not invalidated by a version increment.
 
 The value of `hpf_classification` maps loosely to IPTC `digitalSourceType` as follows:
 
@@ -130,7 +130,7 @@ Note that in the HPF flow, the receiving platform or distributor attaching the m
 
 C2PA signing requires an entity that holds an X.509 certificate issued by a Certificate Authority (CA) on the C2PA trust list. Who should sign the HPF Content Credential in a film distribution context is an open question not addressed in v0.9. The intention is to raise it as part of the C2PA Technical Working Group discussion.
 
-The practical consequence of this open question: until a signing entity is defined and a certificate issued, `hpf.film.ai_disclosure` assertions cannot be verified by standard C2PA validators. Implementations should not build assertion verification logic against this assertion at v0.9. The assertion structure and payload are stable; the trust infrastructure is not yet in place.
+The practical consequence of this open question: until a signing entity is defined and a certificate issued, `film.humanprovenance.ai-disclosure` assertions cannot be verified by standard C2PA validators. Implementations should not build assertion verification logic against this assertion at v0.9. The assertion structure and payload are stable; the trust infrastructure is not yet in place.
 
 ---
 
@@ -146,7 +146,7 @@ These are open questions to raise with the C2PA Technical Working Group. Nothing
 
 1. Is a custom assertion the appropriate mechanism for a production-level disclosure of this kind, given that it is derived from a signed human declaration rather than tool-level processing?
 2. Is a controlled descriptors array appropriate within the same assertion, or should type-of-content information be carried separately?
-3. What namespacing, property naming, and versioning convention is preferred? In particular, do property names inside the `hpf.film.ai_disclosure` namespace need the `hpf_` prefix, or is it redundant once namespaced? This is an open question for review, not a decision.
+3. What namespacing, property naming, and versioning convention is preferred? In particular, do property names inside the `film.humanprovenance.ai-disclosure` namespace need the `hpf_` prefix, or is it redundant once namespaced? This is an open question for review, not a decision.
 4. Should the assertion reference the authoritative external producer declaration, and if so, how?
 5. For long-form film and television workflows where embedded manifests may not survive transcoding, is the proposed external or remote manifest, with the binding and recovery approach described above, appropriate?
 

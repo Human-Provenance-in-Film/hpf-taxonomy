@@ -17,7 +17,7 @@ The `hpf_classification` value originates from a signed producer declaration hel
 Two implications follow:
 
 1. **Do not infer or validate `hpf_classification` from content analysis.** The value is what the producer declared. If a platform has independent AI detection capabilities, those are a separate signal and should not be used to override or backfill an HPF value.
-2. **The paper declaration is the authoritative record.** A C2PA Content Credential carrying an `hpf.film.ai_disclosure` assertion is a technical complement to the chain of title declaration, not a replacement for it. If the two conflict, the signed producer declaration governs.
+2. **The paper declaration is the authoritative record.** A C2PA Content Credential carrying an `film.humanprovenance.ai-disclosure` assertion is a technical complement to the chain of title declaration, not a replacement for it. If the two conflict, the signed producer declaration governs.
 
 ---
 
@@ -33,14 +33,14 @@ When a delivery arrives with an HPF declaration, read the declared classificatio
 
 ```json
 {
-  "hpf_taxonomy_version": "0.9",
+  "hpf_standard_version": "0.9.2",
   "hpf_classification": "assistive_ai"
 }
 ```
 
 `hpf_classification` must be one of the three defined values: `no_ai`, `assistive_ai`, `generative_ai`. These map directly to the categories in the producer's declaration. If the declaration uses natural language rather than the enum values, return it to the producer or sales agent for clarification before writing a value. Do not interpret or assign a classification independently.
 
-Store the full schema object alongside the title record in your content catalogue or CMS. Include both fields in metadata exchanges with distribution partners where AI disclosure is relevant, rather than the classification value alone. Do not pass `hpf_classification` without `hpf_taxonomy_version`. The version field is required: the classification test may change across major versions.
+Store the full schema object alongside the title record in your content catalogue or CMS. Include both fields in metadata exchanges with distribution partners where AI disclosure is relevant, rather than the classification value alone. Do not pass `hpf_classification` without `hpf_standard_version`. The version field is required: the classification test may change across major versions.
 
 > **Proposed field, not yet for implementation.** A provisional `hpf_descriptors` array for `generative_ai` records is proposed in [schema.json](schema.json), introduced in the 0.9 August 2026 taxonomy revision. It identifies the type or types of generated content present. It is under consultation and may change before v1.0, so do not build against it yet. This guide covers the two stable fields only.
 
@@ -52,7 +52,7 @@ Do not write `no_ai` as a default for content that arrives without a declaration
 
 ### Validation
 
-Validate incoming `hpf_classification` values against the enum in [schema.json](schema.json). Values outside `no_ai`, `assistive_ai`, `generative_ai` are invalid and should be flagged for manual review rather than written to the content catalogue. Do not silently discard invalid values or substitute a default. Flag missing or malformed `hpf_taxonomy_version` for manual review in the same way.
+Validate incoming `hpf_classification` values against the enum in [schema.json](schema.json). Values outside `no_ai`, `assistive_ai`, `generative_ai` are invalid and should be flagged for manual review rather than written to the content catalogue. Do not silently discard invalid values or substitute a default. Flag missing or malformed `hpf_standard_version` for manual review in the same way.
 
 An invalid value should be treated as a soft failure consistent with the approach for missing declarations: ingest proceeds, the HPF record is not written, and the issue is flagged for follow-up with the producer or sales agent.
 
@@ -84,7 +84,7 @@ Prominence, placement, and visual treatment are at platform discretion. Feedback
 
 v0.9 is a draft for consultation. The schema fields and enum values are stable and are not expected to change at v1.0. Changes at v1.0 are expected to affect the taxonomy definitions and edge case guidance, not the data model.
 
-Records written with `"hpf_taxonomy_version": "0.9"` will remain valid after v1.0 is published. They do not need to be re-classified unless the classification of specific content changes as a result of revised category definitions, in which case the producer, not the platform, is responsible for issuing an updated declaration. Platforms should store the version field precisely as received to preserve the record of which taxonomy version governed the original classification.
+Records written with `"hpf_standard_version": "0.9.2"` will remain valid after v1.0 is published. They do not need to be re-classified unless the classification of specific content changes as a result of revised category definitions, in which case the producer, not the platform, is responsible for issuing an updated declaration. Platforms should store the version field precisely as received to preserve the record of which taxonomy version governed the original classification.
 
 ### AI content detection tools
 
@@ -110,7 +110,7 @@ A sales agency or distributor with an internal CMS should store the HPF classifi
 
 ```json
 {
-  "hpf_taxonomy_version": "0.9",
+  "hpf_standard_version": "0.9.2",
   "hpf_classification": "assistive_ai"
 }
 ```
@@ -127,7 +127,7 @@ Where a buyer's system does not yet support HPF fields, provide the declaration 
 
 ### Passing classification downstream
 
-Include both `hpf_taxonomy_version` and `hpf_classification` in metadata packages sent to buyers, delivery portals, and festival submission systems. Do not pass the classification value alone; the version field is required for buyers to know which taxonomy governed the original declaration.
+Include both `hpf_standard_version` and `hpf_classification` in metadata packages sent to buyers, delivery portals, and festival submission systems. Do not pass the classification value alone; the version field is required for buyers to know which taxonomy governed the original declaration.
 
 Where deal documentation incorporates the classification as a producer representation, which is the recommended approach, the contractual language should reference the HPF taxonomy version alongside the classification value, so that any future taxonomy revision does not retroactively alter the meaning of the representation.
 
@@ -139,13 +139,13 @@ This section is for C2PA SDK implementers, CAI tooling developers, and anyone bu
 
 ### The proposed custom assertion
 
-HPF proposes a custom assertion with the label `hpf.film.ai_disclosure`. The payload matches [schema.json](schema.json), nested under a `data` key as part of the assertion structure:
+HPF proposes a custom assertion with the label `film.humanprovenance.ai-disclosure`. The payload matches [schema.json](schema.json), nested under a `data` key as part of the assertion structure:
 
 ```json
 {
-  "label": "hpf.film.ai_disclosure",
+  "label": "film.humanprovenance.ai-disclosure",
   "data": {
-    "hpf_taxonomy_version": "0.9",
+    "hpf_standard_version": "0.9.2",
     "hpf_classification": "no_ai"
   }
 }
@@ -157,12 +157,12 @@ This is a working proposal. It has not been submitted to the C2PA Technical Work
 
 ### Relationship to existing C2PA assertions
 
-`hpf.film.ai_disclosure` is not a replacement for `c2pa.actions` assertions with IPTC `digitalSourceType` values. They operate at different levels:
+`film.humanprovenance.ai-disclosure` is not a replacement for `c2pa.actions` assertions with IPTC `digitalSourceType` values. They operate at different levels:
 
 - `c2pa.actions` records what a specific tool did to a specific file at a specific point in processing
-- `hpf.film.ai_disclosure` records the production-level classification from a signed producer declaration
+- `film.humanprovenance.ai-disclosure` records the production-level classification from a signed producer declaration
 
-Both should be present where tooling supports it. A VFX tool that uses a generative AI model would record that via `c2pa.actions` with `trainedAlgorithmicMedia`. The `hpf.film.ai_disclosure` assertion on the finished film is a separate, higher-level statement derived from the producer's declaration across the whole production.
+Both should be present where tooling supports it. A VFX tool that uses a generative AI model would record that via `c2pa.actions` with `trainedAlgorithmicMedia`. The `film.humanprovenance.ai-disclosure` assertion on the finished film is a separate, higher-level statement derived from the producer's declaration across the whole production.
 
 See [c2pa-mapping.md](c2pa-mapping.md) for the full mapping and its known limitations.
 
@@ -172,13 +172,13 @@ Embedded C2PA manifests do not survive transcoding. Film assets are transcoded m
 
 The recommended approach is Durable Content Credentials: store the manifest externally, bound to the asset via a hard binding (cryptographic hash of the asset content) and one or more soft bindings (perceptual fingerprint or watermark) that allow the manifest to be rediscovered if separated from the asset. See the C2PA specification's [External Manifests](https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_external_manifests) section for implementation details.
 
-The `hpf.film.ai_disclosure` assertion is particularly suited to the external manifest model. Because it originates from a signed producer declaration rather than from a processing tool, the receiving platform does not need to create the assertion at the moment of file processing. It can be attached to the manifest after the declaration is signed and the delivery is received.
+The `film.humanprovenance.ai-disclosure` assertion is particularly suited to the external manifest model. Because it originates from a signed producer declaration rather than from a processing tool, the receiving platform does not need to create the assertion at the moment of file processing. It can be attached to the manifest after the declaration is signed and the delivery is received.
 
 ### Trust and signing
 
-C2PA signing requires an X.509 certificate issued by a CA on the C2PA trust list. Who should sign the `hpf.film.ai_disclosure` assertion in a film distribution context is an open question not resolved in v0.9. Candidates include the producer, the sales agent or distributor, and the receiving platform. Each carries different trust implications.
+C2PA signing requires an X.509 certificate issued by a CA on the C2PA trust list. Who should sign the `film.humanprovenance.ai-disclosure` assertion in a film distribution context is an open question not resolved in v0.9. Candidates include the producer, the sales agent or distributor, and the receiving platform. Each carries different trust implications.
 
-This question will be raised with the C2PA Technical Working Group as part of the proposal process. If you are implementing C2PA signing for film assets and want to include `hpf.film.ai_disclosure`, contact contact@humanprovenance.film before doing so. Until the Technical Working Group discussion concludes, coordinate with us before implementing rather than proceeding independently.
+This question will be raised with the C2PA Technical Working Group as part of the proposal process. If you are implementing C2PA signing for film assets and want to include `film.humanprovenance.ai-disclosure`, contact contact@humanprovenance.film before doing so. Until the Technical Working Group discussion concludes, coordinate with us before implementing rather than proceeding independently.
 
 ---
 
@@ -201,7 +201,7 @@ If you are building toward HPF support, contact contact@humanprovenance.film so 
 
 The following are unresolved in v0.9 and are part of the consultation (closes 31 October 2026):
 
-- **Signing authority:** who holds and signs the `hpf.film.ai_disclosure` C2PA assertion in a distribution context
+- **Signing authority:** who holds and signs the `film.humanprovenance.ai-disclosure` C2PA assertion in a distribution context
 - **Display standards:** how platforms surface HPF classification to end users
 - **Series and episodic content:** whether classification applies at the title, season, or episode level
 - **Reclassification:** how to handle a change in declared classification between an original delivery and a subsequent cut or version
