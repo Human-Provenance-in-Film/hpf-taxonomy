@@ -14,3 +14,9 @@
 GOVERNANCE.md:Tier renamed to category throughout    # the version history has to name the term it replaced
 docs/release-checklist.md:Live-site and download verification    # a real check of a deployed artefact, not HPF's declaration process
 GOVERNANCE.md:Renamed the defined term Verification standard    # the version history has to name the term it replaced
+# 27 August 2026, release 0.9.2. Four places name a withdrawn identifier because
+# their job is to record the change. A record of a rename has to name what was
+# renamed.
+GOVERNANCE.md:Renamed the machine-readable version field    # the version-history row for 0.9.2
+taxonomy.md:The version field was named    # tells an implementer how to read an older record
+schema.json:The version field was named hpf_taxonomy_version before 0.9.2    # same, in the schema description

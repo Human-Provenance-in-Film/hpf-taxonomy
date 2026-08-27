@@ -68,7 +68,7 @@ jobs:
       - name: Check values, language, links and house style
         run: |
           python3 tools/check_standard.py --checks \
-            taxonomy-values,deprecated-language,verification-voice,version-parity,statement,em-dashes,links,frozen
+            taxonomy-values,deprecated-language,verification-voice,standard-identity,version-parity,statement,em-dashes,links,frozen
 
   pull-request-description:
     name: pull-request-description

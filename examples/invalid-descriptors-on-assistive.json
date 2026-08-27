@@ -1,5 +1,7 @@
 {
-  "hpf_taxonomy_version": "0.9",
+  "hpf_standard_version": "0.9.2",
   "hpf_classification": "assistive_ai",
-  "hpf_descriptors": ["generated_music"]
+  "hpf_descriptors": [
+    "generated_music"
+  ]
 }

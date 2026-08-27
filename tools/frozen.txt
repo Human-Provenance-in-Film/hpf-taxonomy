@@ -18,7 +18,7 @@
 #   python3 tools/check_standard.py --frozen-hashes
 # which prints this manifest with current values and writes nothing.
 
-row :: GOVERNANCE.md :: | 0.9 | May 2026 | :: 868242f7ce48b48fc01f58274da92ec3f890f50bbe9dba52dd0b1036f54be1c6 :: released in v0.9.0. Date corrected from March to May 2026 on 22 August 2026, confirmed by the Head of Initiative, resolving the disagreement with the taxonomy page, which has always said May. Only the month changed.
-row :: GOVERNANCE.md :: | 0.9 | June 2026 | :: 92ef313ba34f291f0dab0baf4583e06c99cc9b11eee8ff8094562e8b3a24734d :: released in v0.9.0
+row :: GOVERNANCE.md :: | 0.9.0 | May 2026 | :: f8fe88c3d57913bf1f4d8b13479a98b58bbbbd2d0b9ddfe96d8814db1b34f273 :: released in v0.9.0. Date corrected from March to May 2026 on 22 August 2026, confirmed by the Head of Initiative. Renumbered from 0.9 to 0.9.0 on 27 August 2026 when the June revision was given its own number. Only the version label changed.
+row :: GOVERNANCE.md :: | 0.9.1 | June 2026 | :: 72e8eb6ac4eca4fdb30a9def68b333849ed2e68d6114fc75028f6d269578baf9 :: released under the tag v0.9.0 alongside 0.9.0. Renumbered from 0.9 to 0.9.1 on 27 August 2026: the June revision was substantive and should have carried its own number at the time. Only the version label changed.
 row :: INTEGRATION.md :: | 0.9 | April 2026 | :: 7ed1704aa53193918c041e05920fe38e6c842e3d9f93b6c46828f2ad9e4e1a18 :: released in v0.9.0
 row :: c2pa-mapping.md :: | 0.9 | June 2026 | :: aa9acc6056337394b371962c6244a2bf17704e1b1cc4aca8e8128cc4ca2a0c3c :: released in v0.9.0
