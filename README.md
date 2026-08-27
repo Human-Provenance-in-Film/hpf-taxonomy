@@ -1,6 +1,6 @@
 # Human Provenance in Film
 
-**HPF AI Disclosure Taxonomy, v0.9 draft for consultation**
+**HPF AI Disclosure Taxonomy, v0.9.2 draft for consultation**
 
 Consultation closes 31 October 2026.
 

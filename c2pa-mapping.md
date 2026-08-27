@@ -75,7 +75,7 @@ This is a working label, not yet compliant with the C2PA namespace convention. C
 {
   "label": "film.humanprovenance.ai-disclosure",
   "data": {
-    "hpf_standard_version": "0.9",
+    "hpf_standard_version": "0.9.2",
     "hpf_classification": "no_ai"
   }
 }
@@ -87,7 +87,7 @@ For a `generative_ai` record, a proposed controlled descriptor array may be incl
 {
   "label": "film.humanprovenance.ai-disclosure",
   "data": {
-    "hpf_standard_version": "0.9",
+    "hpf_standard_version": "0.9.2",
     "hpf_classification": "generative_ai",
     "hpf_descriptors": ["synthetic_performance", "generated_music"]
   }
@@ -100,7 +100,7 @@ This assertion is placed in the `assertions` array of a C2PA claim, alongside an
 
 `hpf_classification` must be one of the three values defined in [schema.json](schema.json). Treat schema.json as the authoritative source for the enum definitions.
 
-`hpf_standard_version` follows the pattern `major.minor` (e.g. `0.9`, `1.0`). Treat it as a string identifier, not a numeric version for comparison purposes. A major version increment (e.g. `0.x` to `1.0`) may indicate a change to the classification test or category definitions; implementations should flag assertions carrying an unrecognised major version for manual review rather than silently accepting or rejecting them. Minor version increments are clarifications only and do not affect how existing classifications should be interpreted. Existing assertions are not invalidated by a version increment.
+`hpf_standard_version` follows the pattern `major.minor` or `major.minor.patch` (e.g. `0.9`, `0.9.2`, `1.0`). A record carrying a two-part version was made under an earlier consultation draft and stays valid. Treat it as a string identifier, not a numeric version for comparison purposes. A major version increment (e.g. `0.x` to `1.0`) may indicate a change to the classification test or category definitions; implementations should flag assertions carrying an unrecognised major version for manual review rather than silently accepting or rejecting them. Minor version increments are clarifications only and do not affect how existing classifications should be interpreted. Existing assertions are not invalidated by a version increment.
 
 The value of `hpf_classification` maps loosely to IPTC `digitalSourceType` as follows:
 

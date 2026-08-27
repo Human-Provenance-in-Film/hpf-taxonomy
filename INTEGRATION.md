@@ -33,7 +33,7 @@ When a delivery arrives with an HPF declaration, read the declared classificatio
 
 ```json
 {
-  "hpf_standard_version": "0.9",
+  "hpf_standard_version": "0.9.2",
   "hpf_classification": "assistive_ai"
 }
 ```
@@ -84,7 +84,7 @@ Prominence, placement, and visual treatment are at platform discretion. Feedback
 
 v0.9 is a draft for consultation. The schema fields and enum values are stable and are not expected to change at v1.0. Changes at v1.0 are expected to affect the taxonomy definitions and edge case guidance, not the data model.
 
-Records written with `"hpf_standard_version": "0.9"` will remain valid after v1.0 is published. They do not need to be re-classified unless the classification of specific content changes as a result of revised category definitions, in which case the producer, not the platform, is responsible for issuing an updated declaration. Platforms should store the version field precisely as received to preserve the record of which taxonomy version governed the original classification.
+Records written with `"hpf_standard_version": "0.9.2"` will remain valid after v1.0 is published. They do not need to be re-classified unless the classification of specific content changes as a result of revised category definitions, in which case the producer, not the platform, is responsible for issuing an updated declaration. Platforms should store the version field precisely as received to preserve the record of which taxonomy version governed the original classification.
 
 ### AI content detection tools
 
@@ -110,7 +110,7 @@ A sales agency or distributor with an internal CMS should store the HPF classifi
 
 ```json
 {
-  "hpf_standard_version": "0.9",
+  "hpf_standard_version": "0.9.2",
   "hpf_classification": "assistive_ai"
 }
 ```
@@ -145,7 +145,7 @@ HPF proposes a custom assertion with the label `film.humanprovenance.ai-disclosu
 {
   "label": "film.humanprovenance.ai-disclosure",
   "data": {
-    "hpf_standard_version": "0.9",
+    "hpf_standard_version": "0.9.2",
     "hpf_classification": "no_ai"
   }
 }

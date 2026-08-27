@@ -471,6 +471,23 @@ def check_version_parity():
         add("version-parity", "GOVERNANCE.md", 0,
             "does not state Version %s" % STANDARD_VERSION)
 
+    readme = read("README.md") or ""
+    if "v%s" % STANDARD_VERSION not in readme:
+        add("version-parity", "README.md", 0,
+            "does not state v%s" % STANDARD_VERSION)
+
+    # Sample records are copied into implementations, so a stale one in a code
+    # block is worse than a stale sentence. The 0.9.2 sweep found five.
+    allow = load_allowlist()
+    sample = re.compile(r'"%s"\s*:\s*"([0-9][0-9.]*)"' % VERSION_FIELD)
+    for rel in existing_docs():
+        for number, line in each_line(rel):
+            for value in sample.findall(line):
+                if value != STANDARD_VERSION and not allowlisted(allow, rel, line):
+                    add("version-parity", rel, number,
+                        "sample record carries %s %r, current is %s: %s"
+                        % (VERSION_FIELD, value, STANDARD_VERSION, line))
+
 
 # ------------------------------------------------------------ statement
 
