@@ -132,7 +132,7 @@ Descriptors add factual context to a classification. They work like the short de
 | A wholly generated performer who does not represent an identifiable person. | Generative AI, Synthetic performance |
 | A wholly generated fictional narrator. | Generative AI, Synthetic performance, Generated voice |
 
-Descriptors are factual provenance terms, not contractual definitions. Synthetic performance does not take its meaning from "synthetic performer", "synthetic" or any similar term in a SAG-AFTRA, Equity or other collective agreement.
+Descriptors are factual provenance terms, not contractual definitions. Where a descriptor resembles a term used in a collective agreement or contract, it takes its meaning from this standard alone.
 
 Descriptors identify what is present in the finished production. They do not state whether consent was obtained. They do not indicate whether rights or contractual requirements were satisfied. They do not establish compliance with a collective agreement. They do not replace contracts, releases, consent records or chain-of-title documentation.
 
@@ -148,7 +148,7 @@ This taxonomy covers AI output reflected in the finished film as distributed and
 
 - Development, pre-production, and principal photography
 - Post-production: editing, colour, sound, VFX, and music
-- All co-producers and third-party contractors (aggregated by the production company or lead producer)
+- AI output present in the finished production, whether it was produced by the production company, a co-producer or a third-party contractor
 - Every distributed or exhibited version of the film
 
 **Out of scope**
@@ -158,7 +158,7 @@ This taxonomy covers AI output reflected in the finished film as distributed and
 - Basic automation in standard long-standing industry use: loudness normalisation, timecode tools, spell-check
 - Development, administration, production management, and ideation AI, and unused concept material, that leaves no output in the finished film
 
-The production company or lead producer must use the highest category applicable across all co-producers and contractors. This prevents co-production structures from obscuring AI use that would otherwise require disclosure.
+The production company or lead producer records one classification for the finished production, using the highest applicable category. Who produced a given element does not change the classification.
 
 Where classification is incorporated into a deal or licensing agreement as a producer representation, misclassification is a matter of contractual liability. This places the standard within existing contractual mechanisms rather than requiring new regulatory infrastructure.
 
