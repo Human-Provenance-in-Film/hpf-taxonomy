@@ -1,6 +1,6 @@
 # Release-candidate checklist
 
-**Checklist version 1.0. Applies to taxonomy version 0.9 and its revisions.**
+**Checklist version 1.1. Applies to taxonomy version 0.9 and its revisions.**
 
 Run this before tagging any revision of the consultation draft, and again
 before the final consultation tag on 31 October 2026. Every step is a gate.
@@ -19,6 +19,12 @@ consultation as a whole still says v0.9. See [GOVERNANCE.md](../GOVERNANCE.md).
 
 The site is released separately by deploying `hpf-site`. Step 5 is the point
 where the two have to agree.
+
+**The order is fixed, and it is not the order the work happens in.** Merge the
+standard first, then the site that follows it, then deploy, then tag. The site
+cannot serve a revision the repository has not published, and the taxonomy
+parity check will say so. Reversing it means the two repositories disagree in
+public until the second one lands.
 
 ---
 
@@ -47,7 +53,7 @@ where the two have to agree.
 
 ## 4. Documentation consistency
 
-- [ ] `taxonomy.md`, `schema.json`, `README.md`, `INTEGRATION.md`, `c2pa-mapping.md` and the site state the same controlled values and the same taxonomy version.
+- [ ] `version-parity` passes. It reads `CITATION.cff`, `taxonomy.md`, `GOVERNANCE.md`, `README.md` and every sample record in a published file. Do not maintain a list of files here: one was kept and it went stale, missing the issue templates and this checklist.
 - [ ] Any field marked provisional is still marked provisional everywhere, or has been promoted everywhere by an explicit decision.
 - [ ] Version histories in `GOVERNANCE.md`, `INTEGRATION.md` and `c2pa-mapping.md` each record this revision where the file changed.
 - [ ] No unresolved conflict remains in the documentation conflict register.
@@ -82,7 +88,7 @@ judgement, and a person makes it.
 ## 8. Tag and publish
 
 - [ ] Commit the version-history entry and the `CITATION.cff` date.
-- [ ] Pin the new version-history row in `tools/frozen.txt`, in every file that carries one: `GOVERNANCE.md`, and `INTEGRATION.md` or `c2pa-mapping.md` where they changed. `python3 tools/check_standard.py --frozen-hashes` prints the current values. The row is a record from this point and is not edited again.
+- [ ] Pin the new version-history row in `tools/frozen.txt`, in every file that carries one: `GOVERNANCE.md`, and `INTEGRATION.md` or `c2pa-mapping.md` where they changed. Two steps, in this order. Add the row with `PENDING` where the hash goes, then run `python3 tools/check_standard.py --frozen-hashes > /tmp/frozen.new` and copy it back. `--frozen-hashes` recomputes rows that are already listed and does not add new ones, so running it first does nothing at all. The row is a record from this point and is not edited again.
 - [ ] Do the same for `site/taxonomy.html` in `hpf-site`, and add the announcement news post to that repository's `tools/frozen.txt` once it is live.
 - [ ] `git tag -a v0.9.x -m "<Month Year> consultation revision"` and push the tag.
 - [ ] Draft the GitHub release against that tag, marked pre-release, matching how `v0.9.0` is marked.
