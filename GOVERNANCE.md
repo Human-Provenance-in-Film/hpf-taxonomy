@@ -47,6 +47,14 @@ To propose an amendment at any time: email contact@humanprovenance.film, or open
 
 ---
 
+## Editorial corrections during consultation
+
+A published release tag is an immutable snapshot. `v0.9.0` and `v0.9.2` record the documents exactly as they stood when each revision was released, and a tag is never moved, overwritten or recreated. While v0.9 is open for consultation, non-semantic editorial corrections and clarifications may be made to the current working draft without opening a new version, and they are recorded here. A change that alters normative meaning, classification rules, permitted values, schema behaviour or a substantive requirement is not an editorial correction and requires version consideration.
+
+**1 September 2026, v0.9.2 working draft.** Clarified the basis-of-reliance wording and the implementation warning for the proposed C2PA mapping. These changes do not alter HPF classifications, decision rules, permitted values or schema behaviour.
+
+---
+
 ## Handoff
 
 MSC is committed to seeking a governance transfer to an appropriate body. An appropriate body would be an established film or creative-industry standards organisation or regulatory body with the capacity to maintain and develop the standard on an ongoing basis, or, failing that, an independent coalition or membership organisation governed independently of any one company. Upon transfer, the originating repository will be archived with a redirect, and the CC BY 4.0 licence will continue to apply to all versions published under MSC's stewardship.
