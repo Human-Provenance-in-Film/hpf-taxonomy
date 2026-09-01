@@ -67,7 +67,7 @@ The C2PA specification supports third-party custom assertions using namespaced l
 
 **Label:** `film.humanprovenance.ai-disclosure`
 
-This is a working label, not yet compliant with the C2PA namespace convention. C2PA section 12.5 requires entity-specific assertion labels to use the organisation's internet domain in reverse order, in the manner of Java package names (the specification's own examples are `com.litware` and `net.fineartschool`). For the domain humanprovenance.film, the compliant form would be `film.humanprovenance.ai_disclosure`. We have kept the shorter `film.humanprovenance.ai-disclosure` as a provisional working label pending confirmation with the C2PA Technical Working Group. For any implementation before then, use `film.humanprovenance.ai-disclosure` and treat it as subject to change. Do not build stable verification logic against the label until it is confirmed.
+This is a working label, not yet compliant with the C2PA namespace convention. C2PA section 12.5 requires entity-specific assertion labels to use the organisation's internet domain in reverse order, in the manner of Java package names (the specification's own examples are `com.litware` and `net.fineartschool`). For the domain humanprovenance.film, the compliant form would be `film.humanprovenance.ai_disclosure`. We have kept the shorter `film.humanprovenance.ai-disclosure` as a provisional working label pending confirmation with the C2PA Technical Working Group. For any implementation before then, use `film.humanprovenance.ai-disclosure` and treat it as subject to change. Do not build stable production integrations against the label until it is confirmed.
 
 **Payload:** the HPF classification result, matching [schema.json](schema.json), nested under a `data` key as part of the assertion structure. Two fields are always present:
 
@@ -130,7 +130,7 @@ Note that in the HPF flow, the receiving platform or distributor attaching the m
 
 C2PA signing requires an entity that holds an X.509 certificate issued by a Certificate Authority (CA) on the C2PA trust list. Who should sign the HPF Content Credential in a film distribution context is an open question not addressed in v0.9. The intention is to raise it as part of the C2PA Technical Working Group discussion.
 
-The practical consequence of this open question: until a signing entity is defined and a certificate issued, `film.humanprovenance.ai-disclosure` assertions cannot be verified by standard C2PA validators. Implementations should not build assertion verification logic against this assertion at v0.9. The assertion structure and payload are stable; the trust infrastructure is not yet in place.
+The practical consequence of this open question: until a signing entity is defined and a certificate issued, `film.humanprovenance.ai-disclosure` assertions cannot be verified by standard C2PA validators. Implementations should not build production integrations against this assertion at v0.9. The assertion structure and payload are stable; the trust infrastructure is not yet in place.
 
 ---
 
