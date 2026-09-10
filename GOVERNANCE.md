@@ -53,6 +53,8 @@ A published release tag is an immutable snapshot. `v0.9.0` and `v0.9.2` record t
 
 **1 September 2026, v0.9.2 working draft.** Clarified the basis-of-reliance wording and the implementation warning for the proposed C2PA mapping. These changes do not alter HPF classifications, decision rules, permitted values or schema behaviour.
 
+**10 September 2026, HPF AI Disclosure Form.** Added an optional continuation sheet for the Section 3 factual use summary. The form can now be completed on screen and saved as a PDF, with clearer instructions for doing so; entries are kept as a draft only in the visitor's own browser, with a Clear form control that removes it, and the page says so. A fillable PDF of the same form is available beside it as an alternative format. No change to the declaration information set, taxonomy definitions or classification logic. The form carries its own revision date; the standard remains v0.9.2.
+
 ---
 
 ## Handoff
