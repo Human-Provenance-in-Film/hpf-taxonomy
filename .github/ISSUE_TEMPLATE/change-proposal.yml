@@ -111,7 +111,7 @@ body:
       value: |
         1. Is this an observable fact about in-scope AI output or the declaration record?
         2. Does more than one part of the supply chain need the fact with the same meaning?
-        3. Can a producer answer it through reasonable enquiry without legal interpretation?
+        3. Can a producer answer it from the facts of the production, without legal interpretation?
         4. Is it absent from the existing classification, descriptors and factual summary?
         5. Can it be added without creating duplicate entry or a new compliance process?
 
@@ -120,7 +120,7 @@ body:
     attributes:
       label: Version
       description: The taxonomy version and revision this concerns.
-      placeholder: v0.9.2, August 2026 revision
+      placeholder: v0.9.3, October 2026 revision
     validations:
       required: true
 

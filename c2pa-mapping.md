@@ -8,9 +8,11 @@
 
 ## Before reading this document
 
-The `film.humanprovenance.ai-disclosure` assertion proposed here originates from a signed producer declaration in the chain of title, not from technical detection or tool-level processing. A C2PA manifest carrying this assertion is a technical record of a human declaration, not a machine-generated provenance signal. This distinction affects how the assertion should be created, signed, and interpreted. See [INTEGRATION.md](INTEGRATION.md) for implementation guidance.
+The `film.humanprovenance.ai-disclosure` assertion proposed here originates from a signed producer declaration, not from technical detection or tool-level processing. A C2PA manifest carrying this assertion is a technical record of a human declaration, not a machine-generated provenance signal. This distinction affects how the assertion should be created, signed, and interpreted. See [INTEGRATION.md](INTEGRATION.md) for implementation guidance.
 
-C2PA does not determine whether a production is Assistive AI or Generative AI, and does not validate the producer's representation. HPF owns the semantic classification; C2PA is proposed only as a way to associate that classification with the asset and its provenance record. The assertion carries the result of the HPF declaration, not the full producer declaration or the reasoning used to reach the classification.
+A C2PA manifest contains cryptographically signed claims about an asset and its history. Signature validation checks the integrity of the signed claims and the signing credential; it does not establish that every claim is true. In C2PA terms, an ingredient is an asset used to create another asset. A finished film combines picture, sound, music and VFX from many sources, so provenance attached to one ingredient, such as a camera capture, does not by itself describe how the finished production was made.
+
+C2PA does not determine whether a production is Assistive AI or Generative AI, and does not validate the producer's representation. HPF defines the semantic classification; C2PA is proposed only as a way to associate that classification with the asset and its provenance record. The assertion carries the result of the HPF declaration, not the full producer declaration or the reasoning used to reach the classification.
 
 ---
 
@@ -23,6 +25,8 @@ The C2PA specification (v2.4) handles AI disclosure at the file and action level
 | `trainedAlgorithmicMedia` | The media was created algorithmically using an AI model trained on captured content |
 | `compositeWithTrainedAlgorithmicMedia` | Existing media augmented or edited with a generative AI model, for example by inpainting or outpainting |
 | `algorithmicallyEnhanced` | The media was modified or corrected by an algorithm without changing its main content, for example sharpening or noise reduction |
+
+C2PA 2.4 also defines a standard assertion, `c2pa.ai-disclosure`, which carries model-level information about a generation step. That is different information from a production-level HPF classification, and neither replaces the other.
 
 These values are IPTC NewsCodes. C2PA also maintains its own `digitalsourcetype` namespace for non-media data outputs, but for film assets the IPTC values apply.
 
@@ -55,7 +59,7 @@ HPF classification differs in two ways:
 
 1. **Level of abstraction.** HPF classifies an entire production (a film or series), not an individual file. A single production may involve hundreds of individual assets, each with their own C2PA action history.
 
-2. **Source of the assertion.** HPF classification is derived from a signed producer declaration in the chain of title, not from technical detection by the tool that processed the file. A platform receiving a finished film has no reliable way to reconstruct production-level AI use from file-level C2PA assertions alone.
+2. **Source of the assertion.** HPF classification is derived from a signed producer declaration, not from technical detection by the tool that processed the file. A platform receiving a finished film has no reliable way to reconstruct production-level AI use from file-level C2PA assertions alone.
 
 Based on a review of the current specification (v2.4), no existing C2PA assertion type appears to cover a production-level, declaration-based AI disclosure. The intention is to confirm this through engagement with the C2PA Technical Working Group.
 
@@ -69,38 +73,40 @@ The C2PA specification supports third-party custom assertions using namespaced l
 
 This is a working label, not yet compliant with the C2PA namespace convention. C2PA section 12.5 requires entity-specific assertion labels to use the organisation's internet domain in reverse order, in the manner of Java package names (the specification's own examples are `com.litware` and `net.fineartschool`). For the domain humanprovenance.film, the compliant form would be `film.humanprovenance.ai_disclosure`. We have kept the shorter `film.humanprovenance.ai-disclosure` as a provisional working label pending confirmation with the C2PA Technical Working Group. For any implementation before then, use `film.humanprovenance.ai-disclosure` and treat it as subject to change. Do not build stable production integrations against the label until it is confirmed.
 
-**Payload:** the HPF classification result, matching [schema.json](schema.json), nested under a `data` key as part of the assertion structure. Two fields are always present:
+**Payload:** the HPF record, matching [schema.json](schema.json), nested under a `data` key as part of the assertion structure. A record made under 0.9.3 carries three fields, including the released version the declaration covers. A record made under 0.9.2 carries the standard version and the classification only, and stays valid under the version it names.
 
 ```json
 {
   "label": "film.humanprovenance.ai-disclosure",
   "data": {
-    "hpf_standard_version": "0.9.2",
+    "hpf_standard_version": "0.9.3",
+    "hpf_released_version": "Theatrical cut",
     "hpf_classification": "no_ai"
   }
 }
 ```
 
-For a `generative_ai` record, a proposed controlled descriptor array may be included. It is provisional, subject to consultation, tied to the taxonomy version, and applies only to `generative_ai` records:
+A proposed controlled descriptor array may be included. It is provisional, subject to consultation and tied to the taxonomy version. `altered_performance` may appear on an `assistive_ai` or a `generative_ai` record; every other value applies to `generative_ai` only; none applies to `no_ai`. More than one descriptor may apply:
 
 ```json
 {
   "label": "film.humanprovenance.ai-disclosure",
   "data": {
-    "hpf_standard_version": "0.9.2",
+    "hpf_standard_version": "0.9.3",
+    "hpf_released_version": "Theatrical cut",
     "hpf_classification": "generative_ai",
     "hpf_descriptors": ["synthetic_performance", "generated_music"]
   }
 }
 ```
 
-The descriptor values are provisional consultation terms introduced in the 0.9 August 2026 taxonomy revision, subject to change before v1.0. Descriptors identify the type or types of generated content present; they do not determine the classification, carry no threshold, and must not appear on `no_ai` or `assistive_ai` records. See [schema.json](schema.json) for the authoritative list and validation rules. This field is not yet for implementation. As [INTEGRATION.md](INTEGRATION.md) states, do not build against it while it is under consultation. The two required fields are the stable payload at v0.9.
+The descriptor values are provisional consultation terms introduced in the August 2026 revision, subject to change before v1.0. Descriptors add factual context about the type or types of AI output present; they do not determine the classification and carry no threshold. See [schema.json](schema.json) for the authoritative list and validation rules. As [INTEGRATION.md](INTEGRATION.md) states, the core fields may be tested in integration during consultation, and the descriptor array is not stable for production implementation.
 
 This assertion is placed in the `assertions` array of a C2PA claim, alongside any other assertions for the asset. It does not replace or conflict with `c2pa.actions` assertions; both may be present in the same claim.
 
 `hpf_classification` must be one of the three values defined in [schema.json](schema.json). Treat schema.json as the authoritative source for the enum definitions.
 
-`hpf_standard_version` follows the pattern `major.minor` or `major.minor.patch` (e.g. `0.9`, `0.9.2`, `1.0`). A record carrying a two-part version was made under an earlier consultation draft and stays valid. Treat it as a string identifier, not a numeric version for comparison purposes. A major version increment (e.g. `0.x` to `1.0`) may indicate a change to the classification test or category definitions; implementations should flag assertions carrying an unrecognised major version for manual review rather than silently accepting or rejecting them. Minor version increments are clarifications only and do not affect how existing classifications should be interpreted. Existing assertions are not invalidated by a version increment.
+`hpf_standard_version` follows the pattern `major.minor` or `major.minor.patch` (e.g. `0.9`, `0.9.2`, `1.0`). A record carrying a two-part version was made under an earlier consultation draft and stays valid. Treat it as a string identifier, not a numeric version for comparison purposes. A major version increment (e.g. `0.x` to `1.0`) may indicate a change to the classification test or category definitions; implementations should flag assertions carrying an unrecognised major version for manual review rather than silently accepting or rejecting them. During v0.9 each consultation revision carries its own patch number and may change requirements, so read a record under the version it names. Existing assertions are not invalidated by a version increment.
 
 The value of `hpf_classification` maps loosely to IPTC `digitalSourceType` as follows:
 
@@ -116,11 +122,11 @@ The mapping is approximate. `hpf_classification` carries different semantics: it
 
 ## Transcoding
 
-Film files are transcoded multiple times across the distribution chain. Embedded C2PA manifests do not survive transcoding. The recommended approach is Durable Content Credentials: the manifest is stored externally (as a sidecar file or in a manifest store) and bound to the asset via a hard binding (cryptographic hash of the asset content) plus one or more soft bindings (perceptual fingerprint or watermark) that allow the manifest to be rediscovered if it becomes separated from the asset. These soft bindings are vendor-neutral and exist only to rediscover a separated manifest. They are not part of the HPF classification, carry no HPF semantics, and no specific watermark or fingerprint technology is required or endorsed.
+Film files are transcoded multiple times across the distribution chain. Embedded C2PA manifests are often lost when files are transcoded. The recommended approach is Durable Content Credentials: the manifest is stored externally (as a sidecar file or in a manifest store) and bound to the asset via a hard binding (cryptographic hash of the asset content) plus one or more soft bindings (perceptual fingerprint or watermark) that allow the manifest to be rediscovered if it becomes separated from the asset. Soft bindings exist only to rediscover a separated manifest. They are not part of the HPF classification, carry no HPF semantics, and no specific watermark or fingerprint technology is required or endorsed.
 
 See the C2PA specification's [External Manifests](https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_external_manifests) section for implementation details.
 
-Because `hpf_classification` originates from a paper declaration rather than from a processing tool, the receiving platform does not need to create the assertion at the moment of file processing. It can be attached to an external manifest after the declaration is signed and the delivery is received. This fits the durable credential model.
+Because `hpf_classification` originates from a signed producer declaration rather than from a processing tool, the receiving platform does not need to create the assertion at the moment of file processing. It can be attached to an external manifest after the declaration is signed and the delivery is received. This fits the durable credential model.
 
 Note that in the HPF flow, the receiving platform or distributor attaching the manifest is also responsible for computing and storing the hard binding against the received asset. This differs from most C2PA implementations, where the creating tool generates both the assertion and the binding at the point of file creation. Implementers should account for this when designing ingest pipelines. The C2PA spec supports multiple hash algorithms (SHA-256, SHA-384, SHA-512); implementers should agree on a hash algorithm with their distribution partners and apply it consistently to the same representation of the asset, typically the received master file before any platform-side transcoding.
 
@@ -128,9 +134,9 @@ Note that in the HPF flow, the receiving platform or distributor attaching the m
 
 ## Trust and signing
 
-C2PA signing requires an entity that holds an X.509 certificate issued by a Certificate Authority (CA) on the C2PA trust list. Who should sign the HPF Content Credential in a film distribution context is an open question not addressed in v0.9. The intention is to raise it as part of the C2PA Technical Working Group discussion.
+C2PA signing uses an X.509 certificate. Validators that rely on the C2PA trust list treat a signer as trusted only where the certificate was issued by a Certificate Authority (CA) on that list. Who should sign the HPF Content Credential in a film distribution context is an open question not addressed in v0.9. The intention is to raise it as part of the C2PA Technical Working Group discussion.
 
-The practical consequence of this open question: until a signing entity is defined and a certificate issued, `film.humanprovenance.ai-disclosure` assertions cannot be verified by standard C2PA validators. Implementations should not build production integrations against this assertion at v0.9. The assertion structure and payload are stable; the trust infrastructure is not yet in place.
+The practical consequence of this open question: until a signing entity is defined and a certificate issued, standard C2PA validators will not treat the signer of a `film.humanprovenance.ai-disclosure` assertion as trusted. A trusted signature would still establish who signed the claims and that they have not changed, not that the classification is correct. Implementations should not build production integrations against this assertion at v0.9. The assertion structure and payload are stable; the trust infrastructure is not yet in place.
 
 ---
 
@@ -154,10 +160,7 @@ These are open questions to raise with the C2PA Technical Working Group. Nothing
 
 ## Version history
 
-| Version | Date | Notes |
-|---|---|---|
-| 0.9 | August 2026 | Added a proposed, provisional controlled descriptor array for `generative_ai` records, tied to the August taxonomy revision. Stated explicitly that C2PA does not classify or validate, that soft bindings carry no HPF semantics, and added open questions for Technical Working Group review. |
-| 0.9 | June 2026 | Working proposal. C2PA Technical Working Group discussion not yet opened. Corrected IPTC term and namespace guidance; updated references to C2PA v2.4. |
+Changes to this mapping are recorded in the version history in [GOVERNANCE.md](GOVERNANCE.md#version-history), with each release tag linked there.
 
 ---
 

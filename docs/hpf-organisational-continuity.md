@@ -176,7 +176,11 @@ own.
 A successor takes on the conditions in section 1 and the boundary in section 2,
 and in addition must:
 
-- preserve the version history, including every published tag, unchanged;
+- keep every published release tag unchanged, and keep the factual history of
+  each release, its date and its version identity intact;
+- keep substantive records, such as released version-history entries and
+  published news posts, as they were published. The surrounding documents may
+  be restructured and edited for clarity, provided no record is rewritten;
 - preserve the consultation record and the reasoning behind each settled
   decision;
 - keep every published licence in force and keep authoritative releases publicly

@@ -1,225 +1,127 @@
 # HPF integration guide
 
-**Version 0.9, working document**
+**HPF Guidance for the HPF AI Disclosure Standard v0.9.3.** Informative.
+Updated October 2026. Consultation closes 31 October 2026.
 
-This guide is for developers implementing HPF classification in products and pipelines. It covers four implementation contexts: platform and ingest systems (including AI detection tool integration), sales agency and distributor technical systems, C2PA and Content Credentials tooling, and delivery portal and post-production tools building toward adoption.
+This note covers one thing: the machine-readable HPF record, and the rules that keep it honest. [taxonomy.md](taxonomy.md) and [schema.json](schema.json) are authoritative for the classifications, definitions, permitted values and required fields, and they govern where this note and they disagree. Nothing here is a commitment that the current fields, permitted values or carriage options will be unchanged at v1.0.
 
-The HPF taxonomy and schema are described in [taxonomy.md](taxonomy.md) and [schema.json](schema.json). The C2PA mapping is in [c2pa-mapping.md](c2pa-mapping.md). This guide assumes familiarity with those documents.
-
----
-
-## One thing to understand before implementing
-
-**HPF classification is a declaration, not a detection.**
-
-The `hpf_classification` value originates from a signed producer declaration held in the chain of title. It is not derived from analysing the content of the file. A platform or ingest system translating that declaration into the schema is carrying forward a human attestation, not generating a machine signal.
-
-Two implications follow:
-
-1. **Do not infer or validate `hpf_classification` from content analysis.** The value is what the producer declared. If a platform has independent AI detection capabilities, those are a separate signal and should not be used to override or backfill an HPF value.
-2. **The paper declaration is the authoritative record.** A C2PA Content Credential carrying an `film.humanprovenance.ai-disclosure` assertion is a technical complement to the chain of title declaration, not a replacement for it. If the two conflict, the signed producer declaration governs.
+**Technical integration is optional.** An organisation can collect and use HPF declarations with no software change at all: ask for a declaration, keep it with the record it belongs to, and apply its own policy. [Add HPF to your workflow](https://humanprovenance.film/resources/add-hpf-to-your-workflow/) is the guide for that route, and it is the right starting point for a fund, festival, awards body, commissioner, broadcaster, distributor or platform. Read this note only if you are holding HPF information in a system.
 
 ---
 
-## Platform and ingest system developers
+## The record
 
-This section is for content management systems, content catalogue databases, player platforms, broadcaster ingest systems, and delivery portal developers at distributors and streamers.
-
-This is the primary implementation context for HPF at v0.9. The translation of a signed producer declaration into a code declaration happens here: at the point where a delivery is received and catalogued.
-
-### Translating the declaration
-
-When a delivery arrives with an HPF declaration, read the declared classification and write it to the two schema fields:
+A record made under 0.9.3 has three required fields:
 
 ```json
 {
-  "hpf_standard_version": "0.9.2",
+  "hpf_standard_version": "0.9.3",
+  "hpf_released_version": "Theatrical cut",
   "hpf_classification": "assistive_ai"
 }
 ```
 
-`hpf_classification` must be one of the three defined values: `no_ai`, `assistive_ai`, `generative_ai`. These map directly to the categories in the producer's declaration. If the declaration uses natural language rather than the enum values, return it to the producer or sales agent for clarification before writing a value. Do not interpret or assign a classification independently.
+| `hpf_classification` | Label |
+|---|---|
+| `no_ai` | No AI Used |
+| `assistive_ai` | Assistive AI |
+| `generative_ai` | Generative AI |
 
-Store the full schema object alongside the title record in your content catalogue or CMS. Include both fields in metadata exchanges with distribution partners where AI disclosure is relevant, rather than the classification value alone. Do not pass `hpf_classification` without `hpf_standard_version`. The version field is required: the classification test may change across major versions.
+`hpf_standard_version` is a string in the form `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`, naming the version of the Standard that was applied. `hpf_released_version` identifies the released version the declaration covers, in the declaration's own words; HPF prescribes no identifier scheme. It was added in 0.9.3. A record made under 0.9.2 carries the standard version and the classification only, and stays valid under the version it names: validate a record against the version it states, and do not reject or backfill a 0.9.2 record for lacking the released version. Treat [schema.json](schema.json) as the source for every field, not this note. Records that must validate, and records that must fail, are in [examples/](examples/).
 
-> **Proposed field, not yet for implementation.** A provisional `hpf_descriptors` array for `generative_ai` records is proposed in [schema.json](schema.json), introduced in the 0.9 August 2026 taxonomy revision. It identifies the type or types of generated content present. It is under consultation and may change before v1.0, so do not build against it yet. This guide covers the two stable fields only.
+A production carries one classification, at the highest applicable category, for the released version the declaration covers. There is no threshold and no de minimis exception. [taxonomy.md](taxonomy.md) has the classification test.
 
-### Deliveries without an HPF declaration
+The required fields may be tested in integration during consultation. Implementers should retain the HPF standard version used and should not treat the provisional descriptor array as stable for production implementation.
 
-Where a delivery arrives without an HPF declaration, the recommended behaviour is a soft failure: ingest proceeds, and no HPF schema record is written. Do not block ingest on the absence of an HPF declaration at v0.9; adoption is not yet widespread enough to make this a hard requirement without creating friction for legitimate deliveries. Flag the absence for follow-up with the producer or sales agent through your standard content operations workflow.
-
-Do not write `no_ai` as a default for content that arrives without a declaration. `no_ai` is a positive assertion that requires an explicit producer declaration. An absent record and `no_ai` are not equivalent.
-
-### Validation
-
-Validate incoming `hpf_classification` values against the enum in [schema.json](schema.json). Values outside `no_ai`, `assistive_ai`, `generative_ai` are invalid and should be flagged for manual review rather than written to the content catalogue. Do not silently discard invalid values or substitute a default. Flag missing or malformed `hpf_standard_version` for manual review in the same way.
-
-An invalid value should be treated as a soft failure consistent with the approach for missing declarations: ingest proceeds, the HPF record is not written, and the issue is flagged for follow-up with the producer or sales agent.
-
-### Absent values and historical content
-
-Do not write an HPF schema record where no declaration exists. Both fields are required by the schema, so a partial record with null field values is invalid. In your content catalogue or CMS, represent the absence of a declaration as a missing HPF record at the title level, not as a schema object with empty fields.
-
-Do not apply `no_ai` in bulk to library content on the assumption that it predates practical AI use in film production. `no_ai` is a positive assertion that has to trace back to a signed producer declaration, and a platform is not in a position to make that declaration on a producer's behalf. Where a platform produced the content itself, it can declare as the producer. In every other case the appropriate state for historical content for which no declaration has been made is no HPF record. Missing information is never `no_ai`.
-
-Whether HPF should formally define a `pre_standard` or `undisclosed` enum value to distinguish historical content for which no declaration has been made from actively declared `no_ai` is an open question for the consultation. Input is welcome.
-
-### Display
-
-HPF does not currently prescribe how platforms should display classification to end users. Display standards are an open question for discussion before v1.0.
-
-What HPF does specify: the classification must not be altered or reinterpreted in display. A title declared as `assistive_ai` must not be shown as `no_ai`.
-
-One non-binding reference implementation: a label on the title detail page, using the category labels from [taxonomy.md](taxonomy.md), displayed alongside other production information (year, country, rating). For example:
-
-- **No AI Used**
-- **Assistive AI**
-- **Generative AI**
-
-Titles with no HPF record need not surface any label unless the platform chooses to indicate that no declaration is available. How to handle undisclosed content in display is at platform discretion.
-
-Prominence, placement, and visual treatment are at platform discretion. Feedback on what display implementations are being considered is welcome via the consultation.
-
-### What to expect at v1.0
-
-v0.9 is a draft for consultation. The schema fields and enum values are stable and are not expected to change at v1.0. Changes at v1.0 are expected to affect the taxonomy definitions and edge case guidance, not the data model.
-
-Records written with `"hpf_standard_version": "0.9.2"` will remain valid after v1.0 is published. They do not need to be re-classified unless the classification of specific content changes as a result of revised category definitions, in which case the producer, not the platform, is responsible for issuing an updated declaration. Platforms should store the version field precisely as received to preserve the record of which taxonomy version governed the original classification.
-
-### AI content detection tools
-
-Platforms using AI content detection tools alongside HPF classification should treat the two signals as independent and complementary. HPF is a signed producer declaration about production-level AI use; a detection tool produces a technical signal about content characteristics. Neither substitutes for the other, and a detection signal should not be used to override, backfill, or contradict an HPF declaration.
-
-Where a detection signal conflicts with a declared classification, for example a detection tool flags apparent AI-generated content in a film declared `no_ai`, the correct response is to flag the discrepancy for human review and, if warranted, to raise it with the producer or sales agent. Do not automatically update the `hpf_classification` field on the basis of a detection result. The signed producer declaration governs; a detection result is a prompt for investigation, not a correction.
-
-Developers of AI content detection tools integrating with HPF-aware platforms should surface both signals distinctly in their output, make the independence of the signals clear to their customers, and avoid presenting detection results as a classification in HPF terms.
+> **`hpf_descriptors` is proposed and provisional.** The descriptor array in [schema.json](schema.json) is under consultation and its values may change before v1.0. Do not build a production integration against it. More than one descriptor may apply to the same production; [taxonomy.md](taxonomy.md) sets out how they combine. Retain descriptors that arrive on a record rather than dropping them, and treat them as factual context: a descriptor never determines or changes the classification.
 
 ---
 
-## Sales agency and distributor technical staff
+## The record is not the declaration
 
-This section is for technical staff at sales agencies and distributors who manage chain of title documentation, acquisition CMS systems, and deal documentation workflows.
+The declaration is the complete signed statement: the work, the released version it covers, the classification, the declaring party, the date, the assertion and signature, and, where in-scope AI use is present, a short factual summary of what the AI did and what output reached the finished work. The [HPF AI Disclosure Form](https://humanprovenance.film/disclosure-form/) records these, and any document carrying the same information works the same way.
 
-Read the Platform and Ingest System Developers section first. The guidance there on translating declarations, validation, and absent values applies equally here. This section covers the additional considerations specific to sales agencies and distributors.
-
-Sales agencies and distributors occupy a critical position in the HPF chain: they are typically the first entity to receive a signed producer declaration, the entity that incorporates it into an acquisition agreement as a contractual representation, and the entity responsible for passing it downstream to multiple buyers simultaneously.
-
-### Storing the declaration
-
-A sales agency or distributor with an internal CMS should store the HPF classification at the title record level, using the same two-field schema as a platform:
-
-```json
-{
-  "hpf_standard_version": "0.9.2",
-  "hpf_classification": "assistive_ai"
-}
-```
-
-This creates a canonical record that can be passed to buyers without each buyer needing to re-translate the signed producer declaration independently. The declaration remains the authoritative record; the schema fields are how it is held and passed on in technical systems.
-
-If the declaration uses natural language rather than the enum values, return it to the producer for clarification before writing a value. Do not interpret or classify independently.
-
-### Multi-buyer scenarios
-
-When the same title is sold to multiple buyers simultaneously (a streamer, a broadcaster, a theatrical distributor), each buyer receives their own copy of the signed producer declaration. The canonical schema record held by the sales agency is the source of truth. Each buyer's ingest system may create its own record independently; where possible, provide the schema fields directly in the metadata package alongside the declaration to reduce transcription errors at each buyer's ingest.
-
-Where a buyer's system does not yet support HPF fields, provide the declaration and note the classification in the deal memo or delivery specifications. The classification should travel in some form with every deal regardless of whether the buyer's system can ingest it.
-
-### Passing classification downstream
-
-Include both `hpf_standard_version` and `hpf_classification` in metadata packages sent to buyers, delivery portals, and festival submission systems. Do not pass the classification value alone; the version field is required for buyers to know which taxonomy governed the original declaration.
-
-Where deal documentation incorporates the classification as a producer representation, which is the recommended approach, the contractual language should reference the HPF taxonomy version alongside the classification value, so that any future taxonomy revision does not retroactively alter the meaning of the representation.
+The record carries the classification, the released version and the Standard version through a system. They carry none of the rest, and cannot be read as though they did. Retain the declaration, or a reliable reference to where it is held, alongside the record. It may be kept in any documentary or electronic form; HPF requires no particular medium: the declaration may be on paper or digital. The authoritative source is the signed producer declaration, and a stored record carries only part of it. Treat a discrepancy between them as a transcription or version problem for the declaring party, not something to resolve by changing either one.
 
 ---
 
-## C2PA and content credentials tooling
+## Rules
 
-This section is for C2PA SDK implementers, CAI tooling developers, and anyone building systems that create, sign, or verify Content Credentials for film and television assets.
+- **HPF is producer self-declaration.** The classification is what an authorised party declared. Never derive one from software use, file metadata, automated detection, catalogue heuristics, release date, or the absence of a declaration.
+- **Missing is never `no_ai`.** A missing, blank, invalid, unknown or unresolved value must not default to `no_ai`. Only a declaring party can state that no in-scope AI output is present.
+- **Keep the two states apart.** "No AI Used" and "no valid HPF declaration received" are different facts. A schema, column, export format or interface that cannot hold both is not fit for HPF data.
+- **Omit rather than pad.** The fields are required, so a record with null or empty values is invalid. Where no declaration exists, write no record.
+- **Absence need not block ingest.** HPF does not require an organisation to block ingest or delivery solely because a declaration is absent. Proceed without writing a record, and flag the absence for follow-up where that is useful. Whether to require a declaration is for the receiving organisation to decide.
+- **The record describes a named released version.** It describes AI output in that version, not AI use at every stage of production. An organisation that asks about other stages may need additional information, and asks for it under its own policy.
+- **Flag, do not coerce.** An out-of-enum classification, a malformed version string, a missing version field, or a 0.9.3 record without its released version is invalid. Flag it for follow-up with the declaring party. Do not discard it silently or substitute a default.
+- **Never bulk-apply.** A classification is not backfilled across a catalogue. Where an organisation produced the work itself it can declare as the producer; otherwise undeclared material has no record.
+- **Pass the fields together.** A classification without its Standard version and released version cannot be read back reliably. Store the version string exactly as received and treat it as an identifier, not a number to compare arithmetically.
+- **Do not re-express the classification.** A record received as `assistive_ai` is stored, passed on and displayed as `assistive_ai`. Where a classification is shown to an audience it should relate to the version actually made available, using the labels in [taxonomy.md](taxonomy.md). HPF does not require audience display or prescribe its form.
+- **Keep the namespace clean.** Record the fields the schema defines and nothing else. Prompts, model names, training-data claims, consent flags, rights status and approval outcomes are outside the Standard's scope, and putting them behind an HPF label misrepresents what HPF is.
 
-### The proposed custom assertion
-
-HPF proposes a custom assertion with the label `film.humanprovenance.ai-disclosure`. The payload matches [schema.json](schema.json), nested under a `data` key as part of the assertion structure:
-
-```json
-{
-  "label": "film.humanprovenance.ai-disclosure",
-  "data": {
-    "hpf_standard_version": "0.9.2",
-    "hpf_classification": "no_ai"
-  }
-}
-```
-
-`hpf_classification` must be one of the three values defined in [schema.json](schema.json). Treat schema.json as the authoritative source; do not rely on this document for the enum definition.
-
-This is a working proposal. It has not been submitted to the C2PA Technical Working Group. The relationship between this assertion and the existing `c2pa.actions` / IPTC `digitalSourceType` values is described in [c2pa-mapping.md](c2pa-mapping.md).
-
-### Relationship to existing C2PA assertions
-
-`film.humanprovenance.ai-disclosure` is not a replacement for `c2pa.actions` assertions with IPTC `digitalSourceType` values. They operate at different levels:
-
-- `c2pa.actions` records what a specific tool did to a specific file at a specific point in processing
-- `film.humanprovenance.ai-disclosure` records the production-level classification from a signed producer declaration
-
-Both should be present where tooling supports it. A VFX tool that uses a generative AI model would record that via `c2pa.actions` with `trainedAlgorithmicMedia`. The `film.humanprovenance.ai-disclosure` assertion on the finished film is a separate, higher-level statement derived from the producer's declaration across the whole production.
-
-See [c2pa-mapping.md](c2pa-mapping.md) for the full mapping and its known limitations.
-
-### Transcoding
-
-Embedded C2PA manifests do not survive transcoding. Film assets are transcoded multiple times across the distribution chain.
-
-The recommended approach is Durable Content Credentials: store the manifest externally, bound to the asset via a hard binding (cryptographic hash of the asset content) and one or more soft bindings (perceptual fingerprint or watermark) that allow the manifest to be rediscovered if separated from the asset. See the C2PA specification's [External Manifests](https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_external_manifests) section for implementation details.
-
-The `film.humanprovenance.ai-disclosure` assertion is particularly suited to the external manifest model. Because it originates from a signed producer declaration rather than from a processing tool, the receiving platform does not need to create the assertion at the moment of file processing. It can be attached to the manifest after the declaration is signed and the delivery is received.
-
-### Trust and signing
-
-C2PA signing requires an X.509 certificate issued by a CA on the C2PA trust list. Who should sign the `film.humanprovenance.ai-disclosure` assertion in a film distribution context is an open question not resolved in v0.9. Candidates include the producer, the sales agent or distributor, and the receiving platform. Each carries different trust implications.
-
-This question will be raised with the C2PA Technical Working Group as part of the proposal process. If you are implementing C2PA signing for film assets and want to include `film.humanprovenance.ai-disclosure`, contact contact@humanprovenance.film before doing so. Until the Technical Working Group discussion concludes, coordinate with us before implementing rather than proceeding independently.
+Detection sits outside all of this. Content detection, forensic analysis and watermark or fingerprint matching are external processes with their own purposes and limits. None can create an HPF classification, correct one, or stand in for a declaration that was never made.
 
 ---
 
-## Delivery portals and post-production tools
+## What structural validation establishes
 
-**This section is forward-looking.** At v0.9, a signed producer declaration is translated into the schema fields at platform ingest, usually as a manual step by content operations staff. Delivery portals and post-production tools are not yet expected to perform this translation. As adoption grows, capturing the classification as a structured field at the point of delivery is the path to more reliable data.
-
-For any portal or tool that adds HPF support:
-
-- Present the three categories using the labels in [taxonomy.md](taxonomy.md): No AI Used, Assistive AI, Generative AI, with the definitions available in-context.
-- The value must trace back to a signed producer declaration. Do not infer or assign a classification from tool usage or content analysis, and do not require a value where no declaration exists at v0.9.
-- Map the classification to the production as a whole (the project or job level), not to individual sequences, reels, or output formats.
-- Write the result as a sidecar JSON file conforming to [schema.json](schema.json), or pass it to the downstream catalogue directly. Embedding a sidecar in a delivery package (IMF, DCP, or platform bundle) requires prior agreement with the receiving party, since many ingest systems reject unexpected files. Agree the filename and delivery method with downstream partners.
-
-If you are building toward HPF support, contact contact@humanprovenance.film so implementations stay consistent.
+That the data has the expected structure and uses permitted values. Nothing else. It says nothing about the accuracy of the declaration, the AI actually used in the production, the authority of the person who made the declaration, copyright, consent, rights, or compliance with any contract, collective agreement, policy or law. HPF does not audit, certify, approve or determine eligibility, and an integration must not be presented as though it does. An organisation may apply its own rules to declared HPF information; those rules are the organisation's and are not part of HPF.
 
 ---
 
-## Open questions
+## Versions of the production
 
-The following are unresolved in v0.9 and are part of the consultation (closes 31 October 2026):
+One declaration covers one released version of a work, and may travel with every delivery of that same version. A released version is a separately released editorial edition or substantive localisation of a work, identified by its picture, sound and, where relevant, embedded audience-facing text. A later released version has its own declaration, even where the classification and factual summary are unchanged. See [taxonomy.md](taxonomy.md).
 
-- **Signing authority:** who holds and signs the `film.humanprovenance.ai-disclosure` C2PA assertion in a distribution context
-- **Display standards:** how platforms surface HPF classification to end users
-- **Series and episodic content:** whether classification applies at the title, season, or episode level
-- **Reclassification:** how to handle a change in declared classification between an original delivery and a subsequent cut or version
-- **Undisclosed state:** whether a formal `pre_standard` or `undisclosed` enum value should be added to distinguish historical content for which no declaration has been made from actively declared `no_ai`
-- **Amended declarations:** how updated producer declarations propagate through delivery portals and downstream content catalogue systems, and whether portals should version declaration records
-- **Sidecar delivery:** whether HPF should prescribe a standard filename and packaging pattern for sidecar JSON files to ensure interoperability across delivery systems
-- **Festival and broadcaster downstream use:** how a classification declared at submission should travel into screening agreements, programme documentation, and audience-facing display where no formal deal documentation exists
+For a system this means:
+
+- Store the released version with the classification. A different codec, bitrate, container, delivery master or transcode of the same picture, sound and embedded text is the same released version and carries the same record.
+- A director's cut, a restored edition that changes the picture or sound, or a dubbed version is a different released version. Do not apply an existing record to it; ask the declaring party for its declaration.
+- A declaration for a later released version does not change the record for an earlier one. Keep both. HPF does not require the producer to notify recipients of an earlier version, and a system should not wait for such a notice.
+
+How the rule applies to episodic works, selectable subtitles and captions, dubbing and other localisation, and the boundary between a technical delivery variation and a substantively different released version is open for consultation. These are questions about applying the rule, not about reconsidering it, and this note does not settle them.
+
+---
+
+## Optional carriage
+
+Receiving and retaining a declaration needs no API, ledger, manifest or provenance infrastructure, and HPF mandates no database or delivery architecture. A signed declaration exists independently of the delivery file, so it is not lost through transcoding, format conversion or platform ingest. [schema.json](schema.json) exists so that an organisation already holding title records in a system can hold the classification in the same place and pass it in a metadata exchange. HPF prescribes no filename or packaging pattern for a structured record; any sidecar or manifest arrangement is for the sending and receiving parties to agree.
+
+[c2pa-mapping.md](c2pa-mapping.md) proposes an entity-specific C2PA assertion carrying the same payload. It is a working proposal, has not been submitted to the C2PA Technical Working Group, has no signing authority behind it, and is not for production implementation. C2PA can carry an HPF classification. It does not decide, validate or correct one.
+
+---
+
+## Technical implementation questions
+
+These are technical matters for implementers, separate from the consultation questions in [taxonomy.md](taxonomy.md#consultation). They are recorded so that silence is not read as permission, and this note does not settle them:
+
+1. Who has signing authority for the proposed C2PA assertion.
+2. What a recipient does with a superseded declaration.
+3. Whether a controlled value should distinguish undeclared material from a declared `no_ai`.
+4. Whether HPF should specify a sidecar filename and packaging pattern.
+
+How the released-version rule applies to episodic works, selectable subtitles and captions, dubbing and other localisation is part of consultation question 4.
 
 To contribute: open an issue or pull request on the repository, or email contact@humanprovenance.film.
 
 ---
 
+## Related resources
+
+| Document | What it is for |
+|---|---|
+| [taxonomy.md](taxonomy.md) | The Standard. Category definitions, the classification test, scope and edge cases. |
+| [schema.json](schema.json) | The record, its required fields and permitted values. |
+| [examples/](examples/) | Records that must validate, and records that must fail. |
+| [Add HPF to your workflow](https://humanprovenance.film/resources/add-hpf-to-your-workflow/) | What an organisation does without any integration. |
+| [c2pa-mapping.md](c2pa-mapping.md) | The proposed C2PA assertion. A working proposal, not final and not part of C2PA. |
+| [GOVERNANCE.md](GOVERNANCE.md) | The version history of the Standard and this note, and the amendment process. |
+
+---
+
 ## Version history
 
-| Version | Date | Notes |
-|---|---|---|
-| 0.9 | August 2026 | Noted the proposed provisional `hpf_descriptors` field introduced in the August taxonomy revision. Removed the allowance for applying `no_ai` in bulk to historical library content, which conflicted with the rule that missing information is never `no_ai` and with the requirement that a value trace back to a signed producer declaration. No change to the two required fields or to the enum values. |
-| 0.9 | April 2026 | Initial working document. |
+Changes to this note are recorded in the version history in [GOVERNANCE.md](GOVERNANCE.md#version-history), with each release tag linked there.
 
 ---
 

@@ -1,6 +1,6 @@
 # Human Provenance in Film
 
-**HPF AI Disclosure Taxonomy, v0.9.2 draft for consultation**
+**HPF AI Disclosure Taxonomy, v0.9.3 draft for consultation**
 
 Consultation closes 31 October 2026.
 
@@ -8,9 +8,9 @@ Consultation closes 31 October 2026.
 
 ## What this is
 
-A three-category classification standard for AI disclosure in film and television, designed to travel in chain of title and deal documentation (the legal and rights documentation that accompanies a film through distribution and licensing).
+A three-category classification standard for AI disclosure in film and television, designed to travel with a production's existing deal, delivery and other production paperwork.
 
-Without a consistent disclosure standard, there is no reliable market data on whether buyers and audiences distinguish between AI-generated and human-authored content.
+Without more consistent disclosure, it is difficult to study whether and how buyers and audiences respond to different forms of AI use in finished screen work.
 
 ---
 
@@ -19,7 +19,7 @@ Without a consistent disclosure standard, there is no reliable market data on wh
 The files in this repository are intended for:
 
 - **Platform engineers and catalogue / CMS developers** at distributors, streamers, and broadcasters: [schema.json](schema.json) and [INTEGRATION.md](INTEGRATION.md)
-- **Sales agency and distributor technical staff** managing chain of title and deal documentation: [INTEGRATION.md](INTEGRATION.md)
+- **Sales agency and distributor technical staff** managing deal and delivery paperwork: [INTEGRATION.md](INTEGRATION.md)
 - **Delivery portal and ingest system developers**: [INTEGRATION.md](INTEGRATION.md) and [schema.json](schema.json)
 - **C2PA SDK developers and CAI members**: [c2pa-mapping.md](c2pa-mapping.md) and [INTEGRATION.md](INTEGRATION.md)
 - **Post-production tool developers** building toward adoption: [INTEGRATION.md](INTEGRATION.md)
@@ -31,7 +31,7 @@ The full taxonomy specification and plain-language guidance for productions are 
 
 ## The three categories
 
-Built on a single organising principle: **is AI output present in the finished film, and did it process human work or originate new content?**
+Built on a single organising principle: **is AI output present in the named finished version? If so, did the AI process human-created material or originate new content?**
 
 | `hpf_classification` | Label |
 |---|---|
@@ -43,16 +43,16 @@ For category definitions, scope, classification test, and edge cases: [taxonomy.
 
 ---
 
-## How classification travels: paper to code
+## How classification travels: signed declaration to metadata
 
-HPF classification originates as a signed producer declaration in the chain of title. It is not derived from technical analysis of the content.
+HPF classification originates as a signed producer declaration, made on paper or digitally, for one released version of the production. It is not derived from technical analysis of the content.
 
-The declaration travels with the film through deal and delivery documentation. At the point of platform or distributor ingest, it is translated into the two required schema fields and stored in the content catalogue. A third field, a provisional descriptor array for `generative_ai` records, is proposed in the schema and was introduced in the August 2026 revision. It is under consultation and not yet for implementation. The paper declaration is the authoritative record at every stage; the schema is how that record is held and passed on in technical systems.
+The declaration can travel with the film through existing deal, delivery and other production paperwork. An organisation that holds title records in a system may record it in the required schema fields: the standard version, the released version and the classification. The core fields may be tested in integration during consultation. Implementers should retain the HPF standard version used and should not treat the provisional descriptor array as stable for production implementation. The signed producer declaration is the authoritative source at every stage; the schema is how part of that record is held and passed on in technical systems.
 
 ```
-Producer signs paper declaration
+Producer signs declaration for a released version
         |
-        | travels in chain of title
+        | travels with deal and delivery paperwork
         v
 Distributor / buyer / streamer receives delivery
         |
@@ -66,7 +66,7 @@ Classification available for display, reporting, and downstream pass-through
 
 Where technically implemented, the classification may also be carried in or alongside the delivery file as a C2PA Content Credential, at any point in the chain. This is optional and complementary. See [c2pa-mapping.md](c2pa-mapping.md) for the proposed technical implementation.
 
-Pending broader adoption, delivery portal and ingest systems, and post-production tools with delivery workflows, may also translate the declaration into the schema at the point of delivery acceptance, upstream of the receiving platform. Where this happens, the paper declaration still governs. See [INTEGRATION.md](INTEGRATION.md) for implementation guidance.
+Pending broader adoption, delivery portal and ingest systems, and post-production tools with delivery workflows, may also translate the declaration into the schema at the point of delivery acceptance, upstream of the receiving platform. Where this happens, the signed producer declaration still governs. See [INTEGRATION.md](INTEGRATION.md) for implementation guidance.
 
 ---
 

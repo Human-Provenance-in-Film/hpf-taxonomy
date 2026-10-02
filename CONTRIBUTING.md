@@ -8,25 +8,29 @@ Thank you for your interest. HPF v0.9 is a draft open for public consultation un
 - Open an issue using the **bug or inconsistency** template when something is wrong, broken or contradicted elsewhere.
 - Open a pull request to propose specific wording or schema changes. The pull request template lists what a reviewer checks.
 - Email contact@humanprovenance.film if you would rather respond privately or at length.
-- Complete the Pre-v1 Consultation Survey, open until 30 September 2026 and linked from [humanprovenance.film](https://humanprovenance.film). It is shorter than the full consultation and closes earlier.
+- Complete the descriptor survey, open until 31 October 2026 and linked from [humanprovenance.film](https://humanprovenance.film/taxonomy#consultation). It asks about the definitions and the provisional descriptors. The Pre-v1 Consultation Survey phase closed on 30 September 2026.
 
-Partial feedback is welcome. If you are answering one of the seven numbered consultation questions in [taxonomy.md](taxonomy.md), please say which one.
+Partial feedback is welcome. If you are answering one of the numbered consultation questions in [taxonomy.md](taxonomy.md#consultation), please say which one. The numbering changed in the September 2026 revision; if you are answering a question as an earlier draft numbered it, say so.
 
-HPF is also identifying a small pre-v1 working group to pressure-test the taxonomy, descriptors, and implementation against real production and institutional use cases. Email contact@humanprovenance.film if you would like to be considered. The group is advisory. It is not the future governing body, and participation does not imply endorsement of HPF. See [GOVERNANCE.md](GOVERNANCE.md).
+HPF is also identifying a small pre-v1 working group to pressure-test the taxonomy, descriptors, and implementation against real production and institutional use cases, through case reviews in November and December 2026. Email contact@humanprovenance.film to register interest. The group is advisory. It is not the future governing body, and participation does not imply endorsement of HPF. See [GOVERNANCE.md](GOVERNANCE.md).
 
 To report a suspected security vulnerability, use the private route in [SECURITY.md](SECURITY.md) rather than a public issue.
 
 ## Where feedback is most useful
 
-- The provisional Generative AI descriptors added in the August 2026 revision: whether the terms are useful and distinct, where they overlap, and what is missing.
-- The glossary added in the same revision, and whether its definitions match terms already in use in your part of the industry.
-- Whether established machine-learning features that process human-created material, such as denoising, upscaling and tracking, should require Assistive AI disclosure, or sit with the routine automation the taxonomy already treats as out of scope.
-- Scope, in particular how much pre-production AI use should be disclosed.
-- Animation and the in-between cases, where work builds on human input but adds something new.
-- Whether platforms, broadcasters and distributors would use the Assistive AI category.
-- How a producer can honestly sign "No AI Used" when common software enables AI features by default.
-- The proposed C2PA mapping in [c2pa-mapping.md](c2pa-mapping.md).
-- Display and delivery formats for the classification.
+The open questions are listed, with the points already settled, in the [consultation section of taxonomy.md](taxonomy.md#consultation). In short:
+
+- Reasonable enquiry and established machine learning, in two parts. Declaration basis: is reasonable enquiry the appropriate basis for a No AI Used declaration where AI functions may be built into software, enabled by default, or difficult to identify? Classification scope: which established machine-learning functions, if any, should require Assistive AI disclosure when they process picture or sound retained in the released version? Concrete workflow examples are especially useful here.
+- Whether the performance-related descriptors are clear, what examples would help, and when Generated Visual Content is used alongside them. More than one descriptor may already apply where each adds distinct factual information.
+- How to describe human performance inputs that contribute to a synthetic performance without representing an identifiable person. Guidance may answer this rather than a new descriptor.
+- Complex finished-work and version cases: transformed output, intermediate VFX control data, restoration and reconstruction, localisation, subtitles and captions, episodic releases, and animation workflows, including in-between cases where work builds on human input but adds something new. These are also the subject of the working group's case reviews.
+- Implementation: what producers can establish, and what receiving organisations find useful.
+
+If a real production use does not fit the current categories, we want to hear about it. Comments on any glossary definition are also welcome, particularly where a term is already used differently in your part of the industry.
+
+Technical implementers can comment on the proposed C2PA mapping in [c2pa-mapping.md](c2pa-mapping.md) and on the technical implementation questions in [INTEGRATION.md](INTEGRATION.md). These are integration matters, separate from the consultation questions.
+
+Performers, casting professionals, agents, union representatives and business-affairs practitioners are welcome to help test whether the factual vocabulary is clear and usable. HPF does not determine contractual permission, consent, compensation, rights or legal compliance, and those questions are not part of the consultation.
 
 ## How proposals are handled
 
@@ -76,7 +80,7 @@ The same checks run on every push and pull request through `.github/workflows/st
 
 These checks detect objective inconsistency. They make no judgement about writing quality or about what the taxonomy should say. If a finding is a deliberate exception, record it in `tools/check-allowlist.txt` with a reason. Do not delete a check to silence it.
 
-One exception: a `frozen` finding is not allowlistable. A version-history row for a released revision is the record of what that revision changed, and is not edited afterwards, for the same reason a published tag never moves. `tools/frozen.txt` pins each released row by hash; the newest row stays a working draft until its revision is tagged. `python3 tools/check_standard.py --frozen-hashes` reprints the manifest with current hashes and writes nothing.
+One exception: a `frozen` finding is not allowlistable. A version-history entry for a released revision is the record of what that revision changed, and is not edited afterwards, for the same reason a published tag never moves. `tools/frozen.txt` pins each released entry by hash; the newest entry stays a working draft until its revision is tagged. `python3 tools/check_standard.py --frozen-hashes` reprints the manifest with current hashes and writes nothing.
 
 ## Scope of this repository
 

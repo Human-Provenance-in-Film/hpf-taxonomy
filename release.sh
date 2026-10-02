@@ -16,8 +16,8 @@
 #   2. On main, nothing uncommitted, in sync with GitHub.
 #   3. The tag does not already exist, here or on GitHub. A tag never moves.
 #   4. taxonomy.md, CITATION.cff and GOVERNANCE.md all name this version.
-#   5. GOVERNANCE.md has a version-history row for it.
-#   6. That row is pinned in tools/frozen.txt. It becomes a record at the tag.
+#   5. GOVERNANCE.md has a version-history section for it.
+#   6. That section is pinned in tools/frozen.txt. It becomes a record at the tag.
 #   7. tools/check_standard.py passes.
 #   8. tools/check_site.py passes in hpf-site, parity check included, so the
 #      published standard and the site agree before the tag fixes either.
@@ -90,21 +90,22 @@ It carries the version being released, and it is committed before the tag."
 grep -q "Version $version" GOVERNANCE.md \
   || fail "GOVERNANCE.md does not state Version $version."
 
-grep -q "^| $version |" GOVERNANCE.md \
-  || fail "GOVERNANCE.md has no version-history row for $version.
-Write it before tagging. It is the record of what this revision changed, and
-after the tag it is not edited again. See step 6 of docs/release-checklist.md."
+grep -q "^### $version " GOVERNANCE.md \
+  || fail "GOVERNANCE.md has no version-history section for $version.
+Write it before tagging, headed '### $version · <Month Year> · Draft for
+consultation'. It is the record of what this revision changed, and after the
+tag it is not edited again. See step 6 of docs/release-checklist.md."
 
-grep -q "| $version |" tools/frozen.txt \
-  || fail "the $version version-history row is not pinned in tools/frozen.txt.
-A row is a working draft until its revision is tagged and a closed record after.
-Pin it now, in the same commit as the row.
+grep -q "^section :: GOVERNANCE.md :: ### $version ::" tools/frozen.txt \
+  || fail "the $version version-history section is not pinned in tools/frozen.txt.
+A section is a working draft until its revision is tagged and a closed record
+after. Add its 'Text as released' line, then pin it, in the same commit.
 
-  1. Add this line to tools/frozen.txt, next to the other GOVERNANCE.md rows:
+  1. Add this line to tools/frozen.txt, next to the other GOVERNANCE.md sections:
 
-     row :: GOVERNANCE.md :: | $version | <Month> 2026 | :: PENDING :: released in $tag
+     section :: GOVERNANCE.md :: ### $version :: PENDING :: released in $tag
 
-  2. Recompute the hashes. --frozen-hashes fills in values for rows that are
+  2. Recompute the hashes. --frozen-hashes fills in values for entries that are
      already listed; it does not add new ones, which is why step 1 comes first.
 
      python3 tools/check_standard.py --frozen-hashes > /tmp/frozen.new

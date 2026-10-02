@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/human-provenance-in-film/hpf-taxonomy/main/schema.json",
   "title": "HPF AI Disclosure Schema",
-  "description": "JSON Schema for HPF AI Disclosure metadata. Consultation proposal, not a final v1.0 commitment. hpf_standard_version and hpf_classification are required when an HPF record is present. The version field was named hpf_taxonomy_version before 0.9.2; a record using the old name is a record made under the earlier draft. hpf_descriptors is a proposed, provisional field introduced in the August 2026 revision. altered_performance applies to an assistive_ai or a generative_ai record; every other descriptor applies to generative_ai only; none applies to no_ai. Descriptor meanings are defined by the version named in hpf_standard_version, so a stable value has a stable meaning for a given version. Where no HPF declaration exists, omit the record entirely rather than writing null field values. Published by Human Provenance in Film under CC BY 4.0.",
+  "description": "JSON Schema for HPF AI Disclosure metadata. Consultation proposal, not a final v1.0 commitment. hpf_standard_version and hpf_classification are required when an HPF record is present. From 0.9.3 hpf_released_version is also required, identifying the released version the declaration covers; a record made under 0.9.2 or earlier does not carry it and remains valid under the version it names. The version field was named hpf_taxonomy_version before 0.9.2; a record using the old name is a record made under the earlier draft. hpf_descriptors is a proposed, provisional field introduced in the August 2026 revision. altered_performance applies to an assistive_ai or a generative_ai record; every other descriptor applies to generative_ai only; none applies to no_ai. Descriptor meanings are defined by the version named in hpf_standard_version, so a stable value has a stable meaning for a given version. Where no HPF declaration exists, omit the record entirely rather than writing null field values. Published by Human Provenance in Film under CC BY 4.0.",
   "type": "object",
   "required": [
     "hpf_standard_version",
@@ -14,13 +14,23 @@
       "description": "The version of the HPF AI Disclosure Standard applied to this record.",
       "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$",
       "examples": [
-        "0.9.2",
-        "1.0"
+        "0.9.3",
+        "0.9.2"
+      ]
+    },
+    "hpf_released_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The released version of the work that the declaration covers, as the declaration names it. A released version is a separately released editorial edition or substantive localisation of a work, identified by its picture, sound and, where relevant, embedded audience-facing text. Required from 0.9.3. HPF prescribes no identifier scheme.",
+      "examples": [
+        "Theatrical cut",
+        "Director's cut",
+        "German dubbed version"
       ]
     },
     "hpf_classification": {
       "type": "string",
-      "description": "The HPF disclosure category for this production. Derived from a signed producer declaration held in the chain of title.",
+      "description": "The HPF disclosure category for the released version the declaration covers. Derived from a signed producer declaration.",
       "enum": [
         "no_ai",
         "assistive_ai",
@@ -50,6 +60,23 @@
     }
   },
   "allOf": [
+    {
+      "if": {
+        "required": [
+          "hpf_standard_version"
+        ],
+        "properties": {
+          "hpf_standard_version": {
+            "pattern": "^0\\.9(\\.[0-2])?$"
+          }
+        }
+      },
+      "else": {
+        "required": [
+          "hpf_released_version"
+        ]
+      }
+    },
     {
       "if": {
         "required": [

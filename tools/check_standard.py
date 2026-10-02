@@ -70,9 +70,13 @@ WITHDRAWN_VALUES = [
     "human_only",
 ]
 
-STANDARD_VERSION = "0.9.2"
+STANDARD_VERSION = "0.9.3"
 
 VERSION_FIELD = "hpf_standard_version"
+# Added at 0.9.3. Required on a record made under 0.9.3 or later; a record
+# made under an earlier version does not carry it and stays valid under the
+# version it names. schema.json states which versions are historical.
+RELEASED_FIELD = "hpf_released_version"
 SUPERSEDED_VERSION_FIELD = "hpf_taxonomy_version"
 
 # Identifiers withdrawn at 0.9.2. A superseded one left in a code sample is
@@ -195,6 +199,37 @@ def check_schema(schema):
         add("schema", "schema.json", 0,
             "assistive_ai descriptors are %r, expected only altered_performance" % (allowed,))
 
+    # Released version, 0.9.3. The field is a non-empty string, required for
+    # every version the historical pattern does not match. If the rule goes
+    # missing, a 0.9.3 record without it would validate silently.
+    released = props.get(RELEASED_FIELD, {})
+    if released.get("type") != "string" or released.get("minLength") != 1:
+        add("schema", "schema.json", 0,
+            "%s must be a non-empty string property" % RELEASED_FIELD)
+    historical = released_version_rule(schema)
+    if historical is None:
+        add("schema", "schema.json", 0,
+            "no rule requires %s outside the historical versions" % RELEASED_FIELD)
+    else:
+        for old in ("0.9", "0.9.0", "0.9.1", "0.9.2"):
+            if not re.fullmatch(historical, old):
+                add("schema", "schema.json", 0,
+                    "historical version %s would now require %s" % (old, RELEASED_FIELD))
+        if re.fullmatch(historical, STANDARD_VERSION):
+            add("schema", "schema.json", 0,
+                "current version %s is treated as historical" % STANDARD_VERSION)
+
+
+def released_version_rule(schema):
+    """The pattern of versions that do not require the released-version field,
+    read from the allOf branch that states it. None if the branch is missing."""
+    for entry in (schema or {}).get("allOf") or []:
+        pattern = entry.get("if", {}).get("properties", {}).get(
+            VERSION_FIELD, {}).get("pattern")
+        if pattern and entry.get("else", {}).get("required") == [RELEASED_FIELD]:
+            return pattern
+    return None
+
 
 # -------------------------------------------------- built-in record check
 
@@ -219,6 +254,16 @@ def validate_record(record, schema):
             problems.append("%s is not a string" % VERSION_FIELD)
         elif pattern and not re.fullmatch(pattern, version):
             problems.append("%s %r does not match %s" % (VERSION_FIELD, version, pattern))
+
+    historical = released_version_rule(schema)
+    if historical is not None:
+        is_historical = isinstance(version, str) and re.fullmatch(historical, version)
+        if not is_historical and RELEASED_FIELD not in record:
+            problems.append("missing %s, required from 0.9.3" % RELEASED_FIELD)
+    if RELEASED_FIELD in record:
+        released = record[RELEASED_FIELD]
+        if not isinstance(released, str) or not released:
+            problems.append("%s must be a non-empty string" % RELEASED_FIELD)
 
     classification = record.get("hpf_classification")
     if classification is not None:
@@ -541,12 +586,20 @@ def check_links():
     self_blob = re.compile(
         r"^https://(?:raw\.)?github(?:usercontent)?\.com/[^/]+/hpf-taxonomy/"
         r"(?:blob/|raw/)?(?:main/)?(.+)$", re.IGNORECASE)
+    # A link to a release tag points at an immutable snapshot, not at the
+    # files on disk, so there is nothing here to resolve it against.
+    tag_ref = re.compile(
+        r"^https://github\.com/[^/]+/hpf-taxonomy/(?:tree|blob|releases/tag)/v\d",
+        re.IGNORECASE)
 
     for rel in existing_docs():
         base = os.path.dirname(rel)
         for number, line in each_line(rel):
             for target in link.findall(line):
                 if target.startswith("#") or target.startswith("mailto:"):
+                    continue
+
+                if tag_ref.match(target):
                     continue
 
                 match = self_blob.match(target)
@@ -594,8 +647,8 @@ def load_frozen():
             parts = [part.strip() for part in line.split("::")]
             if parts[0] == "file" and len(parts) == 4:
                 records.append(("file", parts[1], None, parts[2], parts[3]))
-            elif parts[0] == "row" and len(parts) == 5:
-                records.append(("row", parts[1], parts[2], parts[3], parts[4]))
+            elif parts[0] in ("row", "section") and len(parts) == 5:
+                records.append((parts[0], parts[1], parts[2], parts[3], parts[4]))
             else:
                 errors.append((number, line))
     return records, errors
@@ -609,6 +662,8 @@ def frozen_hash(kind, relpath, key):
     if kind == "file":
         with open(full, "rb") as handle:
             return hashlib.sha256(handle.read()).hexdigest(), None
+    if kind == "section":
+        return section_hash(full, key)
     with open(full, encoding="utf-8", errors="replace") as handle:
         hits = [line.strip() for line in handle if line.strip().startswith(key)]
     if not hits:
@@ -616,6 +671,33 @@ def frozen_hash(kind, relpath, key):
     if len(hits) > 1:
         return None, "%d lines start with the pinned prefix %r" % (len(hits), key)
     return hashlib.sha256(hits[0].encode("utf-8")).hexdigest(), None
+
+
+def section_hash(full, key):
+    """A section is a Markdown heading that starts with `key` and every line
+    after it up to the next heading of the same or a higher level. Trailing
+    blank lines and horizontal rules are separators, not content, and are left
+    out so that the layout around a record can change without moving it."""
+    with open(full, encoding="utf-8", errors="replace") as handle:
+        lines = [line.rstrip("\n") for line in handle]
+    starts = [i for i, line in enumerate(lines)
+              if line.startswith("#") and line.strip().startswith(key)]
+    if not starts:
+        return None, "no heading starts with the pinned prefix %r" % key
+    if len(starts) > 1:
+        return None, "%d headings start with the pinned prefix %r" % (len(starts), key)
+    start = starts[0]
+    level = len(lines[start]) - len(lines[start].lstrip("#"))
+    end = len(lines)
+    for i in range(start + 1, len(lines)):
+        match = re.match(r"^(#+)\s", lines[i])
+        if match and len(match.group(1)) <= level:
+            end = i
+            break
+    body = [line.strip() for line in lines[start:end]]
+    while body and body[-1] in ("", "---"):
+        body.pop()
+    return hashlib.sha256("\n".join(body).encode("utf-8")).hexdigest(), None
 
 
 def check_frozen():
@@ -651,8 +733,8 @@ def print_frozen_hashes():
             if parts[0] == "file" and len(parts) == 4:
                 current, problem = frozen_hash("file", parts[1], None)
                 parts[2] = current or ("UNRESOLVED: %s" % problem)
-            elif parts[0] == "row" and len(parts) == 5:
-                current, problem = frozen_hash("row", parts[1], parts[2])
+            elif parts[0] in ("row", "section") and len(parts) == 5:
+                current, problem = frozen_hash(parts[0], parts[1], parts[2])
                 parts[3] = current or ("UNRESOLVED: %s" % problem)
             else:
                 print(line)

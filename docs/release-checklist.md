@@ -1,6 +1,6 @@
 # Release-candidate checklist
 
-**Checklist version 1.1. Applies to taxonomy version 0.9 and its revisions.**
+**Checklist version 1.2. Applies to taxonomy version 0.9 and its revisions.**
 
 Run this before tagging any revision of the consultation draft, and again
 before the final consultation tag on 31 October 2026. Every step is a gate.
@@ -55,7 +55,7 @@ public until the second one lands.
 
 - [ ] `version-parity` passes. It reads `CITATION.cff`, `taxonomy.md`, `GOVERNANCE.md`, `README.md` and every sample record in a published file. Do not maintain a list of files here: one was kept and it went stale, missing the issue templates and this checklist.
 - [ ] Any field marked provisional is still marked provisional everywhere, or has been promoted everywhere by an explicit decision.
-- [ ] Version histories in `GOVERNANCE.md`, `INTEGRATION.md` and `c2pa-mapping.md` each record this revision where the file changed.
+- [ ] The version history in `GOVERNANCE.md` records this revision, including changes to `INTEGRATION.md`, `c2pa-mapping.md` and the website's taxonomy page. It is the only version history; the other files point to it.
 - [ ] No unresolved conflict remains in the documentation conflict register.
 
 ## 5. Live-site and download verification
@@ -73,7 +73,7 @@ Do this against the deployed site, not a local preview.
 
 - [ ] Read the open issues that are not on this milestone. Confirm none of them describes something this release would make wrong.
 - [ ] Confirm no claim in the release exceeds what is true today: no adoption, endorsement, partnership, accreditation or independent governance that has not happened.
-- [ ] Draft the version-history entry for `GOVERNANCE.md`. State what changed, and state plainly where categories and the organising principle are unchanged.
+- [ ] Draft the version-history entry for `GOVERNANCE.md`: a heading `### <version> · <Month Year> · Draft for consultation`, a one-sentence summary, and short bullets under Taxonomy and declarations, Guidance and Tools where relevant. Mark items that change what someone applying HPF does as **Consultation revision**. State plainly where categories and the organising principle are unchanged. Link to consultation questions rather than restating them.
 - [ ] Confirm `CITATION.cff` will name this release once it is published, and not before.
 
 ## 7. Human approval
@@ -88,8 +88,9 @@ judgement, and a person makes it.
 ## 8. Tag and publish
 
 - [ ] Commit the version-history entry and the `CITATION.cff` date.
-- [ ] Pin the new version-history row in `tools/frozen.txt`, in every file that carries one: `GOVERNANCE.md`, and `INTEGRATION.md` or `c2pa-mapping.md` where they changed. Two steps, in this order. Add the row with `PENDING` where the hash goes, then run `python3 tools/check_standard.py --frozen-hashes > /tmp/frozen.new` and copy it back. `--frozen-hashes` recomputes rows that are already listed and does not add new ones, so running it first does nothing at all. The row is a record from this point and is not edited again.
-- [ ] Do the same for `site/taxonomy.html` in `hpf-site`, and add the announcement news post to that repository's `tools/frozen.txt` once it is live.
+- [ ] Add the line `Text as released: [tag v0.9.x](https://github.com/human-provenance-in-film/hpf-taxonomy/tree/v0.9.x), <date>.` at the foot of the new version section in `GOVERNANCE.md`.
+- [ ] Pin that section in `tools/frozen.txt`. Two steps, in this order. Add `section :: GOVERNANCE.md :: ### 0.9.x :: PENDING :: released in v0.9.x`, then run `python3 tools/check_standard.py --frozen-hashes > /tmp/frozen.new` and copy it back. `--frozen-hashes` recomputes entries that are already listed and does not add new ones, so running it first does nothing at all. The section is a record from this point and is not edited again.
+- [ ] Add the announcement news post to `hpf-site`'s `tools/frozen.txt` once it is live.
 - [ ] `git tag -a v0.9.x -m "<Month Year> consultation revision"` and push the tag.
 - [ ] Draft the GitHub release against that tag, marked pre-release, matching how `v0.9.0` is marked.
 - [ ] Attach or link the taxonomy, schema and version history.
