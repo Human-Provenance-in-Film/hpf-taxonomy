@@ -1,10 +1,15 @@
 # Release-candidate checklist
 
-**Checklist version 1.2. Applies to taxonomy version 0.9 and its revisions.**
+**Checklist version 1.3. Applies to taxonomy version 0.9 and its revisions.**
 
-Run this before tagging any revision of the consultation draft, and again
-before the final consultation tag on 31 October 2026. Every step is a gate.
-Do not tag until all of them pass.
+Run this before tagging any pre-v1 revision of the standard. Every step is a
+gate. Do not tag until all of them pass.
+
+The public consultation closed on 31 October 2026. No tag was made that day,
+and none is needed: the close of the consultation is recorded in
+`taxonomy.md` and in the current status in `GOVERNANCE.md`, not by a release.
+A revision's release date is the day its tag is made, and only that date goes
+in `CITATION.cff` and the version-history line in step 8.
 
 A published tag never moves. That is the whole reason this checklist exists:
 once the artefact is out, the only way to correct it is another revision.
@@ -63,7 +68,7 @@ public until the second one lands.
 Do this against the deployed site, not a local preview.
 
 - [ ] `hpf-site` is deployed and the live site serves this revision's content.
-- [ ] `humanprovenance.film/taxonomy` and `taxonomy.md` in this repository match, apart from the three links deliberately made absolute for the web.
+- [ ] `humanprovenance.film/taxonomy` and `taxonomy.md` in this repository match, apart from the relative links, which are deliberately made absolute for the web.
 - [ ] Every download the site offers resolves and opens: the declaration form and any published document.
 - [ ] Every rule in `hpf-site/site/_redirects` still resolves, including the legacy withdrawn-document routes and the sample template, and none exposes withdrawn material.
 - [ ] The site and the repository name the same taxonomy version, the same consultation close date, and the same document status.
@@ -73,7 +78,7 @@ Do this against the deployed site, not a local preview.
 
 - [ ] Read the open issues that are not on this milestone. Confirm none of them describes something this release would make wrong.
 - [ ] Confirm no claim in the release exceeds what is true today: no adoption, endorsement, partnership, accreditation or independent governance that has not happened.
-- [ ] Draft the version-history entry for `GOVERNANCE.md`: a heading `### <version> · <Month Year> · Draft for consultation`, a one-sentence summary, and short bullets under Taxonomy and declarations, Guidance and Tools where relevant. Mark items that change what someone applying HPF does as **Consultation revision**. State plainly where categories and the organising principle are unchanged. Link to consultation questions rather than restating them.
+- [ ] Draft the version-history entry for `GOVERNANCE.md`: a heading `### <version> · <Month Year> · <status>`, where the status is `Draft for consultation` for a revision released while the public consultation was open and `Pre-v1 draft` for one released after it closed, a one-sentence summary, and short bullets under Taxonomy and declarations, Guidance and Tools where relevant. Mark items that change what someone applying HPF does as **Consultation revision**. State plainly where categories and the organising principle are unchanged. Link to consultation questions rather than restating them.
 - [ ] Confirm `CITATION.cff` will name this release once it is published, and not before.
 
 ## 7. Human approval
@@ -87,24 +92,25 @@ judgement, and a person makes it.
 
 ## 8. Tag and publish
 
-- [ ] Commit the version-history entry and the `CITATION.cff` date.
+- [ ] Set `date-released` in `CITATION.cff` to the day of the tag, then commit it with the version-history entry.
 - [ ] Add the line `Text as released: [tag v0.9.x](https://github.com/human-provenance-in-film/hpf-taxonomy/tree/v0.9.x), <date>.` at the foot of the new version section in `GOVERNANCE.md`.
 - [ ] Pin that section in `tools/frozen.txt`. Two steps, in this order. Add `section :: GOVERNANCE.md :: ### 0.9.x :: PENDING :: released in v0.9.x`, then run `python3 tools/check_standard.py --frozen-hashes > /tmp/frozen.new` and copy it back. `--frozen-hashes` recomputes entries that are already listed and does not add new ones, so running it first does nothing at all. The section is a record from this point and is not edited again.
 - [ ] Add the announcement news post to `hpf-site`'s `tools/frozen.txt` once it is live.
-- [ ] `git tag -a v0.9.x -m "<Month Year> consultation revision"` and push the tag.
+- [ ] `git tag -a v0.9.x -m "<Month Year> pre-v1 revision"` and push the tag.
 - [ ] Draft the GitHub release against that tag, marked pre-release, matching how `v0.9.0` is marked.
 - [ ] Attach or link the taxonomy, schema and version history.
 - [ ] Publish the news post announcing the revision.
 - [ ] Archive the release record and the decision record in the private Drive.
 
-## 9. After the final consultation tag
+## 9. After the consultation closed
 
-Only for the 31 October 2026 release.
+These follow from the close of the public consultation on 31 October 2026, not
+from any tag, and are not prerequisites for releasing a pre-v1 revision.
 
-- [ ] The tagged artefact is the record of what was consulted on. It does not change afterwards.
+- [ ] The last tag released while the consultation was open, `v0.9.3`, is the record of what was consulted on. It does not change afterwards.
 - [ ] Every consultation response is recorded in the consultation tracker with a status and a decision.
 - [ ] Anything unresolved is routed to v1.0 or to a version after it, with a reason.
-- [ ] Registered-interest contacts are notified when v1.0 is published, not at this tag.
+- [ ] Registered-interest contacts are notified when v1.0 is published, not at a pre-v1 tag.
 
 ---
 

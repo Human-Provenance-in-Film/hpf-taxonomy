@@ -1,8 +1,8 @@
 # Human Provenance in Film
 
-**HPF AI Disclosure Taxonomy, v0.9.3 draft for consultation**
+**HPF AI Disclosure Taxonomy, v0.9.4 pre-v1 draft**
 
-Consultation closes 31 October 2026.
+The public consultation closed on 31 October 2026. Feedback on the standard remains welcome: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
@@ -47,7 +47,7 @@ For category definitions, scope, classification test, and edge cases: [taxonomy.
 
 HPF classification originates as a signed producer declaration, made on paper or digitally, for one released version of the production. It is not derived from technical analysis of the content.
 
-The declaration can travel with the film through existing deal, delivery and other production paperwork. An organisation that holds title records in a system may record it in the required schema fields: the standard version, the released version and the classification. The core fields may be tested in integration during consultation. Implementers should retain the HPF standard version used and should not treat the provisional descriptor array as stable for production implementation. The signed producer declaration is the authoritative source at every stage; the schema is how part of that record is held and passed on in technical systems.
+The declaration can travel with the film through existing deal, delivery and other production paperwork. An organisation that holds title records in a system may record it in the required schema fields: the standard version, the released version and the classification. It may also record the optional descriptors, which are specified for implementation from 0.9.4; [INTEGRATION.md](INTEGRATION.md#descriptors) sets out the rules and examples. Implementers should retain the HPF standard version used with every record. The signed producer declaration is the authoritative source at every stage; the schema is how part of that record is held and passed on in technical systems.
 
 ```
 Producer signs declaration for a released version
@@ -78,11 +78,11 @@ Pending broader adoption, delivery portal and ingest systems, and post-productio
 | [schema.json](schema.json) | JSON Schema for HPF metadata fields. For platform engineers and ingest system developers. |
 | [INTEGRATION.md](INTEGRATION.md) | Implementation guide for platform, sales agency, ingest, delivery portal, post-production tool, and C2PA developers. |
 | [c2pa-mapping.md](c2pa-mapping.md) | Proposed mapping of HPF categories to C2PA assertion types. Working proposal. |
-| [GOVERNANCE.md](GOVERNANCE.md) | Amendment process, version history, and governance handoff commitment. |
+| [GOVERNANCE.md](GOVERNANCE.md) | Amendment process (including maintenance after v1.0), version history, and governance handoff commitment. |
 | [docs/hpf-organisational-continuity.md](docs/hpf-organisational-continuity.md) | Stewardship conditions that cannot change, the conditions for moving to a new steward, and what such a steward would have to preserve. |
 | [docs/hpf-handover-checklist.md](docs/hpf-handover-checklist.md) | Index of the records a future steward needs, and where each one is. |
 | [docs/release-checklist.md](docs/release-checklist.md) | What has to pass before a revision of the draft is tagged and published. |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | How to respond to the consultation and how proposals are handled. |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to send feedback and how proposals are handled. |
 | [SECURITY.md](SECURITY.md) | How to report a suspected vulnerability privately, and what is in scope. |
 | [CITATION.cff](CITATION.cff) | Citation metadata for referencing the standard. |
 | [LICENSE.md](LICENSE.md) | CC BY 4.0 and patent non-assertion. |

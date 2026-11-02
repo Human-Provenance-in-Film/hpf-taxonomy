@@ -12,9 +12,8 @@ Tell us what you found, where, and how to reproduce it. A proof of concept
 helps. If you cannot share details over email, say so and we will arrange
 another route.
 
-We aim to acknowledge a report within five working days, the same commitment
-made for issues and pull requests in [CONTRIBUTING.md](CONTRIBUTING.md). We
-will tell you what we intend to do and when, and we will credit you when the
+We aim to acknowledge a report within five working days. We will tell you
+what we intend to do and when, and we will credit you when the
 fix is published unless you would rather we did not.
 
 Please give us a reasonable opportunity to fix the problem before describing it

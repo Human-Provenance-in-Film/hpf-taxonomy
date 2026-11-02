@@ -10,24 +10,31 @@ begins with `invalid-` must fail. Checking both directions matters: a change
 that quietly widened the schema would still let the valid records pass, and
 only the invalid ones would catch it.
 
-Every record is made under the current version, 0.9.3, except the one marked
-historical. Each invalid record breaks one rule only.
+Every record is made under the current version, 0.9.4, except the three marked
+historical. The descriptor rules these records exercise are explained in
+[INTEGRATION.md](../INTEGRATION.md#descriptors). Each invalid record breaks one rule only.
 
 | File | What it covers |
 | --- | --- |
-| `valid-no-ai.json` | The minimum 0.9.3 record: the standard version, the released version and the classification. |
+| `valid-no-ai.json` | The minimum 0.9.4 record: the standard version, the released version and the classification. |
 | `valid-assistive-ai.json` | Assistive AI with no descriptors. |
 | `valid-assistive-ai-altered-performance.json` | Altered performance, the one descriptor that may appear on Assistive AI. |
 | `valid-generative-ai-no-descriptors.json` | Descriptors are optional on Generative AI. |
 | `valid-generative-ai-with-descriptors.json` | Two descriptors on a Generative AI record. |
 | `valid-generative-ai-combined-performance-descriptors.json` | Digital replica, Generated voice and Altered performance together. Each records a different fact. |
+| `valid-historical-0.9.3-record.json` | A record made under 0.9.3 with a descriptor, before the descriptors were adopted. It stays valid under the version it names. |
+| `valid-historical-0.9.2-record-with-descriptors.json` | A record made under 0.9.2, with no released-version field, carrying two descriptors. It stays valid under the version it names. |
 | `valid-historical-0.9.2-record.json` | A record made under 0.9.2. It has no released-version field, which 0.9.2 did not define, and stays valid under the version it names. |
 | `invalid-classification-outside-enum.json` | A classification value HPF does not define. |
 | `invalid-missing-standard-version.json` | The version field is required, so a classification alone is not a record. |
 | `invalid-standard-version-format.json` | The version field takes `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`, with no prefix. |
-| `invalid-missing-released-version.json` | A 0.9.3 record must identify the released version it covers. |
+| `invalid-missing-released-version.json` | A record made under 0.9.3 or later must identify the released version it covers. |
 | `invalid-empty-released-version.json` | An empty released version identifies nothing. |
 | `invalid-descriptors-on-assistive.json` | A descriptor other than Altered performance on an Assistive AI record. |
+| `invalid-assistive-ai-mixed-descriptors.json` | Altered performance with a descriptor Assistive AI does not allow. The record is invalid as a whole. |
+| `invalid-descriptors-on-no-ai.json` | Any descriptor on a No AI Used record. |
+| `invalid-duplicate-descriptors.json` | A descriptor value repeated. |
+| `invalid-descriptors-not-an-array.json` | A single descriptor written as a string instead of an array. |
 | `invalid-descriptor-outside-enum.json` | A descriptor value the schema does not list. |
 | `invalid-empty-descriptors.json` | An empty array. Omit the field instead. |
 

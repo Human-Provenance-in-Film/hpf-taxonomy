@@ -18,5 +18,13 @@ GOVERNANCE.md:Renamed the defined term Verification standard    # the version hi
 # their job is to record the change. A record of a rename has to name what was
 # renamed.
 GOVERNANCE.md:Renamed the machine-readable version field    # the version-history row for 0.9.2
-taxonomy.md:The version field was named    # tells an implementer how to read an older record
+taxonomy.md:Versions 0.9.1 and earlier used    # tells an implementer how to read an older record
 schema.json:The version field was named hpf_taxonomy_version before 0.9.2    # same, in the schema description
+# 2 November 2026. The integration guide has to name the withdrawn field to say
+# how a historical record that uses it is validated and kept.
+INTEGRATION.md:used `hpf_taxonomy_version` with a two-part value    # the one sentence that names the withdrawn field to say how records that used it are validated and kept
+# 2 November 2026. One fixture deliberately carries a descriptor value the
+# schema does not define, so the examples check can prove an undefined value is
+# rejected. The exception is limited to that file and that value; the examples
+# check separately requires the file to fail for that reason.
+examples/invalid-descriptor-outside-enum.json:"generated_sound"    # deliberately undefined value in the one fixture that must fail on it

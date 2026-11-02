@@ -70,7 +70,7 @@ WITHDRAWN_VALUES = [
     "human_only",
 ]
 
-STANDARD_VERSION = "0.9.3"
+STANDARD_VERSION = "0.9.4"
 
 VERSION_FIELD = "hpf_standard_version"
 # Added at 0.9.3. Required on a record made under 0.9.3 or later; a record
@@ -99,6 +99,13 @@ def read(rel):
         return None
     with open(path, encoding="utf-8") as handle:
         return handle.read()
+
+
+def example_files():
+    directory = os.path.join(ROOT, "examples")
+    if not os.path.isdir(directory):
+        return []
+    return ["examples/" + name for name in sorted(os.listdir(directory)) if name.endswith(".json")]
 
 
 def existing_docs():
@@ -272,25 +279,37 @@ def validate_record(record, schema):
             problems.append("hpf_classification %r is not one of %r" % (classification, enum))
 
     if "hpf_descriptors" in record:
-        descriptors = record["hpf_descriptors"]
-        if classification == "no_ai":
-            problems.append("hpf_descriptors present on a no_ai record")
-        elif classification == "assistive_ai" and descriptors != ["altered_performance"]:
-            problems.append(
-                "an assistive_ai record may carry altered_performance only, not %r"
-                % (descriptors,))
-        elif not isinstance(descriptors, list):
-            problems.append("hpf_descriptors is not an array")
-        else:
-            if not descriptors:
-                problems.append("hpf_descriptors is empty; omit the field instead")
-            if len(descriptors) != len(set(map(str, descriptors))):
-                problems.append("hpf_descriptors repeats a value")
-            allowed = props.get("hpf_descriptors", {}).get("items", {}).get("enum", [])
-            for value in descriptors:
-                if value not in allowed:
-                    problems.append("descriptor %r is not in the schema enum" % value)
+        problems.extend(descriptor_problems(record["hpf_descriptors"], classification, schema))
 
+    return problems
+
+
+def descriptor_problems(descriptors, classification, schema):
+    """The hpf_descriptors rules, in the order the integration guide states
+    them: shape first (an array of strings, not empty, no repeats, every value
+    defined), then what the classification allows. Every problem found is
+    reported, so a record is never half-explained."""
+    problems = []
+    props = schema.get("properties", {})
+    allowed = props.get("hpf_descriptors", {}).get("items", {}).get("enum", [])
+    if not isinstance(descriptors, list):
+        return ["hpf_descriptors is not an array"]
+    if not descriptors:
+        problems.append("hpf_descriptors is empty; omit the field where no descriptor is declared")
+    if any(not isinstance(value, str) for value in descriptors):
+        problems.append("hpf_descriptors holds a value that is not a string")
+    strings = [value for value in descriptors if isinstance(value, str)]
+    if len(strings) != len(set(strings)):
+        problems.append("hpf_descriptors repeats a value")
+    for value in strings:
+        if value not in allowed:
+            problems.append("descriptor %r is not in the schema enum" % value)
+    if classification == "no_ai":
+        problems.append("hpf_descriptors present on a no_ai record; no descriptor applies to No AI Used")
+    elif classification == "assistive_ai":
+        others = sorted(set(strings) - {"altered_performance"})
+        if others:
+            problems.append("an assistive_ai record may carry altered_performance only, not %r" % others)
     return problems
 
 
@@ -347,6 +366,11 @@ def check_examples(schema):
             add("examples", rel, 0, "should validate but does not: %s" % "; ".join(problems))
         elif name.startswith("invalid-") and not problems:
             add("examples", rel, 0, "should fail validation but passes")
+        elif name.endswith("-outside-enum.json") and not any("enum" in p or "is not one of" in p for p in problems):
+            # These fixtures exist to prove an undefined value is rejected, so
+            # they must fail on the value, not on some other mistake.
+            add("examples", rel, 0, "should fail on an undefined value, but fails for another reason: %s"
+                % "; ".join(problems))
         elif not name.startswith(("valid-", "invalid-")):
             add("examples", rel, 0,
                 "name must begin with valid- or invalid- so its expected result is testable")
@@ -369,9 +393,18 @@ def check_taxonomy_values(schema):
 
     withdrawn = re.compile(r"\b(%s)\b" % "|".join(WITHDRAWN_VALUES))
     # A descriptor-shaped token: lowercase snake_case starting with a known
-    # descriptor prefix. Catches generated_sound, synthetic_voice and similar
-    # near misses without flagging ordinary prose.
+    # descriptor prefix. Catches invented or misspelt values without flagging
+    # ordinary prose. Example records are scanned too, so a fixture cannot
+    # carry an undefined value unless it is allowlisted by file and value.
     descriptor_like = re.compile(r"\b((?:generated|synthetic|digital)_[a-z_]+)\b")
+
+    for rel in example_files():
+        for number, line in each_line(rel):
+            for token in descriptor_like.findall(line):
+                if token in descriptors or allowlisted(allow, rel, line):
+                    continue
+                add("taxonomy-values", rel, number,
+                    "descriptor-shaped value %r is not in the schema enum: %s" % (token, line))
 
     for rel in existing_docs() + ["schema.json"]:
         for number, line in each_line(rel):
@@ -384,6 +417,55 @@ def check_taxonomy_values(schema):
                     continue
                 add("taxonomy-values", rel, number,
                     "descriptor-shaped value %r is not in the schema enum: %s" % (token, line))
+
+
+def check_descriptor_parity(schema):
+    """The descriptor table in taxonomy.md and the schema must define the same
+    values with the same classification restrictions, so the normative text
+    and the validator can never describe two different fields."""
+    checks_run.append("descriptor-parity")
+    if schema is None:
+        return
+    text = read("taxonomy.md") or ""
+    rows = re.findall(r"^\| [^|]+ \| `([a-z_]+)` \| ([^|]+) \|", text, re.M)
+    table = {value: applies.strip() for value, applies in rows}
+    enum = schema.get("properties", {}).get("hpf_descriptors", {}).get("items", {}).get("enum", [])
+    if sorted(table) != sorted(enum):
+        add("descriptor-parity", "taxonomy.md", 0,
+            "descriptor table defines %r, schema enum is %r" % (sorted(table), sorted(enum)))
+    for value, applies in table.items():
+        expected = "Assistive or Generative AI" if value == "altered_performance" else "Generative AI"
+        if applies != expected:
+            add("descriptor-parity", "taxonomy.md", 0,
+                "%s applies to %r in the table, expected %r to match the schema" % (value, applies, expected))
+
+
+def check_sample_records(schema):
+    """Every JSON record shown in a published document must be valid against
+    the schema: a sample an implementer copies is held to the same rules as a
+    fixture. A C2PA assertion sample is checked through its data member.
+    Invalid cases are documented as files in examples/, not as code samples."""
+    checks_run.append("sample-records")
+    if schema is None:
+        return
+    block = re.compile(r"```json\n(.*?)```", re.S)
+    for rel in existing_docs():
+        text = read(rel) or ""
+        for match in block.finditer(text):
+            line = text.count("\n", 0, match.start()) + 1
+            try:
+                sample = json.loads(match.group(1))
+            except ValueError as error:
+                add("sample-records", rel, line, "JSON sample does not parse: %s" % error)
+                continue
+            if isinstance(sample, dict) and isinstance(sample.get("data"), dict) and \
+                    "hpf_classification" in sample["data"]:
+                sample = sample["data"]
+            if not isinstance(sample, dict) or "hpf_classification" not in sample:
+                continue
+            problems = validate_record(sample, schema)
+            if problems:
+                add("sample-records", rel, line, "sample record is invalid: %s" % "; ".join(problems))
 
 
 def check_deprecated_language(schema):
@@ -750,6 +832,8 @@ DESCRIPTIONS = [
     ("schema", "schema.json states the controlled values the taxonomy defines"),
     ("examples", "example records validate, or fail, as their filename says"),
     ("taxonomy-values", "no withdrawn classification or undefined descriptor value"),
+    ("descriptor-parity", "taxonomy.md and schema.json define the same descriptors and restrictions"),
+    ("sample-records", "every JSON record shown in a published document is valid"),
     ("deprecated-language", "no superseded `tier` wording"),
     ("verification-voice", "HPF does not describe its own process as verification"),
     ("standard-identity", "no identifier withdrawn at 0.9.2 survives in a published file"),
@@ -794,6 +878,10 @@ def main():
         check_examples(schema)
     if wanted("taxonomy-values"):
         check_taxonomy_values(schema)
+    if wanted("descriptor-parity"):
+        check_descriptor_parity(schema)
+    if wanted("sample-records"):
+        check_sample_records(schema)
     if wanted("deprecated-language"):
         check_deprecated_language(schema)
     if wanted("verification-voice"):

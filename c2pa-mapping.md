@@ -73,26 +73,26 @@ The C2PA specification supports third-party custom assertions using namespaced l
 
 This is a working label, not yet compliant with the C2PA namespace convention. C2PA section 12.5 requires entity-specific assertion labels to use the organisation's internet domain in reverse order, in the manner of Java package names (the specification's own examples are `com.litware` and `net.fineartschool`). For the domain humanprovenance.film, the compliant form would be `film.humanprovenance.ai_disclosure`. We have kept the shorter `film.humanprovenance.ai-disclosure` as a provisional working label pending confirmation with the C2PA Technical Working Group. For any implementation before then, use `film.humanprovenance.ai-disclosure` and treat it as subject to change. Do not build stable production integrations against the label until it is confirmed.
 
-**Payload:** the HPF record, matching [schema.json](schema.json), nested under a `data` key as part of the assertion structure. A record made under 0.9.3 carries three fields, including the released version the declaration covers. A record made under 0.9.2 carries the standard version and the classification only, and stays valid under the version it names.
+**Payload:** the HPF record, matching [schema.json](schema.json), nested under a `data` key as part of the assertion structure. A record made under 0.9.3 or later carries three fields, including the released version the declaration covers. Records naming 0.9.2 do not require the released version and stay valid under the version they name.
 
 ```json
 {
   "label": "film.humanprovenance.ai-disclosure",
   "data": {
-    "hpf_standard_version": "0.9.3",
+    "hpf_standard_version": "0.9.4",
     "hpf_released_version": "Theatrical cut",
     "hpf_classification": "no_ai"
   }
 }
 ```
 
-A proposed controlled descriptor array may be included. It is provisional, subject to consultation and tied to the taxonomy version. `altered_performance` may appear on an `assistive_ai` or a `generative_ai` record; every other value applies to `generative_ai` only; none applies to `no_ai`. More than one descriptor may apply:
+The payload may include the optional `hpf_descriptors` array, exactly as an HPF record carries it. Its values are the descriptor vocabulary adopted in 0.9.4, and their meaning is tied to the version the record names. `altered_performance` may appear on an `assistive_ai` or a `generative_ai` record; every other value applies to `generative_ai` only; none applies to `no_ai`. More than one descriptor may apply:
 
 ```json
 {
   "label": "film.humanprovenance.ai-disclosure",
   "data": {
-    "hpf_standard_version": "0.9.3",
+    "hpf_standard_version": "0.9.4",
     "hpf_released_version": "Theatrical cut",
     "hpf_classification": "generative_ai",
     "hpf_descriptors": ["synthetic_performance", "generated_music"]
@@ -100,13 +100,13 @@ A proposed controlled descriptor array may be included. It is provisional, subje
 }
 ```
 
-The descriptor values are provisional consultation terms introduced in the August 2026 revision, subject to change before v1.0. Descriptors add factual context about the type or types of AI output present; they do not determine the classification and carry no threshold. See [schema.json](schema.json) for the authoritative list and validation rules. As [INTEGRATION.md](INTEGRATION.md) states, the core fields may be tested in integration during consultation, and the descriptor array is not stable for production implementation.
+Descriptors add factual context about the kind or kinds of AI output present; they do not determine the classification and carry no threshold. The array follows the rules in [schema.json](schema.json) and [INTEGRATION.md](INTEGRATION.md#descriptors): an assertion payload that carries descriptors is valid only if the same record would be valid outside C2PA. Those rules make the descriptors ready to implement in an HPF record. They do not change the status of this mapping, which remains a working proposal: the assertion label, its namespacing, and who signs it are still unsettled, and the warning below against production integration of the assertion still applies.
 
 This assertion is placed in the `assertions` array of a C2PA claim, alongside any other assertions for the asset. It does not replace or conflict with `c2pa.actions` assertions; both may be present in the same claim.
 
 `hpf_classification` must be one of the three values defined in [schema.json](schema.json). Treat schema.json as the authoritative source for the enum definitions.
 
-`hpf_standard_version` follows the pattern `major.minor` or `major.minor.patch` (e.g. `0.9`, `0.9.2`, `1.0`). A record carrying a two-part version was made under an earlier consultation draft and stays valid. Treat it as a string identifier, not a numeric version for comparison purposes. A major version increment (e.g. `0.x` to `1.0`) may indicate a change to the classification test or category definitions; implementations should flag assertions carrying an unrecognised major version for manual review rather than silently accepting or rejecting them. During v0.9 each consultation revision carries its own patch number and may change requirements, so read a record under the version it names. Existing assertions are not invalidated by a version increment.
+`hpf_standard_version` follows the pattern `major.minor` or `major.minor.patch` (e.g. `0.9`, `0.9.2`, `1.0`). A record carrying a two-part version was made under an earlier consultation draft and stays valid under the schema published with it. Whether the current schema accepts it is a separate question, and it is kept as received. Treat it as a string identifier, not a numeric version for comparison purposes. A major version increment (e.g. `0.x` to `1.0`) may indicate a change to the classification test or category definitions; implementations should flag assertions carrying an unrecognised major version for manual review rather than silently accepting or rejecting them. During v0.9 each revision carries its own patch number and may change requirements, so read a record under the version it names. Existing assertions are not invalidated by a version increment.
 
 The value of `hpf_classification` maps loosely to IPTC `digitalSourceType` as follows:
 

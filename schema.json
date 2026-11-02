@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/human-provenance-in-film/hpf-taxonomy/main/schema.json",
   "title": "HPF AI Disclosure Schema",
-  "description": "JSON Schema for HPF AI Disclosure metadata. Consultation proposal, not a final v1.0 commitment. hpf_standard_version and hpf_classification are required when an HPF record is present. From 0.9.3 hpf_released_version is also required, identifying the released version the declaration covers; a record made under 0.9.2 or earlier does not carry it and remains valid under the version it names. The version field was named hpf_taxonomy_version before 0.9.2; a record using the old name is a record made under the earlier draft. hpf_descriptors is a proposed, provisional field introduced in the August 2026 revision. altered_performance applies to an assistive_ai or a generative_ai record; every other descriptor applies to generative_ai only; none applies to no_ai. Descriptor meanings are defined by the version named in hpf_standard_version, so a stable value has a stable meaning for a given version. Where no HPF declaration exists, omit the record entirely rather than writing null field values. Published by Human Provenance in Film under CC BY 4.0.",
+  "description": "JSON Schema for HPF AI Disclosure metadata. Pre-v1 draft, not a final v1.0 commitment. hpf_standard_version and hpf_classification are required when an HPF record is present. From 0.9.3 hpf_released_version is also required, identifying the released version the declaration covers; records naming 0.9.2 or earlier do not require it, the schema permits it on them, and they remain valid under the version they name. The version field was named hpf_taxonomy_version before 0.9.2; a record using the old name is a record made under the earlier draft, is validated against the schema published with that draft, and is kept as received. hpf_descriptors is optional and, from 0.9.4, specified for implementation: an array of one or more distinct controlled values, restricted by classification (none on no_ai, altered_performance only on assistive_ai, any on generative_ai). The values and restrictions are unchanged since 0.9.2, so a record made under 0.9.2 or 0.9.3 that carries descriptors stays valid. The schema does not reject descriptors on a record naming 0.9, 0.9.0 or 0.9.1. Those versions define no descriptors, so values on such a record have no HPF meaning and are not read with a later version's definitions. Descriptor meanings are defined by the version named in hpf_standard_version, so a stable value has a stable meaning for a given version. Where no HPF declaration exists, omit the record entirely rather than writing null field values. Published by Human Provenance in Film under CC BY 4.0.",
   "type": "object",
   "required": [
     "hpf_standard_version",
@@ -14,6 +14,7 @@
       "description": "The version of the HPF AI Disclosure Standard applied to this record.",
       "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$",
       "examples": [
+        "0.9.4",
         "0.9.3",
         "0.9.2"
       ]
@@ -42,7 +43,7 @@
     },
     "hpf_descriptors": {
       "type": "array",
-      "description": "PROPOSED and PROVISIONAL. Consultation field introduced in the August 2026 revision. Identifies the type or types of AI-generated or AI-modified content present. It never determines or changes the classification and carries no threshold. altered_performance may appear on an assistive_ai or a generative_ai record; every other value applies to generative_ai only; no descriptor applies to no_ai. Values are provisional and may change before v1.0.",
+      "description": "OPTIONAL. The descriptors the declaring party recorded for the released version, defined in the Descriptors section of the version named in hpf_standard_version. Adopted in 0.9.4; the values are unchanged from 0.9.2. Each value records a distinct kind of AI output present: altered_performance, AI changed a captured or recorded performance by an identifiable person; digital_replica, AI generated a representation of an identifiable person; synthetic_performance, AI generated performance content that does not represent an identifiable person; generated_voice, AI generated spoken or vocal content; generated_visual_content, AI generated visual content; generated_writing, AI generated written content embodied in the released version; generated_music, AI generated music. Descriptors never determine or change the classification and carry no threshold. altered_performance may appear on an assistive_ai or a generative_ai record; every other value applies to generative_ai only; no descriptor applies to no_ai. Order carries no meaning. Values may not repeat. Where no descriptor is declared, omit the field: an empty array is invalid. An omitted field means none was declared, not that none applies.",
       "items": {
         "type": "string",
         "enum": [
@@ -56,7 +57,17 @@
         ]
       },
       "uniqueItems": true,
-      "minItems": 1
+      "minItems": 1,
+      "examples": [
+        [
+          "altered_performance"
+        ],
+        [
+          "digital_replica",
+          "generated_voice",
+          "altered_performance"
+        ]
+      ]
     }
   },
   "allOf": [

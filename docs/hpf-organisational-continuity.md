@@ -87,7 +87,7 @@ condition of a handover, a funding agreement or a hosting arrangement.
 
 ## 3. Decision authority
 
-HPF was originated by The Mise En Scène Company, which owns the copyright and is
+HPF was developed by The Mise En Scène Company, which owns the copyright and is
 the data controller. Decision authority over the standard sits with HPF, which is
 run as independently of MSC's commercial operations as is practicable.
 
