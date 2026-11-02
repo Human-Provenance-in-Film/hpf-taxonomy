@@ -4,6 +4,7 @@ title: "HPF AI Disclosure Taxonomy"
 abstract: "A three-category classification standard for AI disclosure in film and television (No AI Used, Assistive AI, Generative AI), designed to travel with a production's existing deal, delivery and other production paperwork, with an optional mapping to C2PA Content Credentials."
 type: dataset
 version: "0.9.4"
+date-released: 2026-11-02
 license: CC-BY-4.0
 url: "https://humanprovenance.film"
 repository-code: "https://github.com/human-provenance-in-film/hpf-taxonomy"

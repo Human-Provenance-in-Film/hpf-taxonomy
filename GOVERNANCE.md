@@ -145,6 +145,8 @@ Adopts the descriptors as optional vocabulary, refines their definitions and exa
 - Policy Mapper rules 0.1.2, replacing 0.1.1. It cites the standard as 0.9.4 and describes descriptors as optional rather than provisional. No mapping rule changed.
 - AI Use Checker parser 1.12.0, replacing 1.11.1, cites the standard as 0.9.4. Where a description has the AI make editing decisions itself on captured material and the result can reach the finished work, it returns the open-case result under question 4 instead of Assistive AI; using only the production's own footage no longer settles that case. Human-directed editing assistance, discarded edits and marketing material keep their earlier readings, and a generating job still decides the category. Its explanations name the classification-scope part of question 1 where an established machine-learning feature is the open case. It returns no descriptors.
 
+Text as released: [tag v0.9.4](https://github.com/human-provenance-in-film/hpf-taxonomy/tree/v0.9.4), 2 November 2026.
+
 ### 0.9.3 · October 2026 · Draft for consultation
 
 Clarifies that one signed declaration covers one released version of a work, and that later released editorial editions or substantive localisations receive their own declaration, including where the disclosed facts are unchanged. Removes the former requirement to notify all earlier recipients of a later declaration. Clarifies that descriptors may be combined where each adds factual information. Updates supporting guidance and the Policy Mapper output without changing HPF's core categories.
