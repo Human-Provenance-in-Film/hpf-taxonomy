@@ -7,7 +7,7 @@ This guide explains how to store, validate, and pass on HPF metadata. The classi
 
 **Technical integration is optional.** You can request a signed declaration, keep it with the relevant title or submission, and apply your organisation's policy without changing any software. [Add HPF to your workflow](https://humanprovenance.film/resources/add-hpf-to-your-workflow/) explains that process. This guide is for organisations storing HPF metadata in a system.
 
-In this note, the *HPF record* is the set of machine-readable fields defined in [schema.json](schema.json). The *signed declaration* is the document the producer signs. A *supporting production record*, such as an asset log or a supplier reply, is a separate document that stays with the production.
+In this guide, the *HPF record* is the set of machine-readable fields defined in [schema.json](schema.json). The *signed declaration* is the document the producer signs. A *supporting production record*, such as an asset log or a supplier reply, is a separate document that stays with the production.
 
 ---
 
@@ -181,7 +181,7 @@ For a system this means:
 - A declaration for a later released version does not change the HPF record for an earlier one. Keep both. HPF does not require the producer to notify recipients of an earlier version, and a system should not wait for such a notice.
 - A correction is not a later released version. A producer who finds an error in a declaration issues a corrected declaration for the same released version. HPF recommends that it carry its own date and name the declaration it replaces, so that a system can tell which is current; the standard does not yet require this, and what a recipient does with a superseded declaration is an open technical question below.
 
-How the rule applies to episodic works, selectable subtitles and captions, dubbing and other localisation, and the boundary between a technical delivery variation and a substantively different released version is still open. These are questions about applying the rule, not about reconsidering it, and this note does not settle them.
+How the rule applies to episodic works, selectable subtitles and captions, dubbing and other localisation, and the boundary between a technical delivery variation and a substantively different released version is still open. These are questions about applying the rule, not about reconsidering it, and this guide does not settle them.
 
 ---
 
@@ -243,11 +243,11 @@ To contribute: open an issue or pull request on the repository, or email contact
 | [examples/](examples/) | Records that must validate, and records that must fail. |
 | [Add HPF to your workflow](https://humanprovenance.film/resources/add-hpf-to-your-workflow/) | What an organisation does without any integration. |
 | [c2pa-mapping.md](c2pa-mapping.md) | The proposed C2PA assertion. A working proposal, not final and not part of C2PA. |
-| [GOVERNANCE.md](GOVERNANCE.md) | The version history of the Standard and this note, and the amendment process. |
+| [GOVERNANCE.md](GOVERNANCE.md) | The version history of the Standard and this guide, and the amendment process. |
 
 ## Version history
 
-Changes to this note are recorded in the version history in [GOVERNANCE.md](GOVERNANCE.md#version-history), with each release tag linked there.
+Changes to this guide are recorded in the version history in [GOVERNANCE.md](GOVERNANCE.md#version-history), with each release tag linked there.
 
 ---
 
