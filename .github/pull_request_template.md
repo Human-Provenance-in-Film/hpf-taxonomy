@@ -21,7 +21,7 @@ not repeat them here.
 - [ ] Missing, unknown or undisclosed information is never presented as No AI Used, and an absent record stays absent.
 - [ ] No claim of adoption, endorsement, partnership, accreditation, approval or eligibility that is not already true.
 - [ ] Wording duplicated on the site moved with it, or none applies.
-- [ ] `GOVERNANCE.md` version history records this, or the change is editorial.
+- [ ] `GOVERNANCE.md` records this: in the version history for a change of meaning, or under Editorial corrections to the working draft for an editorial change to the standard or its implementation documents.
 
 ## Allowlist entries added
 

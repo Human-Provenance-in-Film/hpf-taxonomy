@@ -58,7 +58,7 @@ public until the second one lands.
 
 ## 4. Documentation consistency
 
-- [ ] `version-parity` passes. It reads `CITATION.cff`, `taxonomy.md`, `GOVERNANCE.md`, `README.md` and every sample record in a published file. Do not maintain a list of files here: one was kept and it went stale, missing the issue templates and this checklist.
+- [ ] `version-parity` passes. It reads `CITATION.cff`, `taxonomy.md`, `GOVERNANCE.md`, `README.md` and every sample record in a published file. Do not maintain a separate list of files here; the check is the list.
 - [ ] Any field marked provisional is still marked provisional everywhere, or has been promoted everywhere by an explicit decision.
 - [ ] The version history in `GOVERNANCE.md` records this revision, including changes to `INTEGRATION.md`, `c2pa-mapping.md` and the website's taxonomy page. It is the only version history; the other files point to it.
 - [ ] No unresolved conflict remains in the documentation conflict register.

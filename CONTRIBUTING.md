@@ -1,6 +1,8 @@
 # Contributing to the HPF AI disclosure taxonomy
 
-Thank you for your interest. HPF v0.9 is a pre-v1 draft. The public consultation closed on 31 October 2026, and feedback on the standard remains welcome from trade associations, unions and guilds, festivals, awards bodies, commissioners, funders, and other industry organisations. Companies in the screen industries that are considering adopting HPF, including C2PA and CAI members, are welcome to send technical and implementation feedback.
+Anyone can contribute, including individual practitioners: producers, editors, VFX and post-production staff, performers, and anyone else who works with AI disclosure. You do not need to represent an organisation.
+
+HPF is a pre-v1 draft, currently version 0.9.4. The public consultation closed on 31 October 2026, and feedback on the standard remains welcome from individuals and from trade associations, unions and guilds, festivals, awards bodies, commissioners, funders, and other industry organisations. Companies in the screen industries that are considering adopting HPF, including C2PA and CAI members, are welcome to send technical and implementation feedback.
 
 ## Ways to contribute
 
@@ -9,9 +11,11 @@ Thank you for your interest. HPF v0.9 is a pre-v1 draft. The public consultation
 - Open a pull request to propose specific wording or schema changes. The pull request template lists what a reviewer checks.
 - Email contact@humanprovenance.film if you would rather respond privately or at length.
 
-Partial feedback is welcome. If you are answering one of the numbered open questions in [taxonomy.md](taxonomy.md#consultation), please say which one. The numbering changed in the September 2026 revision; if you are answering a question as an earlier draft numbered it, say so.
+A small correction, such as a typo or a broken link, needs only a short issue or pull request. You do not need to complete every field of a template for it.
 
-Separately from the consultation, HPF is recruiting pre-v1 working groups to test the classifications, descriptors, and declaration form against production cases in November and December 2026. Participants contribute through written case reviews, with an optional meeting. Sign up through the [working-group form](https://docs.google.com/forms/d/e/1FAIpQLSfmNKsb34zoS0FGGF23m4fJ3pRihP6YE4_SkH0hK_-VFPgQjw/viewform) by 13 November 2026. Worked examples are welcome at contact@humanprovenance.film by the same date; they can be anonymised and may contain incomplete information. The groups are advisory. They are not the future governing body, and participation does not imply endorsement of HPF. See [GOVERNANCE.md](GOVERNANCE.md).
+Partial feedback is welcome. If you are answering one of the numbered open questions in [taxonomy.md](taxonomy.md#consultation), please say which one. The numbering changed in revision 0.9.3; if you are answering a question as an earlier draft numbered it, say so.
+
+Separately from the consultation, pre-v1 working groups are testing the classifications, descriptors, and declaration form against production cases. Current participation details are on the [HPF website](https://humanprovenance.film/taxonomy#working-groups). The groups are advisory. They are not the future governing body, and participation does not imply endorsement of HPF. See [GOVERNANCE.md](GOVERNANCE.md).
 
 To report a suspected security vulnerability, use the private route in [SECURITY.md](SECURITY.md) rather than a public issue.
 
@@ -63,7 +67,7 @@ Private consultation responses stay private. They are held in HPF's consultation
 
 ## Conflicts of interest
 
-If you have an interest in the outcome of a proposal, say so in the issue. Examples: you work for or advise an organisation whose policy or product would be affected, you sell a tool whose classification is in question, or you represent a body whose members are. A stated interest is not a problem and does not weigh against a proposal. An unstated one damages the record afterwards, and this consultation's record is meant to be readable years from now.
+If you have an interest in the outcome of a proposal, say so in the issue. Examples: you work for or advise an organisation whose policy or product would be affected, you sell a tool whose classification is in question, or you represent a body whose members are. A stated interest is not a problem and does not weigh against a proposal. Stating it keeps the decision record clear for later readers.
 
 The same applies to us. HPF was developed by The Mise En Scène Company, an international film sales agency, which owns the copyright and has its own commercial interest in AI disclosure. That is stated in [GOVERNANCE.md](GOVERNANCE.md) and on the website.
 

@@ -8,6 +8,8 @@ body:
       value: |
         Use this for anything that could change what HPF means, what it records, or what a producer has to do.
         For something that is simply wrong or broken, use the bug and inconsistency report instead.
+        Anyone can propose a change, including individual practitioners. Answer what you can; the maintainer
+        fills in the rest. A typo or broken link needs only a short issue or pull request.
 
         This issue is public. Do not paste names, contact details, an organisation's confidential policy text,
         or a consultation response someone sent privately. Summarise the point in your own words. Private
@@ -30,6 +32,7 @@ body:
       options:
         - Consultation response
         - Pre-v1 Consultation Survey
+        - Working group testing
         - Implementation experience
         - Meeting or conversation
         - Internal review
@@ -41,12 +44,12 @@ body:
   - type: checkboxes
     id: surface
     attributes:
-      label: Affected surface
-      description: Everything this would touch. A change to one surface almost always reaches others.
+      label: What this affects
+      description: Tick what you know of. The maintainer checks the rest, because wording is often repeated in several places.
       options:
         - label: taxonomy.md
         - label: schema.json
-        - label: Generative AI descriptors
+        - label: Descriptors
         - label: Glossary
         - label: INTEGRATION.md
         - label: c2pa-mapping.md
@@ -54,7 +57,7 @@ body:
         - label: Website copy
         - label: Producer declaration form
         - label: Filmmaker tools
-        - label: Policy Mappings or Policy Translator
+        - label: AI Use Checker or Policy Mapper
     validations:
       required: true
 
@@ -86,25 +89,25 @@ body:
     attributes:
       label: Producer burden
       description: >
-        What extra work this creates for a producer. New question to answer, new party to ask, new record to keep,
-        or none. Say if it removes work.
+        If you know: what extra work this creates for a producer. New question to answer, new party to ask, new
+        record to keep, or none. Say if it removes work.
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: supply_chain
     attributes:
       label: Supply-chain effect
       description: >
-        What changes for contributors and vendors, the producer, receiving organisations and technical systems.
-        Does the same record still travel without being recalculated at each handoff?
+        If you know: what changes for contributors and vendors, the producer, receiving organisations and
+        technical systems. Does the same declaration still travel without being recalculated at each handoff?
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: field_admission
     attributes:
-      label: Field-admission test
+      label: If you are proposing a new field
       description: >
         Only if this proposes a new structured field. Answer all five. If any answer is no, the information
         belongs outside HPF or inside the existing factual use summary.
@@ -119,10 +122,10 @@ body:
     id: version
     attributes:
       label: Version
-      description: The taxonomy version and revision this concerns.
-      placeholder: v0.9.3, October 2026 revision
+      description: The taxonomy version this concerns, if you know it.
+      placeholder: "0.9.4"
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: decision

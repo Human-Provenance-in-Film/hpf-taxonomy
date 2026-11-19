@@ -15,9 +15,11 @@ MSC is an international film sales agency and has a commercial interest in the s
 
 MSC is committed to finding a neutral home for the standard, preferably an existing standards body and, failing that, an independent coalition or membership organisation governed independently of any one company, including MSC. As of the August 2026 update, MSC is assessing the organisational structure this would require; no legal form or permanent home has been selected.
 
-The public consultation on v0.9 closed on 31 October 2026, and the descriptor survey closed with it. Feedback on the standard remains welcome from trade associations, unions and guilds, festivals, awards bodies, commissioners, funders, and other industry organisations. Companies in the screen industries that are considering adopting HPF are welcome to send technical and implementation feedback. Send feedback to contact@humanprovenance.film or via the GitHub repository.
+The public consultation on v0.9 closed on 31 October 2026, and the descriptor survey closed with it. Feedback on the standard remains welcome from individual practitioners and from trade associations, unions and guilds, festivals, awards bodies, commissioners, funders, and other industry organisations. Companies in the screen industries that are considering adopting HPF are welcome to send technical and implementation feedback. Send feedback to contact@humanprovenance.film or via the GitHub repository.
 
-Separately from the consultation, HPF is recruiting pre-v1 working groups to test the classifications, descriptors, and declaration form against production and institutional cases in November and December 2026, through written case reviews with an optional meeting. Sign-up and worked examples are open until 13 November 2026. The working groups are advisory. They are not the future governing body, and participation does not imply endorsement of HPF.
+Separately from the consultation, pre-v1 working groups are testing the classifications, descriptors, and declaration form against production and institutional cases. Current participation details are on the [HPF website](https://humanprovenance.film/taxonomy#working-groups). The working groups are advisory. They are not the future governing body, and participation does not imply endorsement of HPF.
+
+**Current revision: 0.9.4, released 2 November 2026.** The three categories, the organising principle and the highest-category rule are unchanged from 0.9.3. Descriptors are adopted as optional vocabulary, and an HPF record may carry them under the rules in the taxonomy. A declaration made under 0.9.4 includes the signer's name. Records made under earlier versions stay valid under the version they name. The full entry is in the [version history](#version-history).
 
 ---
 
@@ -98,9 +100,27 @@ Maintenance does not change what HPF is. HPF remains a free, open disclosure sta
 
 This is the single public record of what each revision of the standard changed. The history of `INTEGRATION.md`, `c2pa-mapping.md` and the taxonomy page on the website is recorded here too.
 
-A published release tag is an immutable snapshot. Each tag records the documents exactly as they stood when that revision was released, and it is never moved, overwritten or recreated; the link under each entry leads to it. Until v1.0, editorial corrections and clarifications may be made to the working draft between tags, and they are listed, dated, under the revision that will carry them. A change that alters normative meaning, classification rules, permitted values, schema behaviour or a substantive requirement needs a new version.
+A published release tag is an immutable snapshot. Each tag records the documents exactly as they stood when that revision was released, and it is never moved, overwritten or recreated; the link under each entry leads to it. Until v1.0, editorial corrections and clarifications may be made to the working draft between tags. They are listed, dated, under Editorial corrections to the working draft, below, and not inside a released entry. Listing a correction there does not open a new version or announce a release. A change that alters normative meaning, classification rules, permitted values, schema behaviour or a substantive requirement needs a new version.
 
-Every v0.9 revision is a draft for consultation. Items marked **Consultation revision** change what someone applying HPF does. They are the current rules of the revision that introduces them and, like all pre-v1 provisions, remain subject to evidence received during consultation; they are not settled v1 policy. The questions under consultation are in [taxonomy.md](taxonomy.md#consultation) and are not restated here.
+Revisions released while the public consultation was open, 0.9.0 to 0.9.3, are drafts for consultation; 0.9.4 is a pre-v1 draft. Items marked **Consultation revision** change what someone applying HPF does. They are the current rules of the revision that introduces them and, like all pre-v1 provisions, remain subject to evidence received during consultation; they are not settled v1 policy. The questions under consultation are in [taxonomy.md](taxonomy.md#consultation) and are not restated here.
+
+### Versions and releases
+
+| Term | Meaning | Example |
+|---|---|---|
+| Standard version | The version of the HPF Standard (the taxonomy, schema and rules) applied to a declaration or HPF record. The taxonomy is the core of the Standard, so the two names are used for the same text. | `0.9.4` |
+| Tagged release | A fixed snapshot of the repository for one standard version. It is never moved. | `v0.9.4` |
+| Working draft | The repository between tags. It may carry dated editorial corrections and still names the latest standard version. | `main` |
+| Document version | A supporting document's own number, separate from the standard version. | C2PA mapping document version 0.9 |
+| Series | The pre-v1 drafts taken together. | v0.9 |
+
+### Editorial corrections to the working draft
+
+Corrections made since the latest tag that do not change meaning. Each preserves the classification, the scope and every obligation for the same facts. They carry no new standard version; documents still name 0.9.4.
+
+- Editorial, 19 November 2026, without changing a rule: the taxonomy's links to the feedback and testing section no longer cite a section number; the note on records made under earlier versions moves from the category definitions to the end of the declaration section; the worked descriptor examples and the Assistive AI examples point to the open questions that cover harder applications; the glossary says the signed declaration is the source of the information rather than "the record", and lists consent and compensation after the kinds of transparency instead of among them; and individual practitioners are named among those whose feedback is welcome.
+- Editorial, 19 November 2026, without changing validation: the integration guide is reordered so the current HPF record comes before records made under earlier versions, which are summarised in one table; the handling rules are grouped together; it distinguishes values stored in a record from the labels shown to people; it uses "HPF record", "signed declaration" and "supporting production record" where "record" alone was ambiguous; and it notes that the schema does not reject properties it does not define.
+- Editorial, 19 November 2026, without changing a rule or an identifier: the C2PA mapping separates its own document version from the HPF Standard version; no longer describes the assertion structure as stable, consistent with its statements that the label, namespacing, property names and signer are unsettled; corrects its account of the C2PA label convention, which allows hyphens, against C2PA 2.4 section 6.2; notes that C2PA 2.5 was published in October 2026; no longer implies that every two-part version value is historical; and says that the absence of an AI-related action assertion does not establish `no_ai`.
 
 ### 0.9.4 · November 2026 · Pre-v1 draft
 

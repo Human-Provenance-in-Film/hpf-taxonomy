@@ -6,67 +6,41 @@ The public consultation closed on 31 October 2026. Feedback on the standard rema
 
 ---
 
-## What this is
+## What HPF is for
 
-A three-category classification standard for AI disclosure in film and television, designed to travel with a production's existing deal, delivery and other production paperwork.
+HPF is a free, open standard for declaring AI output present in finished film and television productions. It gives audiences and receiving organisations a common account of how AI was used. The producer selects one of three categories for each released version and records it in a signed declaration, which travels with the production's existing deal, delivery and other production paperwork. Consistent disclosure also makes it possible to study how buyers and audiences respond to different kinds of AI use.
 
-Without more consistent disclosure, it is difficult to study whether and how buyers and audiences respond to different forms of AI use in finished screen work.
+The organising principle: **is AI output present in the named finished version? If so, did the AI process human-created material or originate new content?**
 
----
-
-## Who this repository is for
-
-The files in this repository are intended for:
-
-- **Platform engineers and catalogue / CMS developers** at distributors, streamers, and broadcasters: [schema.json](schema.json) and [INTEGRATION.md](INTEGRATION.md)
-- **Sales agency and distributor technical staff** managing deal and delivery paperwork: [INTEGRATION.md](INTEGRATION.md)
-- **Delivery portal and ingest system developers**: [INTEGRATION.md](INTEGRATION.md) and [schema.json](schema.json)
-- **C2PA SDK developers and CAI members**: [c2pa-mapping.md](c2pa-mapping.md) and [INTEGRATION.md](INTEGRATION.md)
-- **Post-production tool developers** building toward adoption: [INTEGRATION.md](INTEGRATION.md)
-- **Regulators and policy staff** assessing the framework: [taxonomy.md](taxonomy.md) and [GOVERNANCE.md](GOVERNANCE.md)
-
-The full taxonomy specification and plain-language guidance for productions are at [humanprovenance.film](https://humanprovenance.film), and the producer declaration form is at [humanprovenance.film/disclosure-form](https://humanprovenance.film/disclosure-form/).
-
----
-
-## The three categories
-
-Built on a single organising principle: **is AI output present in the named finished version? If so, did the AI process human-created material or originate new content?**
-
-| `hpf_classification` | Label |
+| Value stored in `hpf_classification` | Label shown to people |
 |---|---|
 | `no_ai` | No AI Used |
 | `assistive_ai` | Assistive AI |
 | `generative_ai` | Generative AI |
 
-For category definitions, scope, classification test, and edge cases: [taxonomy.md](taxonomy.md).
+HPF is a self-declaration standard. It does not certify productions, audit workflows, or determine consent, rights or regulatory compliance.
 
 ---
 
-## How classification travels: signed declaration to metadata
+## Start here
 
-HPF classification originates as a signed producer declaration, made on paper or digitally, for one released version of the production. It is not derived from technical analysis of the content.
+| I want to | Go to |
+|---|---|
+| Understand the categories and classify a production | [taxonomy.md](taxonomy.md), and [Classify and declare your production](https://humanprovenance.film/resources/classify-and-declare-your-production/) on the website |
+| Make a declaration | The [HPF AI Disclosure Form](https://humanprovenance.film/disclosure-form/) |
+| Ask for and receive declarations, with no software change | [Add HPF to your workflow](https://humanprovenance.film/resources/add-hpf-to-your-workflow/) |
+| Hold HPF information in a system | [INTEGRATION.md](INTEGRATION.md), [schema.json](schema.json) and [examples/](examples/) |
+| Carry a classification in a C2PA Content Credential | [c2pa-mapping.md](c2pa-mapping.md), a working proposal |
+| Suggest a change or report a problem | [CONTRIBUTING.md](CONTRIBUTING.md) |
+| Check versions, governance and history | [GOVERNANCE.md](GOVERNANCE.md) |
 
-The declaration can travel with the film through existing deal, delivery and other production paperwork. An organisation that holds title records in a system may record it in the required schema fields: the standard version, the released version and the classification. It may also record the optional descriptors, which are specified for implementation from 0.9.4; [INTEGRATION.md](INTEGRATION.md#descriptors) sets out the rules and examples. Implementers should retain the HPF standard version used with every record. The signed producer declaration is the authoritative source at every stage; the schema is how part of that record is held and passed on in technical systems.
+---
 
-```
-Producer signs declaration for a released version
-        |
-        | travels with deal and delivery paperwork
-        v
-Distributor / buyer / streamer receives delivery
-        |
-        | platform or ingest system translates declaration into schema fields
-        v
-HPF classification stored in content catalogue / CMS
-        |
-        v
-Classification available for display, reporting, and downstream pass-through
-```
+## How a declaration travels
 
-Where technically implemented, the classification may also be carried in or alongside the delivery file as a C2PA Content Credential, at any point in the chain. This is optional and complementary. See [c2pa-mapping.md](c2pa-mapping.md) for the proposed technical implementation.
+The producer signs one declaration for each released version of a production, on paper or digitally. It can travel with the existing paperwork to sales agents, distributors, platforms, festivals and other recipients, which decide how to use it under their own policies. The classification is declared, not derived from technical analysis of the content.
 
-Pending broader adoption, delivery portal and ingest systems, and post-production tools with delivery workflows, may also translate the declaration into the schema at the point of delivery acceptance, upstream of the receiving platform. Where this happens, the signed producer declaration still governs. See [INTEGRATION.md](INTEGRATION.md) for implementation guidance.
+Technical integration is optional. An organisation that already holds title information in a system may also store the classification as an HPF record, using the fields in [schema.json](schema.json), and may carry it in a C2PA Content Credential where that is technically implemented. The signed declaration remains the authoritative source at every stage.
 
 ---
 
@@ -74,10 +48,10 @@ Pending broader adoption, delivery portal and ingest systems, and post-productio
 
 | File | Description |
 |---|---|
-| [taxonomy.md](taxonomy.md) | Category definitions, organising principle, classification test, scope, and edge cases. |
-| [schema.json](schema.json) | JSON Schema for HPF metadata fields. For platform engineers and ingest system developers. |
-| [INTEGRATION.md](INTEGRATION.md) | Implementation guide for platform, sales agency, ingest, delivery portal, post-production tool, and C2PA developers. |
-| [c2pa-mapping.md](c2pa-mapping.md) | Proposed mapping of HPF categories to C2PA assertion types. Working proposal. |
+| [taxonomy.md](taxonomy.md) | The standard: categories, organising principle, classification test, scope, production cases and the declaration. |
+| [schema.json](schema.json) | JSON Schema for the HPF record. |
+| [INTEGRATION.md](INTEGRATION.md) | Guidance for holding HPF records in a system. Informative. |
+| [c2pa-mapping.md](c2pa-mapping.md) | Proposed mapping of the HPF record to a C2PA assertion. Working proposal. |
 | [GOVERNANCE.md](GOVERNANCE.md) | Amendment process (including maintenance after v1.0), version history, and governance handoff commitment. |
 | [docs/hpf-organisational-continuity.md](docs/hpf-organisational-continuity.md) | Stewardship conditions that cannot change, the conditions for moving to a new steward, and what such a steward would have to preserve. |
 | [docs/hpf-handover-checklist.md](docs/hpf-handover-checklist.md) | Index of the records a future steward needs, and where each one is. |
@@ -86,7 +60,7 @@ Pending broader adoption, delivery portal and ingest systems, and post-productio
 | [SECURITY.md](SECURITY.md) | How to report a suspected vulnerability privately, and what is in scope. |
 | [CITATION.cff](CITATION.cff) | Citation metadata for referencing the standard. |
 | [LICENSE.md](LICENSE.md) | CC BY 4.0 and patent non-assertion. |
-| [examples/](examples/) | Worked records that must validate, or fail, as their filenames say. For anyone implementing against the schema or proposing a change to it. |
+| [examples/](examples/) | Example HPF records that must validate, or fail, as their filenames say. |
 | [tools/](tools/) | The consistency checks. `python3 tools/check_standard.py`, standard library only, run on every push and pull request. |
 
 ---

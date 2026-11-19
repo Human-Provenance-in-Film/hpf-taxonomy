@@ -35,7 +35,7 @@ body:
         Every place you have seen it. Repository paths, site URLs, downloaded documents.
         Wording is often duplicated, so more than one location is normal.
       placeholder: |
-        taxonomy.md, Edge cases
+        taxonomy.md, Applying the standard to production cases
         https://humanprovenance.film/faq/
     validations:
       required: true
@@ -60,19 +60,20 @@ body:
     attributes:
       label: Release severity
       description: >
-        Whether this must be fixed before the next tagged revision. Release blockers are anything that
-        misstates the standard, misclassifies a production, or makes a claim HPF cannot support.
+        Optional. The maintainer decides this. If you think it must be fixed before the next tagged revision,
+        say so: release blockers are anything that misstates the standard, misclassifies a production, or makes
+        a claim HPF cannot support.
       options:
         - Release blocker
         - Fix in this revision
         - Fix when convenient
         - Defer to v1.0
     validations:
-      required: true
+      required: false
 
   - type: input
     id: version
     attributes:
       label: Version
-      description: The taxonomy version and revision, or the site as at a date.
-      placeholder: v0.9.3, October 2026 revision
+      description: The taxonomy version, or the site as at a date.
+      placeholder: "0.9.4"

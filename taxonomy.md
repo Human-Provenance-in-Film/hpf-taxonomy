@@ -89,7 +89,7 @@ No AI Used applies to the named released version. AI may have been used during d
 
 In-scope AI output is present in the finished film, but the AI processed or optimised human-created material rather than originating new content. The classification turns on what the AI did and what output it left in the finished work, not on whether a person held a particular creative or production role.
 
-**Examples:** AI-assisted colour grading; AI-assisted sound clean-up; de-flickering and archival restoration that repair supplied footage; cosmetic de-ageing of a performance captured in full, where AI refines appearance without rebuilding or generating any part of the performance; in animation, AI used to clean up or optimise frames created by animators. Some processing functions remain open: see [The reconstruction test](#the-reconstruction-test).
+**Examples:** AI-assisted colour grading; AI-assisted sound clean-up; de-flickering and archival restoration that repair supplied footage; cosmetic de-ageing of a performance captured in full, where AI refines appearance without rebuilding or generating any part of the performance; in animation, AI used to clean up or optimise frames created by animators. Whether some established processing functions require Assistive AI disclosure is open under [Q1](#consultation); see also [The reconstruction test](#the-reconstruction-test).
 
 **Not `assistive_ai`:** if AI originated new content that appears in the finished work, the classification is `generative_ai`, even where human-created material was used as an input, and regardless of how the tool is marketed.
 
@@ -104,16 +104,6 @@ A `generative_ai` classification records that AI-originated content is present. 
 **Not `generative_ai`:** cosmetic enhancement of a performance that was captured in full is `assistive_ai`. Established machine-learning tools that process human-created material, such as denoising, upscaling, or tracking, are not `generative_ai`; whether they require `assistive_ai` disclosure is not settled in v0.9.4 and is the classification-scope part of [consultation question 1](#consultation).
 
 ---
-
-### Earlier versions
-
-Historical records remain valid if they meet their applicable historical schema, even where the current schema does not accept them. Keep them as received; do not automatically rename fields or migrate them.
-
-- Versions 0.9.1 and earlier used `hpf_taxonomy_version`; 0.9.2 introduced `hpf_standard_version`.
-- `hpf_released_version` became required in 0.9.3.
-- Descriptors were introduced as optional, provisional vocabulary in 0.9.2 and adopted in 0.9.4 with the same machine-readable values. Versions before 0.9.2 define no descriptors.
-
-Interpret each record using the version it names. The [integration guide](INTEGRATION.md) explains historical validation, current-schema compatibility, and descriptor handling.
 
 ## The reconstruction test
 
@@ -157,7 +147,7 @@ The three do different jobs and none replaces another. The classification states
 
 #### Worked descriptor examples
 
-Each row shows a classification and the descriptors that describe the use.
+Each row shows a classification and the descriptors that describe the use. These rows are current guidance. How the performance descriptors apply in harder cases, and which combinations are most useful, is open under [Q2](#consultation).
 
 | What happened | Classification and descriptors |
 |---|---|
@@ -193,7 +183,7 @@ This taxonomy covers AI output that is present or embodied in the named finished
 
 Development-stage output is in scope when incorporated into the released version, such as generated dialogue performed in the film or pitch visuals reused as a title sequence. Brainstorming, critique, and unused references do not prevent a No AI Used declaration where no AI output is incorporated. Influence alone is not incorporation.
 
-Human editing does not automatically remove an AI contribution. Whether substantially transformed output remains in scope is open under Q4 in [section 9](#consultation).
+Human editing does not automatically remove an AI contribution. Whether substantially transformed output remains in scope is open under [Q4](#consultation).
 
 ### Covered by the declaration
 - AI output that is present or embodied in the released version a declaration covers, whichever production stage it came from
@@ -212,11 +202,9 @@ An HPF classification does not determine a work's genre, whether it is animation
 
 ---
 
----
-
 ## Applying the standard to production cases
 
-These cases show how the current rules apply to particular production and release situations. Apply these examples alongside [The reconstruction test](#the-reconstruction-test) and [Scope](#scope). Where a question remains open, the case says so and links to [section 9](#consultation).
+These cases show how the current rules apply to particular production and release situations. Apply these examples alongside [The reconstruction test](#the-reconstruction-test) and [Scope](#scope). Where a question remains open, the case says so and links to [Feedback and testing before v1.0](#consultation).
 
 ### Later releases
 
@@ -303,7 +291,17 @@ The disclosure rests on the producer's signed declaration, which sits alongside 
 
 A receiving organisation decides whether to request a declaration and may ask for additional information under its own policies. Such a request does not become an HPF requirement and does not change the producer's classification. HPF encourages platforms and distributors to display the classification but does not require display or prescribe a label, format or placement.
 
-Technical implementation, including how a record is stored and carried, is in [INTEGRATION.md](INTEGRATION.md).
+Technical implementation, including how an HPF record is stored and carried, is in [INTEGRATION.md](INTEGRATION.md).
+
+### Earlier versions
+
+Historical records remain valid if they meet their applicable historical schema, even where the current schema does not accept them. Keep them as received; do not automatically rename fields or migrate them.
+
+- Versions 0.9.1 and earlier used `hpf_taxonomy_version`; 0.9.2 introduced `hpf_standard_version`.
+- `hpf_released_version` became required in 0.9.3.
+- Descriptors were introduced as optional, provisional vocabulary in 0.9.2 and adopted in 0.9.4 with the same machine-readable values. Versions before 0.9.2 define no descriptors.
+
+Interpret each record using the version it names. The [integration guide](INTEGRATION.md) explains historical validation, current-schema compatibility, and descriptor handling.
 
 ---
 
@@ -321,10 +319,11 @@ This glossary defines terms used around AI disclosure in film. Terms defined ear
 
 - **Regulatory transparency**: disclosure or marking required by law, such as Article 50 of the EU AI Act.
 - **Technical provenance**: records of a digital asset's origin and history. Content Credentials can carry such records. Watermarking and fingerprinting can support identification or link content to records, but do not necessarily provide a provenance history themselves.
-- **Consent and compensation**: rights mechanisms, such as collective-bargaining provisions, licences and permissions, that govern whether material, performances or data may be used and on what terms.
-- **Production disclosure**: information about how a finished work was made, supplied by the party responsible for it. HPF provides this form of production disclosure. The producer's signed declaration is the record, and existing deal, delivery and other production paperwork is the route by which it reaches the organisations and audiences that use it.
+- **Production disclosure**: information about how a finished work was made, supplied by the party responsible for it. HPF provides this form of production disclosure. The producer's signed declaration is the source of this information, and existing deal, delivery and other production paperwork is the route by which it reaches the organisations and audiences that use it.
 
-HPF complements technical provenance and regulatory disclosure and does not replace them. It does not determine consent, compensation or underlying rights.
+HPF complements technical provenance and regulatory disclosure and does not replace them.
+
+**Consent and compensation** are not forms of transparency. They are rights mechanisms, such as collective-bargaining provisions, licences and permissions, that govern whether material, performances or data may be used and on what terms. HPF does not determine consent, compensation or underlying rights.
 
 ### How information is recorded
 
@@ -396,7 +395,7 @@ Participation details for the pre-v1 working groups are on the [HPF website](htt
 
 ### Continuing feedback
 
-Feedback on the standard remains welcome from trade associations, unions and guilds, festivals, awards bodies, commissioners, funders, and other industry organisations. Companies considering adopting HPF can also send technical and implementation feedback. Email contact@humanprovenance.film, or open an issue or pull request in the [GitHub repository](https://github.com/human-provenance-in-film/hpf-taxonomy).
+Feedback on the standard remains welcome from individual practitioners and from trade associations, unions and guilds, festivals, awards bodies, commissioners, funders, and other industry organisations. Companies considering adopting HPF can also send technical and implementation feedback. Email contact@humanprovenance.film, or open an issue or pull request in the [GitHub repository](https://github.com/human-provenance-in-film/hpf-taxonomy).
 
 Earlier consultation wording is preserved in the release tags. The [version history](GOVERNANCE.md#version-history) records subsequent changes.
 
