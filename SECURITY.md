@@ -29,9 +29,9 @@ investigating, and do not run tests that degrade the service for other people.
   in a system that consumes them.
 - **This repository's GitHub Actions workflows**, where a defect could allow
   an untrusted change to run with elevated permissions.
-- **The Policy Translator and the classification and declaration builder**,
-  once they are published. Neither is live yet. When they are, they belong here
-  and this section will name them without the qualification.
+- **The interactive tools on humanprovenance.film**: the HPF AI Disclosure
+  Form, the AI Use Checker, the Policy Mapper and the working group declaration
+  exercise.
 
 If you are not sure whether something is in scope, report it.
 

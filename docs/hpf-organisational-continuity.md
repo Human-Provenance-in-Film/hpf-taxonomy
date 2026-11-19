@@ -115,8 +115,8 @@ between a decision HPF has taken and one it has not.
   an offer or agreed. GOVERNANCE.md states MSC's commitment to seek one. That is
   a commitment to look, and nothing more has happened.
 - **Membership and participation.** There is no membership model, no membership
-  fee and no membership benefit. The pre-v1 working group is advisory, is not a
-  governing body, and participation in it does not imply endorsement of HPF.
+  fee and no membership benefit. The pre-v1 working groups are advisory, are not
+  a governing body, and participation in them does not imply endorsement of HPF.
 - **Decision rights in a successor.** No board, council, committee, voting
   structure, quorum or appointment process exists or has been designed. How
   decision rights would be distributed under a successor is a question for the
