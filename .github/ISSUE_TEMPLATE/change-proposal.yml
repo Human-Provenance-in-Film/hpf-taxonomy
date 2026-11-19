@@ -9,7 +9,7 @@ body:
         Use this for anything that could change what HPF means, what it records, or what a producer has to do.
         For something that is simply wrong or broken, use the bug and inconsistency report instead.
         Anyone can propose a change, including individual practitioners. Answer what you can; the maintainer
-        fills in the rest. A typo or broken link needs only a short issue or pull request.
+        fills in the rest. For a typo or a broken link, use the bug and inconsistency report instead.
 
         This issue is public. Do not paste names, contact details, an organisation's confidential policy text,
         or a consultation response someone sent privately. Summarise the point in your own words. Private

@@ -73,7 +73,7 @@ The C2PA specification supports third-party custom assertions using namespaced l
 
 **Label:** `film.humanprovenance.ai-disclosure`
 
-This is a provisional working label. C2PA 2.4, section 6.2, requires an entity-specific namespace to begin with the entity's internet domain name, in the manner of Java package names (the specification's examples are `com.litware` and `net.fineartschool`), and allows hyphens and underscores after the first character of each namespace and label component. `film.humanprovenance.ai-disclosure` takes that form for the domain humanprovenance.film. The label has not been confirmed with the C2PA Technical Working Group. For any implementation before then, use `film.humanprovenance.ai-disclosure` and treat it as subject to change. Do not build stable production integrations against the label until it is confirmed.
+This is a provisional working label. C2PA 2.4, [section 6.2](https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_namespacing), requires an entity-specific namespace to begin with the entity's internet domain name, in the manner of Java package names (the specification's examples are `com.litware` and `net.fineartschool`), and allows hyphens and underscores after the first character of each namespace and label component. `film.humanprovenance.ai-disclosure` takes that form for the domain humanprovenance.film. The label has not been confirmed with the C2PA Technical Working Group. For any implementation before then, use `film.humanprovenance.ai-disclosure` and treat it as subject to change. Do not build stable production integrations against the label until it is confirmed.
 
 **Payload:** the HPF record, matching [schema.json](schema.json), nested under a `data` key as part of the assertion structure. A record made under 0.9.3 or later carries three fields, including the released version the declaration covers. Records naming 0.9.2 do not require the released version and stay valid under the version they name.
 
@@ -124,13 +124,13 @@ The mapping is approximate. `hpf_classification` carries different semantics: it
 
 ## Transcoding
 
-Film files are transcoded multiple times across the distribution chain. Embedded C2PA manifests are often lost when files are transcoded. The recommended approach is Durable Content Credentials: the manifest is stored externally (as a sidecar file or in a manifest store) and bound to the asset via a hard binding (cryptographic hash of the asset content) plus one or more soft bindings (perceptual fingerprint or watermark) that allow the manifest to be rediscovered if it becomes separated from the asset. Soft bindings exist only to rediscover a separated manifest. They are not part of the HPF classification, carry no HPF semantics, and no specific watermark or fingerprint technology is required or endorsed.
+Film files are transcoded multiple times across the distribution chain. Embedded C2PA manifests are often lost when files are transcoded. One approach suited to this is what the Content Authenticity Initiative calls Durable Content Credentials: the manifest is stored externally (as a sidecar file or in a manifest store), as C2PA allows under External Manifests, and bound to the asset via a hard binding (cryptographic hash of the asset content) plus one or more soft bindings (perceptual fingerprint or watermark) that allow the manifest to be found again if it becomes separated from the asset. C2PA describes that lookup in its Soft Binding API. HPF does not require this approach, and the references below are the sources for these points. Soft bindings exist only to rediscover a separated manifest. They are not part of the HPF classification, carry no HPF semantics, and no specific watermark or fingerprint technology is required or endorsed.
 
 See the C2PA specification's [External Manifests](https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_external_manifests) section for implementation details.
 
 Because `hpf_classification` originates from a signed producer declaration rather than from a processing tool, the receiving platform does not need to create the assertion at the moment of file processing. It can be attached to an external manifest after the declaration is signed and the delivery is received. This fits the durable credential model.
 
-Note that in the HPF flow, the receiving platform or distributor attaching the manifest is also responsible for computing and storing the hard binding against the received asset. This differs from most C2PA implementations, where the creating tool generates both the assertion and the binding at the point of file creation. Implementers should account for this when designing ingest pipelines. The C2PA spec supports multiple hash algorithms (SHA-256, SHA-384, SHA-512); implementers should agree on a hash algorithm with their distribution partners and apply it consistently to the same representation of the asset, typically the received master file before any platform-side transcoding.
+Note that in the HPF flow, the receiving platform or distributor attaching the manifest is also responsible for computing and storing the hard binding against the received asset. This differs from most C2PA implementations, where the creating tool generates both the assertion and the binding at the point of file creation. Implementers should account for this when designing ingest pipelines. C2PA 2.4 allows three hash algorithms, SHA2-256, SHA2-384 and SHA2-512 (section 13.1); implementers should agree on a hash algorithm with their distribution partners and apply it consistently to the same representation of the asset, typically the received master file before any platform-side transcoding.
 
 ---
 
@@ -157,6 +157,18 @@ These are open questions to raise with the C2PA Technical Working Group. Nothing
 3. What namespacing, property naming, and versioning convention is preferred? In particular, do property names inside the `film.humanprovenance.ai-disclosure` namespace need the `hpf_` prefix, or is it redundant once namespaced? This is an open question for review, not a decision.
 4. Should the assertion reference the authoritative external producer declaration, and if so, how?
 5. For long-form film and television workflows where embedded manifests may not survive transcoding, is the proposed external or remote manifest, with the binding and recovery approach described above, appropriate?
+
+---
+
+## References
+
+Checked on 19 November 2026.
+
+- C2PA Technical Specification 2.4, April 2026: [specification](https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html). Section 6.2, namespacing and label naming ([#_namespacing](https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_namespacing)); section 11.4, External Manifests ([#_external_manifests](https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_external_manifests)); section 13.1, Hashing ([#_hashing](https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_hashing)); the `c2pa.ai-disclosure` assertion, added in 2.4.
+- C2PA Technical Specification 2.5, October 2026: [specification](https://spec.c2pa.org/specifications/specifications/2.5/specs/C2PA_Specification.html). Checked only for the label grammar, `digitalSourceType` within an action, and the `c2pa.ai-disclosure` assertion.
+- C2PA Soft Binding API: [specification](https://c2pa.org/specifications/specifications/2.2/softbinding/Decoupled.html).
+- IPTC Digital Source Type vocabulary: [cv.iptc.org/newscodes/digitalsourcetype](https://cv.iptc.org/newscodes/digitalsourcetype/).
+- Content Authenticity Initiative, Durable Content Credentials: [opensource.contentauthenticity.org/docs/durable-cr](https://opensource.contentauthenticity.org/docs/durable-cr/).
 
 ---
 

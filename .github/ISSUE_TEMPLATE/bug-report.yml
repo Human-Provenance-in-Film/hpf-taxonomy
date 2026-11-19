@@ -7,7 +7,8 @@ body:
     attributes:
       value: |
         Use this when the standard, the site or the schema says something incorrect, or when two places
-        say different things. To propose a change to what HPF means or records, use the change proposal instead.
+        say different things, including a typo or a broken link. Only what is wrong and where are required.
+        To propose a change to what HPF means or records, use the change proposal instead.
 
         This issue is public. Do not paste credentials, personal data or an organisation's confidential material.
 
@@ -15,9 +16,9 @@ body:
     id: expected
     attributes:
       label: Expected behaviour
-      description: What the documentation, schema or page should say or do. Quote the authoritative source if you have it.
+      description: Optional. What the documentation, schema or page should say or do. Quote the authoritative source if you have it.
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: actual
@@ -45,7 +46,7 @@ body:
     attributes:
       label: Classification impact
       description: >
-        Whether this could lead a producer to declare the wrong category, or a recipient to read a
+        Optional. Whether this could lead a producer to declare the wrong category, or a recipient to read a
         declaration wrongly. This drives priority more than anything else on the form.
       options:
         - None. Presentation, formatting or a broken link.
@@ -53,7 +54,7 @@ body:
         - Could produce the wrong category.
         - Could present a missing or unresolved record as No AI Used.
     validations:
-      required: true
+      required: false
 
   - type: dropdown
     id: severity

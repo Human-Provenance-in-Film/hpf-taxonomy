@@ -11,7 +11,7 @@ HPF is a pre-v1 draft, currently version 0.9.4. The public consultation closed o
 - Open a pull request to propose specific wording or schema changes. The pull request template lists what a reviewer checks.
 - Email contact@humanprovenance.film if you would rather respond privately or at length.
 
-A small correction, such as a typo or a broken link, needs only a short issue or pull request. You do not need to complete every field of a template for it.
+For a small correction, such as a typo or a broken link, use the **bug or inconsistency** template: only what it says now and where it appears are required. A pull request opened through the GitHub web interface fills in its template; for a small correction, two or three sentences under "What this changes" and a one-line answer to the classification question are enough.
 
 Partial feedback is welcome. If you are answering one of the numbered open questions in [taxonomy.md](taxonomy.md#consultation), please say which one. The numbering changed in revision 0.9.3; if you are answering a question as an earlier draft numbered it, say so.
 
