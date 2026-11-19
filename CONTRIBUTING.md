@@ -1,8 +1,8 @@
 # Contributing to the HPF AI disclosure taxonomy
 
-Anyone can contribute, including individual practitioners: producers, editors, VFX and post-production staff, performers, and anyone else who works with AI disclosure. You do not need to represent an organisation.
+Anyone can contribute, whether individually or on behalf of an organisation. Feedback from production, performance, post-production, and technical implementation is welcome.
 
-HPF is a pre-v1 draft, currently version 0.9.4. The public consultation closed on 31 October 2026, and feedback on the standard remains welcome from individuals and from trade associations, unions and guilds, festivals, awards bodies, commissioners, funders, and other industry organisations. Companies in the screen industries that are considering adopting HPF, including C2PA and CAI members, are welcome to send technical and implementation feedback.
+HPF is a pre-v1 draft, currently version 0.9.4. The public consultation closed on 31 October 2026, but feedback remains welcome.
 
 ## Ways to contribute
 
@@ -37,21 +37,17 @@ Performers, casting professionals, agents, union representatives and business-af
 
 ## How proposals are handled
 
-Every proposal is read. Not every proposal is adopted, and opening an issue or a pull request does not commit HPF to making the change. A well-argued proposal can still be declined because it conflicts with a settled boundary, because it would add work for producers out of proportion to what it gives recipients, or because it belongs to a system other than HPF.
+We read every proposal and assess whether it fits HPF's scope, provides useful information to recipients, and adds a proportionate amount of work for producers. Submitting an issue or pull request does not guarantee a change.
 
-Each proposal is recorded with one of these outcomes, and the reasoning is recorded with it:
+Each proposal receives a recorded outcome and reason: **Accepted**, **Accepted with changes**, **Declined**, **Deferred**, **Duplicate**, or **Outside HPF scope**.
 
-**Accepted**, **Accepted with changes**, **Declined**, **Deferred**, **Duplicate**, or **Outside HPF scope**.
+HPF records AI output present in the finished production. It does not request, store, disclose, validate, or carry consent, authorisation, licensing, compensation, rights ownership, or compliance information. These belong in contracts, collective agreements, chain-of-title records, and rights-management systems. Proposals to add them are declined as **Outside HPF scope**.
 
-Two boundaries decline proposals often enough to be worth stating in advance.
+A proposed structured field must record information that more than one part of the supply chain needs to interpret consistently. The change proposal template lists the five criteria it must meet.
 
-**HPF records what AI output is present in the finished production.** It does not request, store, disclose, validate or carry consent, authorisation, licensing, compensation, rights ownership or compliance information. Those belong in contracts, collective agreements, chain-of-title records and rights-management systems. A proposal to add them is declined as Outside HPF scope, however useful the information is.
+Before v1.0, the draft is revised in response to feedback. Changes are recorded in [GOVERNANCE.md](GOVERNANCE.md). From v1.0, the [amendment process](GOVERNANCE.md#amendment-process) applies.
 
-**A new structured field has to earn its place.** HPF structures a fact that more than one part of the supply chain needs to read the same way, not every decision that might follow from it. The change proposal template sets out the five questions a new field has to pass.
-
-Until v1.0, the draft is revised directly in response to feedback, with each change recorded in the version history in [GOVERNANCE.md](GOVERNANCE.md). From v1.0, the maintenance and amendment process in the [amendment process section of GOVERNANCE.md](GOVERNANCE.md#amendment-process) applies. We read every proposal but do not promise a response time or an implementation date for each one.
-
-Feedback that arrives too late for one revision is recorded against the next. A published tag is never rewritten to fit something in.
+We cannot promise a response time or implementation date for each proposal. Feedback received too late for one revision is recorded for the next. Published release tags remain unchanged.
 
 ## Licensing and rights in what you submit
 

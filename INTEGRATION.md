@@ -3,9 +3,9 @@
 **HPF Guidance for the HPF AI Disclosure Standard v0.9.4.** Informative.
 Updated November 2026. The public consultation closed on 31 October 2026.
 
-This note explains how to store, validate and pass on HPF metadata in a system. [taxonomy.md](taxonomy.md) and [schema.json](schema.json) are authoritative for the classifications, definitions, permitted values and required fields. Where this note differs from them, they govern. Nothing here is a commitment that the current fields, permitted values or carriage options will be unchanged at v1.0.
+This guide explains how to store, validate, and pass on HPF metadata. The classifications, definitions, permitted values, and required fields are defined in [taxonomy.md](taxonomy.md) and [schema.json](schema.json). Those documents take precedence if this guide conflicts with them. Fields, permitted values, and ways of carrying the metadata may change before v1.0.
 
-**Technical integration is optional.** An organisation can collect and use HPF declarations with no software change at all: ask for a declaration, keep it with the title or submission it belongs to, and apply its own policy. [Add HPF to your workflow](https://humanprovenance.film/resources/add-hpf-to-your-workflow/) is the guide for that route, and it is the right starting point for a fund, festival, awards body, commissioner, broadcaster, distributor or platform. Read this note only if you are holding HPF information in a system.
+**Technical integration is optional.** You can request a signed declaration, keep it with the relevant title or submission, and apply your organisation's policy without changing any software. [Add HPF to your workflow](https://humanprovenance.film/resources/add-hpf-to-your-workflow/) explains that process. This guide is for organisations storing HPF metadata in a system.
 
 In this note, the *HPF record* is the set of machine-readable fields defined in [schema.json](schema.json). The *signed declaration* is the document the producer signs. A *supporting production record*, such as an asset log or a supplier reply, is a separate document that stays with the production.
 
@@ -23,7 +23,11 @@ A record made under 0.9.3 or 0.9.4 has three required fields:
 }
 ```
 
-`hpf_standard_version` is a string in the form `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`, naming the version of the Standard that was applied. `hpf_released_version` identifies the released version the declaration covers, in the declaration's own words; HPF prescribes no identifier scheme. It was added in 0.9.3. Treat [schema.json](schema.json) as the source for every field, not this note. Records that must validate, and records that must fail, are in [examples/](examples/). Records made under earlier versions are covered in [Records made under earlier versions](#records-made-under-earlier-versions).
+`hpf_standard_version` identifies the version of the Standard applied, using a string in the form `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`.
+
+`hpf_released_version` identifies the released version covered, using the wording in the declaration. HPF prescribes no identifier scheme. This field was added in 0.9.3.
+
+See [schema.json](schema.json) for the field definitions and [examples/](examples/) for valid and invalid records. [Records made under earlier versions](#records-made-under-earlier-versions) explains historical compatibility.
 
 `hpf_classification` takes one of three values. Systems store and pass on the value. Where a classification is shown to people, show the label.
 
@@ -35,7 +39,7 @@ A record made under 0.9.3 or 0.9.4 has three required fields:
 
 A production carries one classification, at the highest applicable category, for the released version the declaration covers. There is no threshold and no de minimis exception. [taxonomy.md](taxonomy.md) has the classification test.
 
-The fields above may be implemented on the same footing as the rest of the pre-v1 draft: store the HPF standard version with every record, so a later revision cannot change what an earlier record means.
+You can implement these fields while HPF remains a pre-v1 draft. Store the standard version with every record so it can always be interpreted under the version used to make it.
 
 ---
 
@@ -109,7 +113,15 @@ Each case below is a file in [examples/](examples/) that the repository checks m
 | `generative_ai` with `"generated_music"` | The field must be an array, even for one value. | `invalid-descriptors-not-an-array.json` |
 | `generative_ai` with a value that is not one of the seven above, such as an invented or misspelt descriptor | The value is not defined, so it has no meaning in any version. | `invalid-descriptor-outside-enum.json` |
 
-Schema validation reports every one of these cases. When a received record fails, treat it as the handling rules below do for any invalid record: flag it for follow-up with the declaring party, and keep it as received. Do not repair it by removing, adding, or merging values, and never change the classification to make a descriptor fit. A system that collects descriptors itself, such as an intake form, should prevent the invalid cases at entry: start with nothing selected, allow several selections, offer only the descriptors the chosen classification allows, and where a selection stops applying because the classification changed, keep it and ask the person to resolve it rather than dropping it silently. The [HPF AI Disclosure Form](https://humanprovenance.film/disclosure-form/) works this way, and its check boxes carry these values.
+Schema validation rejects all the cases above. If you receive an invalid record, retain it as received and flag it for follow-up with the declaring party. Do not remove, add, or merge values to repair it, or change the classification to make a descriptor fit.
+
+If your system collects descriptors through an intake form, it should:
+
+- start with no descriptors selected;
+- allow multiple selections from the values permitted for the chosen classification;
+- retain any selection that becomes invalid after a classification change and ask the person to resolve it, rather than silently removing it.
+
+The [HPF AI Disclosure Form](https://humanprovenance.film/disclosure-form/) follows this approach and uses the same machine-readable values for its checkboxes.
 
 ### Storing, passing on, and showing descriptors
 
@@ -138,9 +150,11 @@ Detection sits outside all of this. Content detection, forensic analysis and wat
 
 ### What structural validation establishes
 
-That the data has the expected structure and uses permitted values. Nothing else. It says nothing about the accuracy of the declaration, the AI actually used in the production, the authority of the person who made the declaration, copyright, consent, rights, or compliance with any contract, collective agreement, policy or law. HPF does not audit, certify, approve or determine eligibility, and an integration must not be presented as though it does. An organisation may apply its own rules to declared HPF information; those rules are the organisation's and are not part of HPF.
+Schema validation checks data structure and permitted values. It does not establish whether the declaration is accurate, what AI was actually used, or whether the declaring person was authorised. It does not establish copyright, consent, rights, or compliance with contracts, collective agreements, policies, or law.
 
-Validation also checks only what the schema states. The schema does not reject properties it does not define, so passing validation does not show that a record follows every rule in this note.
+HPF does not audit, certify, approve, or determine eligibility. Do not present an integration as providing those services. An organisation may apply its own policies to HPF information, but those policies remain separate from the standard.
+
+The schema does not reject properties it does not define. Passing validation therefore does not establish that a record follows every rule in this guide.
 
 ---
 
@@ -148,7 +162,11 @@ Validation also checks only what the schema states. The schema does not reject p
 
 The signed declaration is the complete statement: the work, the released version it covers, the classification, the declaring party, the name and signature of the authorised person who signs it (the name is required for declarations made under 0.9.4 and later), the date, the assertion, and, where in-scope AI use is present, a short factual summary of what the AI did and what output reached the finished work. It may also record descriptors and a reference to supporting production records. The [HPF AI Disclosure Form](https://humanprovenance.film/disclosure-form/) records these, and any document carrying the same information works the same way.
 
-The HPF record carries the classification, the released version and the Standard version through a system, and the descriptors where they are recorded. It carries none of the rest, and cannot be read as though it did. Retain the signed declaration, or a reliable reference to where it is held, alongside the HPF record. It may be kept in any documentary or electronic form; HPF requires no particular medium: the declaration may be on paper or digital. The authoritative source is the signed producer declaration, and a stored HPF record carries only part of it. Treat a discrepancy between them as a transcription or version problem for the declaring party, not something to resolve by changing either one.
+The HPF record contains the classification, released version, standard version, and any declared descriptors. It contains only part of the signed declaration.
+
+Retain the signed declaration, or a reliable reference to where it is held, alongside the HPF record. The declaration may be kept on paper or digitally; HPF requires no particular medium.
+
+The signed declaration remains authoritative. If it differs from the HPF record, refer the discrepancy to the declaring party as a possible transcription or version error. Do not resolve it by changing either document yourself.
 
 ---
 
@@ -203,7 +221,7 @@ A record is read under the version it names, so a new version of the Standard do
 
 ## Technical implementation questions
 
-These are technical matters for implementers, separate from the open questions in [taxonomy.md](taxonomy.md#consultation). They are recorded so that silence is not read as permission, and this note does not settle them:
+The following technical questions remain open. They are separate from the classification questions in [taxonomy.md](taxonomy.md#consultation). This guide does not authorise an implementation choice merely because it leaves the question unanswered.
 
 1. Who has signing authority for the proposed C2PA assertion.
 2. What a recipient does with a superseded declaration.
